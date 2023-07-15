@@ -9,7 +9,9 @@ const MainNavigation = () => {
     const userIsAuth = userStore((state) => state.isAuth);
     console.log({ userIsAuth })
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+            headerShown: false
+        }}>
            <Stack.Screen name='Auth' component={Login} />
         </Stack.Navigator>
     );
