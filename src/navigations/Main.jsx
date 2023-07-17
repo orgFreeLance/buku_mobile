@@ -2,17 +2,26 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import userStore from '../store/user';
 import Login from '../screens/auth/Login';
+import Signup from '../screens/auth/Signup';
+import Home from '../screens/Home';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
     const userIsAuth = userStore((state) => state.isAuth);
-    console.log({ userIsAuth })
     return (
         <Stack.Navigator screenOptions={{
             headerShown: false
         }}>
-           <Stack.Screen name='Auth' component={Login} />
+            {!userIsAuth ? (
+                <>
+                <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Signup' component={Signup} /></>
+            ) : (
+                <>
+                <Stack.Screen name='Home' component={Home} />
+                </>
+            )}
         </Stack.Navigator>
     );
 }

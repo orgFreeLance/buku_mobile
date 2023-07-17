@@ -1,17 +1,23 @@
 import { LinearGradient } from "expo-linear-gradient"
-import { Text } from "native-base"
+import { Pressable, Spinner, Text } from "native-base"
 import theme from "../../constants/theme";
 import { height } from "../../constants/nativeSizes";
+import goTo from "../../utils/goTo";
 
-const CTAButton = ({ text }) => {
+const CTAButton = ({ onPress, text, isLoading }) => {
+
     return (
-        <LinearGradient
-            start={[0.4, 0]} end={[1, 0]}
-            colors={[theme.colors.brand[900], theme.colors.brand[800]]}
-            style={{ height: height(6), display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 9 }}
-        >
-            <Text style={{ fontFamily: "Poppins-Bold", fontSize: 20, textAlign: "center", color: "#fff" }}>{text}</Text>
-        </LinearGradient>
+        <Pressable isDisabled={isLoading} onPress={() => {
+            onPress();
+        }}>
+            <LinearGradient
+                start={[0.4, 0]} end={[1, 0]}
+                colors={[theme.colors.brand[900], theme.colors.brand[800]]}
+                style={{ height: height(6), display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 9 }}
+            >
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 20, textAlign: "center", color: "#fff" }}>{isLoading ? <Spinner color="warning.500" /> : text} </Text>
+            </LinearGradient>
+        </Pressable>
     )
 };
 

@@ -1,5 +1,5 @@
 import { Image } from "expo-image"
-import { Flex, View } from "native-base"
+import { Flex, } from "native-base"
 import BillsStatus from "../molecules/BillsStatus"
 
 const logo = require("../../../assets/Logo.png");
