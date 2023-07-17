@@ -4,13 +4,9 @@ import { StyleSheet, } from 'react-native';
 import CTAContainer from '../../componenents/organisms/CTAContainer';
 import { Image } from 'expo-image';
 import { height, width } from '../../constants/nativeSizes';
-import theme from '../../constants/theme';
-import CustomIcon from '../../componenents/atoms/CustomIcon';
+import BillsStatus from '../../componenents/molecules/BillsStatus';
 
-const blurhash =
-    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 const logo = require("../../../assets/Logo.png");
-const billIcon = require("../../../assets/biil-icon.png");
 
 const Login = () => {
     return <View style={styles.container}>
@@ -22,12 +18,7 @@ const Login = () => {
                         <Image style={{ width: "100%", height: 32 }} source={logo} contentFit="contain"
                             transition={1000} />
                     </View>
-                    <Flex direction='row'>
-                        <Flex>
-                            <Text fontFamily={"Poppins-SemiBold"} color={theme.colors.brand[600]}>00</Text>
-                        </Flex>
-                        <CustomIcon iconModule={billIcon} width={27} height={27}/>
-                    </Flex>
+                    <BillsStatus />
                 </Flex>
                 <Flex>
                     <Text>Title</Text>
