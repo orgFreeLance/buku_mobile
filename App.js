@@ -17,6 +17,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Poppins-Bold': require('./assets/fonts/poppins/Poppins-Bold.otf'),
+    'Poppins-SemiBold': require('./assets/fonts/poppins/Poppins-SemiBold.otf'),
     'Poppins-Light': require('./assets/fonts/poppins/Poppins-Light.otf'),
     'Poppins-Medium': require('./assets/fonts/poppins/Poppins-Medium.otf'),
     'Poppins-Regular': require('./assets/fonts/poppins/Poppins-Regular.otf'),
