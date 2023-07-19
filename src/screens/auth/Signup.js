@@ -24,7 +24,7 @@ const Signup = ({navigation}) => {
 
     return <View style={styles.container}>
         <StatusBar barsTyle={"light-content"} />
-        <AuthForm title={"Inscription"} navigation={navigation} userExist={true}>
+        <AuthForm title={"Informations du candidat"} navigation={navigation} userExist={true}>
             <Input onChangeText={(value) => {
                 setFirstName(value);
             }} backgroundColor={theme.colors.brand[500]} type='text' variant="filled" size="md" placeholder="Prénom*" isRequired />
