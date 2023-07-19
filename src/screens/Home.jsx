@@ -1,10 +1,11 @@
 import { StatusBar, Text, View } from "native-base"
 import { StyleSheet } from "react-native";
+import theme from "../constants/theme";
 
 const Home = () => {
     return (
         <View style={styles.container}>
-            <StatusBar barsTyle={"light-content"} />
+            <StatusBar backgroundColor={theme.colors.brand.main} barsTyle={"light-content"} />
             <Text>Home</Text>
         </View>
     )

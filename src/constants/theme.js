@@ -6,7 +6,8 @@ const newTheme = {
       800: "#FF6C43",
       700: "#1ce4ff",
       600: "#C4C4C4",
-      500: "#EAEAEA"
+      500: "#EAEAEA",
+      main: "#962A7E",
     },
   };
 

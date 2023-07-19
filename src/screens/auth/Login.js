@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
 
     return <View style={styles.container}>
         <StatusBar barsTyle={"light-content"} />
-        <AuthForm title={"Connection"} navigation={navigation} userExist={false}>
+        <AuthForm title={"Connexion"} navigation={navigation} userExist={false}>
             <Input onChangeText={(value) => {
                 setPhone(value);
             }} backgroundColor={theme.colors.brand[500]} type='text' variant="filled" size="md" placeholder="*Phone" isRequired />

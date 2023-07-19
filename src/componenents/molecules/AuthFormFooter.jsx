@@ -22,17 +22,19 @@ const AuthFomFooter = ({ navigation, userExist }) => (
         </Text>
       </Pressable>
     </Flex>
-    <Flex marginTop={height(0.5)} direction="row" wrap="wrap">
-      <Text fontFamily={"Poppins-Regular"} fontSize={12}>
-        En cliquant sur Suivant vous avez lu notre
-      </Text>
-      <Text
-        fontFamily={"Poppins-Regular"}
-        fontSize={12}
-        color={theme.colors.brand[800]}>
-        Politique de confidentialité
-      </Text>
-    </Flex>
+    {userExist && (
+      <Flex marginTop={height(0.5)} direction="row" wrap="wrap">
+        <Text fontFamily={"Poppins-Regular"} fontSize={12}>
+          En cliquant sur Suivant vous avez lu notre
+        </Text>
+        <Text
+          fontFamily={"Poppins-Regular"}
+          fontSize={12}
+          color={theme.colors.brand[800]}>
+          Politique de confidentialité
+        </Text>
+      </Flex>
+    )}
   </Flex>
 );
 
