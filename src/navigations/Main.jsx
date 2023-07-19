@@ -4,6 +4,7 @@ import userStore from '../store/user';
 import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
 import Home from '../screens/Home';
+import Start from '../screens/splash/Start';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,13 +15,15 @@ const MainNavigation = () => {
             headerShown: false
         }}>
             {!userIsAuth ? (
-                <>
-                <Stack.Screen name='Login' component={Login} />
-            <Stack.Screen name='Signup' component={Signup} /></>
+                <Stack.Group>
+                    <Stack.Screen name='Start' component={Start} />
+                    <Stack.Screen name='Login' component={Login} />
+                    <Stack.Screen name='Signup' component={Signup} />
+                </Stack.Group>
             ) : (
-                <>
-                <Stack.Screen name='Home' component={Home} />
-                </>
+                <Stack.Group>
+                    <Stack.Screen name='Home' component={Home} />
+                </Stack.Group>
             )}
         </Stack.Navigator>
     );
