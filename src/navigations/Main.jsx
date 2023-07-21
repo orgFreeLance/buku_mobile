@@ -5,6 +5,7 @@ import Login from '../screens/auth/Login';
 import Signup from '../screens/auth/Signup';
 import Home from '../screens/Home';
 import Start from '../screens/splash/Start';
+import Bottom from './Bottom';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ const MainNavigation = () => {
                 </Stack.Group>
             ) : (
                 <Stack.Group>
-                    <Stack.Screen name='Home' component={Home} />
+                    <Stack.Screen name='Bottom' component={Bottom} />
                 </Stack.Group>
             )}
         </Stack.Navigator>
