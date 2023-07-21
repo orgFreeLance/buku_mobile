@@ -8,6 +8,7 @@ import Web from "../screens/Web";
 const home = require("../../assets/home.png");
 const homeInactive = require("../../assets/home-inactive.png");
 const webview = require("../../assets/webview.png");
+const webviewInactive = require("../../assets/webview-inactive.png");
 const heart = require("../../assets/heart.png");
 const heartInactive = require("../../assets/heart-inactive.png");
 const dots = require("../../assets/dots.png");
@@ -43,7 +44,7 @@ const Bottom = () => {
             return (
               <Image
                 style={{ width: 16, height: 16 }}
-                source={webview}
+                source={focused ? webview : webviewInactive}
                 resizeMode="contain"
               />
             );
