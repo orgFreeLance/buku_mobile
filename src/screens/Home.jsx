@@ -1,11 +1,16 @@
-import { Box, Flex, Image, StatusBar, Text, View } from "native-base";
+import { Box, Flex, StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import theme from "../constants/theme";
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
-import Carousel, { Pagination } from "react-native-snap-carousel";
 import { useState } from "react";
 import PubCarousel from "../componenents/molecules/PubCarousel";
+import { Image } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+const resultsIcon = require("../../assets/solar_diploma-broken.png");
+const eventsIcon = require("../../assets/ci_ticket-voucher.png");
+const feedsIcon = require("../../assets/solar_feed-broken.png");
+const shopIcon = require("../../assets/solar_shop-2-broken.png");
 
 const Home = () => {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
@@ -39,21 +44,62 @@ const Home = () => {
         barsTyle={"light-content"}
       />
       <Flex>
-        <Header1 />
+        <Box
+          style={{
+            paddingHorizontal: width(5),
+          }}>
+          <Header1 />
+        </Box>
         <Flex>
-          <PubCarousel
-            activeDotIndex={activeDotIndex}
-            pubs={pubs}
-            setActiveDotIndex={setActiveDotIndex}
-          />
-          <Box>
-            <Flex>
-              <Text>Left Column</Text>
-            </Flex>
-            <Flex>
-              <Text>Right Column</Text>
-            </Flex>
+          <Box
+            style={{
+              paddingHorizontal: width(5),
+            }}>
+            <PubCarousel
+              activeDotIndex={activeDotIndex}
+              pubs={pubs}
+              setActiveDotIndex={setActiveDotIndex}
+            />
           </Box>
+
+          <LinearGradient
+            colors={[theme.colors.brand[900], theme.colors.brand[800]]}
+            style={{
+                marginTop: height(10),
+              borderTopLeftRadius: 250,
+              paddingBottom: height(15)
+            }}>
+            <Flex direction="row" justifyContent={"center"}>
+              <Flex marginRight={width(10)}>
+                <Box
+                  style={{
+                    ...styles.iconContainer,
+                    ...styles.topIconContainer,
+                  }}>
+                  <Image source={resultsIcon} />
+                  <Text>Résultats</Text>
+                </Box>
+                <Box style={styles.iconContainer}>
+                  <Image source={feedsIcon} />
+                  <Text>Feeds</Text>
+                </Box>
+              </Flex>
+              <Flex marginTop={-height(2)} >
+                <Box
+                  style={{
+                    ...styles.iconContainer,
+                    ...styles.topIconContainer,
+                  }}>
+                  <Image source={eventsIcon} />
+                  <Text>Events</Text>
+                </Box>
+                <Box style={styles.iconContainer}>
+                  <Image source={shopIcon} />
+                  <Text>Shops</Text>
+                </Box>
+              </Flex>
+            </Flex>
+          </LinearGradient>
         </Flex>
       </Flex>
     </View>
@@ -65,7 +111,16 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width(5),
   },
-  mainContents: {},
+  iconContainer: {
+    width: 130,
+    height: 130,
+    borderRadius: 17,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  topIconContainer: {
+    marginBottom: 20,
+  },
 });
