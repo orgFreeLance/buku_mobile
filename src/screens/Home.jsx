@@ -5,6 +5,7 @@ import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { useState } from "react";
+import PubCarousel from "../componenents/molecules/PubCarousel";
 
 const Home = () => {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
@@ -31,22 +32,6 @@ const Home = () => {
     },
   ];
 
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.slide}>
-        <Image
-          style={{
-            width: width(90),
-            height: height(20),
-            borderRadius: 9,
-          }}
-          source={{ uri: item.uri }}
-          alt={item.title}
-        />
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar
@@ -56,35 +41,11 @@ const Home = () => {
       <Flex>
         <Header1 />
         <Flex>
-          <Box>
-            <Carousel
-              layout={"default"}
-              data={pubs}
-              renderItem={renderItem}
-              sliderWidth={350}
-              itemWidth={350}
-              onSnapToItem={(index) => setActiveDotIndex(index)}
-            />
-            <Pagination
-              dotsLength={pubs.length}
-              activeDotIndex={activeDotIndex}
-              containerStyle={{  marginTop: -height(6), marginBottom: 10, zIndex:10 }}
-              dotStyle={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                marginHorizontal: 8,
-                backgroundColor: "rgba(255, 255, 255, 0.92)",
-              }}
-              inactiveDotStyle={
-                {
-                  // Define styles for inactive dots here
-                }
-              }
-              inactiveDotOpacity={0.4}
-              inactiveDotScale={0.6}
-            />
-          </Box>
+          <PubCarousel
+            activeDotIndex={activeDotIndex}
+            pubs={pubs}
+            setActiveDotIndex={setActiveDotIndex}
+          />
           <Box>
             <Flex>
               <Text>Left Column</Text>
