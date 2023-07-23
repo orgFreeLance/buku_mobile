@@ -3,7 +3,13 @@ import AuthFomFooter from "../molecules/AuthFormFooter";
 import { height, width } from "../../constants/nativeSizes";
 import Header1 from "./Header1";
 
-const AuthForm = ({ navigation, children, title, userExist }) => (
+const AuthForm = ({
+  navigation,
+  children,
+  title,
+  userExist,
+  isVerification,
+}) => (
   <ScrollView
     style={{
       flex: 1,
@@ -30,12 +36,17 @@ const AuthForm = ({ navigation, children, title, userExist }) => (
           </Text>
         </Box>
       )}
+
       <Stack minHeight={height(35)} space={3} w="100%" mx="auto">
         {children}
-        <Text fontFamily={"Poppins-Regular"} fontSize={12}>
-          *Champ obligatoire
-        </Text>
-        <AuthFomFooter navigation={navigation} userExist={userExist} />
+        {!isVerification && (
+          <>
+            <Text fontFamily={"Poppins-Regular"} fontSize={12}>
+              *Champ obligatoire
+            </Text>
+            <AuthFomFooter navigation={navigation} userExist={userExist} />
+          </>
+        )}
       </Stack>
     </Flex>
   </ScrollView>
