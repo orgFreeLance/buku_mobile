@@ -7,15 +7,12 @@ import theme from "../../constants/theme";
 import { submitForm } from "../../utils/sbmitAuth";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { Text } from "react-native";
 
 const Signup = ({ navigation }) => {
   const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [isLoading, setIsloading] = useState(false);
   //Add Inputs elements here
   const [signupUser, isAuth] = userStore(
@@ -23,102 +20,190 @@ const Signup = ({ navigation }) => {
     shallow
   );
 
+  const signupValidationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Svp entrez un email valide!")
+      .required("Email est requis"),
+    firstName: yup
+      .string()
+      .min(4, "Le prénom doit contenir au moins 4 lettres")
+      .required("Prénom est requis"),
+    lastName: yup
+      .string()
+      .min(4, "Le prénom doit contenir au moins 4 lettres")
+      .required("Nom est requis"),
+    phoneNumber: yup
+      .string()
+      .length(14, "Le téléphone doit contenir 10 caractères")
+      .required("Le téléphone est requis"),
+    codeExetat: yup
+      .string()
+      .length(14, "Le code doit contenir 14 caractères")
+      .required("Le code est requis"),
+    password: yup
+      .string()
+      .min(8, "Le mot de passe doit contenir au minimum 8 caractères")
+      .required("Le password est requis"),
+    passwordConfirm: yup
+      .string()
+      .oneOf(
+        [yup.ref("password"), null],
+        "Les mots de passes doivent correspondre"
+      ),
+  });
+
   return (
     <View style={styles.container}>
       <StatusBar
         barsTyle={"light-content"}
         backgroundColor={theme.colors.brand.main}
       />
-      <AuthForm
-        title={"Informations du candidat"}
-        navigation={navigation}
-        userExist={true}>
-        <Input
-          onChangeText={(value) => {
-            setFirstName(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Prénom*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setLastName(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Nom*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPhone(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Phone*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setEmail(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="E-mail*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPassword(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="password"
-          variant="filled"
-          size="md"
-          placeholder="Mot de passe*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPasswordConfirm(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="password"
-          variant="filled"
-          size="md"
-          placeholder="Confirmer Mot de passe*"
-          isRequired
-        />
-      </AuthForm>
-      <CTAContainer
-        onPress={() => {
-          submitForm(
-            false,
-            setIsloading,
-            signupUser,
-            isAuth,
-            toast,
-            phone,
-            password,
-            firstName,
-            lastName,
-            email,
-            navigation
-          );
+      <Formik
+        initialValues={{
+          email: "",
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          codeExetat: "",
+          password: "",
+          passwordConfirm: "",
         }}
-        text={"S'inscrire"}
-        isLoading={isLoading}
-      />
+        validationSchema={signupValidationSchema}
+        onSubmit={(values) => {}}>
+        {({ handleSubmit, errors, handleChange, values, handleBlur }) => (
+          <>
+            <AuthForm
+              title={"Informations du candidat"}
+              navigation={navigation}
+              userExist={true}
+              errors={errors}>
+              <Input
+                onChangeText={handleChange("firstName")}
+                value={values.firstName}
+                backgroundColor={theme.colors.brand[500]}
+                type="text"
+                variant="filled"
+                size="md"
+                placeholder="Prénom*"
+                name={"firstName"}
+                isRequired
+              />
+              {errors.firstName && (
+                <Text style={styles.error}>{errors.firstName}</Text>
+              )}
+
+              <Input
+                onChangeText={handleChange("lastName")}
+                value={values.lastName}
+                backgroundColor={theme.colors.brand[500]}
+                type="text"
+                variant="filled"
+                size="md"
+                placeholder="Nom*"
+                name={"lastName"}
+                isRequired
+              />
+              {errors.lastName && (
+                <Text style={styles.error}>{errors.lastName}</Text>
+              )}
+
+              <Input
+                onChangeText={handleChange("phoneNumber")}
+                value={values.phoneNumber}
+                backgroundColor={theme.colors.brand[500]}
+                type="text"
+                variant="filled"
+                size="md"
+                placeholder="Phone*"
+                name={"phoneNumber"}
+                isRequired
+              />
+              {errors.phoneNumber && (
+                <Text style={styles.error}>{errors.phoneNumber}</Text>
+              )}
+
+              <Input
+                onChangeText={handleChange("codeExetat")}
+                value={values.codeExetat}
+                backgroundColor={theme.colors.brand[500]}
+                type="text"
+                variant="filled"
+                size="md"
+                placeholder="Code 14 chiffres*"
+                name={"codeExetat"}
+                isRequired
+              />
+              {errors.codeExetat && (
+                <Text style={styles.error}>{errors.codeExetat}</Text>
+              )}
+
+              <Input
+                onChangeText={handleChange("email")}
+                value={values.email}
+                backgroundColor={theme.colors.brand[500]}
+                type="text"
+                variant="filled"
+                size="md"
+                placeholder="E-mail*"
+                name={"email"}
+                isRequired
+              />
+              {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+
+              <Input
+                onChangeText={handleChange("password")}
+                value={values.password}
+                backgroundColor={theme.colors.brand[500]}
+                type="password"
+                variant="filled"
+                size="md"
+                placeholder="Mot de passe*"
+                name={"password"}
+                isRequired
+              />
+              {errors.password && (
+                <Text style={styles.error}>{errors.password}</Text>
+              )}
+
+              <Input
+                onChangeText={handleChange("passwordConfirm")}
+                value={values.passwordConfirm}
+                backgroundColor={theme.colors.brand[500]}
+                type="password"
+                variant="filled"
+                size="md"
+                placeholder="Confirmer Mot de passe*"
+                name={"passwordConfirm"}
+                isRequired
+              />
+              {errors.passwordConfirm && (
+                <Text style={styles.error}>{errors.passwordConfirm}</Text>
+              )}
+            </AuthForm>
+            <CTAContainer
+              onPress={() => {
+                handleSubmit();
+                // submitForm(
+                //   false,
+                //   setIsloading,
+                //   signupUser,
+                //   isAuth,
+                //   toast,
+                //   phone,
+                //   password,
+                //   firstName,
+                //   lastName,
+                //   email,
+                //   navigation
+                // );
+              }}
+              text={"S'inscrire"}
+              isLoading={isLoading}
+            />
+          </>
+        )}
+      </Formik>
     </View>
   );
 };
@@ -130,4 +215,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainContents: {},
+  error: {
+    color: "red",
+    alignSelf: "flex-start",
+  },
 });
