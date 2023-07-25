@@ -7,23 +7,28 @@ import Home from "../screens/Home";
 import Start from "../screens/splash/Start";
 import Bottom from "./Bottom";
 import VerifyCode from "../screens/auth/VerifyCode";
+import { shallow } from "zustand/shallow";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
-  const userIsAuth = userStore((state) => state.isAuth);
+  const [userIsAuth, confirmed] = userStore(
+    (state) => [state.isAuth, state.confirmed],
+    shallow
+  );
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
-      {!userIsAuth ? (
-        <Stack.Group>
+      {!confirmed ? ( !userIsAuth ?  (<Stack.Group>
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={Signup} />
+        </Stack.Group>) : (<Stack.Group>
           <Stack.Screen name="VerifyCode" component={VerifyCode} />
-        </Stack.Group>
+        </Stack.Group>)
+        
       ) : (
         <Stack.Group>
           <Stack.Screen name="Bottom" component={Bottom} />

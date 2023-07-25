@@ -12,6 +12,8 @@ export const submitForm = (
   firstName,
   lastName,
   email,
+  confirmedPassword,
+  codeExetat,
   navigation
 ) => {
   setIsloading(true);
@@ -22,8 +24,8 @@ export const submitForm = (
 
     case false:
       setIsloading(false);
-      goTo(navigation, "VerifyCode");
-      logUser(phone, password, firstName, lastName, email);
+      logUser(phone, password, firstName, lastName, email, confirmedPassword, codeExetat);
+      // goTo(navigation, "VerifyCode");
       break;
 
     default:

@@ -27,15 +27,15 @@ const Signup = ({ navigation }) => {
       .required("Email est requis"),
     firstName: yup
       .string()
-      .min(4, "Le prénom doit contenir au moins 4 lettres")
+      .min(2, "Le prénom doit contenir au moins 3 lettres")
       .required("Prénom est requis"),
     lastName: yup
       .string()
-      .min(4, "Le prénom doit contenir au moins 4 lettres")
+      .min(2, "Le prénom doit contenir au moins 3 lettres")
       .required("Nom est requis"),
     phoneNumber: yup
       .string()
-      .length(14, "Le téléphone doit contenir 10 caractères")
+      .length(10, "Le téléphone doit contenir 10 caractères")
       .required("Le téléphone est requis"),
     codeExetat: yup
       .string()
@@ -45,7 +45,7 @@ const Signup = ({ navigation }) => {
       .string()
       .min(8, "Le mot de passe doit contenir au minimum 8 caractères")
       .required("Le password est requis"),
-    passwordConfirm: yup
+    confirmedPassword: yup
       .string()
       .oneOf(
         [yup.ref("password"), null],
@@ -67,10 +67,34 @@ const Signup = ({ navigation }) => {
           phoneNumber: "",
           codeExetat: "",
           password: "",
-          passwordConfirm: "",
+          confirmedPassword: "",
         }}
         validationSchema={signupValidationSchema}
-        onSubmit={(values) => {}}>
+        onSubmit={({
+          phoneNumber,
+          password,
+          firstName,
+          lastName,
+          email,
+          confirmedPassword,
+          codeExetat,
+        }) => {
+          submitForm(
+            false,
+            setIsloading,
+            signupUser,
+            isAuth,
+            toast,
+            phoneNumber,
+            password,
+            firstName,
+            lastName,
+            email,
+            confirmedPassword,
+            codeExetat,
+            navigation
+          );
+        }}>
         {({ handleSubmit, errors, handleChange, values, handleBlur }) => (
           <>
             <AuthForm
@@ -167,37 +191,22 @@ const Signup = ({ navigation }) => {
               )}
 
               <Input
-                onChangeText={handleChange("passwordConfirm")}
-                value={values.passwordConfirm}
+                onChangeText={handleChange("confirmedPassword")}
+                value={values.confirmedPassword}
                 backgroundColor={theme.colors.brand[500]}
                 type="password"
                 variant="filled"
                 size="md"
                 placeholder="Confirmer Mot de passe*"
-                name={"passwordConfirm"}
+                name={"confirmedPassword"}
                 isRequired
               />
-              {errors.passwordConfirm && (
-                <Text style={styles.error}>{errors.passwordConfirm}</Text>
+              {errors.confirmedPassword && (
+                <Text style={styles.error}>{errors.confirmedPassword}</Text>
               )}
             </AuthForm>
             <CTAContainer
-              onPress={() => {
-                handleSubmit();
-                // submitForm(
-                //   false,
-                //   setIsloading,
-                //   signupUser,
-                //   isAuth,
-                //   toast,
-                //   phone,
-                //   password,
-                //   firstName,
-                //   lastName,
-                //   email,
-                //   navigation
-                // );
-              }}
+              onPress={handleSubmit}
               text={"S'inscrire"}
               isLoading={isLoading}
             />

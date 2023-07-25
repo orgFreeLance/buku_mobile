@@ -2,12 +2,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ArrowForwardIcon, Box, Pressable, Spinner } from "native-base";
 import theme from "../../constants/theme";
 import { height, width } from "../../constants/nativeSizes";
-import { Text } from "react-native";
+import { Text, TouchableHighlight } from "react-native";
 
 const CTAButton = ({ onPress, text, isLoading, icon }) => {
   return (
-    <Pressable
+    <TouchableHighlight
       isDisabled={isLoading}
+      style={{ borderRadius: 9 }}
       onPress={() => {
         onPress();
       }}>
@@ -21,7 +22,7 @@ const CTAButton = ({ onPress, text, isLoading, icon }) => {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 9,
-          flexDirection: "row"
+          flexDirection: "row",
         }}>
         <Text
           style={{
@@ -32,12 +33,16 @@ const CTAButton = ({ onPress, text, isLoading, icon }) => {
           {isLoading ? <Spinner color="warning.500" /> : text}{" "}
         </Text>
         {icon && (
-          <Box marginLeft={width(1)} backgroundColor={"white"} padding={1} borderRadius={100}>
+          <Box
+            marginLeft={width(1)}
+            backgroundColor={"white"}
+            padding={1}
+            borderRadius={100}>
             <ArrowForwardIcon />
           </Box>
         )}
       </LinearGradient>
-    </Pressable>
+    </TouchableHighlight>
   );
 };
 
