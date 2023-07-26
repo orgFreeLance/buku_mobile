@@ -1,19 +1,60 @@
 import { create } from "zustand";
 import API from "../services/axios";
+import * as SecureStore from "expo-secure-store";
 
 const userStore = create((set) => ({
   isAuth: false,
   confirmed: false,
-  firstName: "John",
-  lastName: "Doe",
-  phoneNumber: "0823311664",
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
   email: "",
-  logUser: (phoneNumber, password) =>
-    set((state) =>
-      state.phoneNumber == phoneNumber && state.password == password
-        ? { confirmed: true }
-        : { confirmed: false }
-    ),
+  authError: "",
+  logUser: async (phoneNumber, password) => {
+    let error = false;
+    let firstChar = phoneNumber[0];
+    firstChar = "+243";
+    const phone = firstChar + phoneNumber.slice(1);
+    const data = {
+      phoneNumber: phone,
+      password,
+    };
+
+    const response = await API.post("/authentification/login", {
+      data,
+    }).catch((reason) => {
+      error = true;
+      console.log({ reason });
+    });
+    if (!error) {
+      const responseData = response.data;
+
+      await SecureStore.setItemAsync("token", responseData.jwt);
+      await SecureStore.setItemAsync("firstName", responseData.user.firstName);
+      await SecureStore.setItemAsync(
+        "phoneNumber",
+        responseData.user.phoneNumber
+      );
+      await SecureStore.setItemAsync("lastName", responseData.user.lastName);
+      await SecureStore.setItemAsync("email", responseData.user.email);
+      await SecureStore.setItemAsync("isAuth", "1");
+      await SecureStore.setItemAsync("confirmed", "1");
+
+      return set((state) => ({
+        firstName: responseData.firstName,
+        phoneNumber: responseData.phoneNumber,
+        lastName: responseData.lastName,
+        email: responseData.email,
+        isAuth: true,
+        confirmed: true,
+      }));
+    } else {
+      return set((state) => ({
+        authError:
+          "Votre mot de passe ou numéro de téléphone n'est pas valide !",
+      }));
+    }
+  },
   signupUser: async (
     phoneNumber,
     password,
@@ -31,15 +72,13 @@ const userStore = create((set) => ({
       phoneNumber: phone,
       password,
       confirmedPassword,
-      firstName,
-      lastName,
-      username: firstName + lastName + firstChar + phoneNumber.slice(3,3),
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email,
+      username: firstName.trim() + " " + lastName.trim(),
       linkProfilImage: "",
     };
 
-    console.log({
-      data,
-    });
     const response = await API.post("/authentification/register", {
       data,
     }).catch((reason) => {
@@ -47,13 +86,41 @@ const userStore = create((set) => ({
       console.log({ reason });
     });
 
+    const responseData = await response.data.json();
+
     if (response.data) {
+      await SecureStore.setItemAsync("firstName", responseData.firstName);
+      await SecureStore.setItemAsync("phoneNumber", responseData.phoneNumber);
+      await SecureStore.setItemAsync("lastName", responseData.lastName);
+      await SecureStore.setItemAsync("email", responseData.email);
+      await SecureStore.setItemAsync("isAuth", isAuth);
+      await SecureStore.setItemAsync("confirmed", confirmed);
       return set((state) => {
         return {
           firstName: response.data.firstName,
           phoneNumber: response.data.phoneNumber,
           lastName: response.data.lastName,
           email: response.data.email,
+          isAuth: true,
+        };
+      });
+    }
+  },
+  confirmUser: async (code, phoneNumber) => {
+    let error = false;
+    await API.post("authentification/confirm", {
+      data: {
+        phoneNumber,
+        code,
+      },
+    }).catch((reason) => {
+      error = true;
+      console.log({ reason });
+    });
+    if (!error) {
+      return set((state) => {
+        return {
+          confirmed: true,
           isAuth: true,
         };
       });

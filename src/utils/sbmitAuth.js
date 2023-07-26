@@ -24,7 +24,15 @@ export const submitForm = (
 
     case false:
       setIsloading(false);
-      logUser(phone, password, firstName, lastName, email, confirmedPassword, codeExetat);
+      logUser(
+        phone,
+        password,
+        firstName,
+        lastName,
+        email,
+        confirmedPassword,
+        codeExetat
+      );
       // goTo(navigation, "VerifyCode");
       break;
 
@@ -32,27 +40,5 @@ export const submitForm = (
       break;
   }
 
-  if (isAuth) {
-    toast.show({
-      render: () => {
-        return (
-          <Box bg="green.500" px="2" py="1" rounded="sm" mb={5} color={"white"}>
-            Connexion réussie !
-          </Box>
-        );
-      },
-    });
-    setIsloading(false);
-  } else {
-    toast.show({
-      render: () => {
-        return (
-          <Box bg="red.500" px="2" py="1" rounded="sm" mb={5}>
-            Connexion échouée, veuillez réessayer !
-          </Box>
-        );
-      },
-    });
-    setIsloading(false);
-  }
+  setIsloading(false);
 };
