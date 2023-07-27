@@ -14,11 +14,11 @@ import {
 import React from "react";
 import { height } from "../../constants/nativeSizes";
 
-const StaggerMenu = () => {
+const StaggerMenu = ({billing}) => {
   const { isOpen, onToggle } = useDisclose();
   return (
     <Box
-      marginTop={-height(1.5)}
+      marginTop={billing ? height(1.5) : -height(1.5)}
       marginRight={2}
       style={{
         display: "flex",

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as SplashScreen from "expo-splash-screen";
-import userStore from "../store/user";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
-import Home from "../screens/Home";
 import Start from "../screens/splash/Start";
 import Bottom from "./Bottom";
 import VerifyCode from "../screens/auth/VerifyCode";
 import { observer } from "mobx-react-lite";
 import * as SecureStore from "expo-secure-store";
+import Splash from "../screens/splash/Splash";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,7 +53,7 @@ const MainNavigation = observer(() => {
           )}
         </>
       ) : (
-        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Splash" component={Splash} />
       )}
     </Stack.Navigator>
   );

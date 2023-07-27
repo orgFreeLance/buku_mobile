@@ -10,7 +10,7 @@ const pieceThree = require("../../assets/piece-three.png");
 const pieceFive = require("../../assets/piece-five.png");
 const pieceTen = require("../../assets/piece-ten.png");
 
-const Configs = () => {
+const Configs = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
       <Flex>
@@ -33,6 +33,7 @@ const Configs = () => {
           justifyContent={"space-between"}>
           <Flex>
             <CardPieces
+            navigation={navigation}
               image={pieceOne}
               title={"1$"}
               subtitle={"1 pièce"}
@@ -40,6 +41,7 @@ const Configs = () => {
             />
 
             <CardPieces
+            navigation={navigation}
               image={pieceFive}
               title={"5$"}
               subtitle={"3 pièces"}
@@ -49,12 +51,14 @@ const Configs = () => {
           </Flex>
           <Flex marginLeft={4}>
             <CardPieces
+            navigation={navigation}
               image={pieceThree}
               title={"3$"}
               subtitle={"2 pièces"}
               description={"2 tentative + 1 Billet"}
             />
             <CardPieces
+            navigation={navigation}
               image={pieceTen}
               title={"10$"}
               subtitle={"5 pièce"}

@@ -22,7 +22,6 @@ export default function App() {
     'Poppins-Medium': require('./assets/fonts/poppins/Poppins-Medium.otf'),
     'Poppins-Regular': require('./assets/fonts/poppins/Poppins-Regular.otf'),
   });
-  console.log({ fontsLoaded })
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -48,7 +47,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#962A7E',
     alignItems: 'center',
     justifyContent: 'center',
   },

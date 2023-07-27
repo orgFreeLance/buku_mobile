@@ -5,6 +5,7 @@ import Home from "../screens/Home";
 import Configs from "../screens/Configs";
 import Galery from "../screens/Galery";
 import Web from "../screens/Web";
+import UserConfigs from "./Configs";
 const home = require("../../assets/home.png");
 const homeInactive = require("../../assets/home-inactive.png");
 const webview = require("../../assets/webview.png");
@@ -53,7 +54,7 @@ const Bottom = () => {
         name="Web"
         component={Web}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{
           tabBarIcon: ({ focused, color, size }) => {
             return (
@@ -67,7 +68,7 @@ const Bottom = () => {
         }}
         name="Galery"
         component={Galery}
-      />
+      /> */}
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused, color, size }) => {
@@ -80,8 +81,8 @@ const Bottom = () => {
             );
           },
         }}
-        name="Configs"
-        component={Configs}
+        name="UserConfigs"
+        component={UserConfigs}
       />
     </Tab.Navigator>
   );
