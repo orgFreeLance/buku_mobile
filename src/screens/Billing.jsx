@@ -14,11 +14,11 @@ const airtelMoney = require("../../assets/Airtel-money.png");
 const orangeMoney = require("../../assets/Orange-money.png");
 const mpsa = require("../../assets/Mpsa.png");
 
-const Billing = ({ route }) => {
+const Billing = ({ route,  }) => {
   const [isActive, setIsActive] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const { subtitle } = route.params;
-  console.log({ subtitle });
+
   const mobileMoney = [
     {
       id: 1,
@@ -145,7 +145,7 @@ const Billing = ({ route }) => {
           </Formik>
         </Flex>
 
-        <StaggerMenu billing={true} />
+        <StaggerMenu billing={true} navigation={navigation} />
       </Flex>
     </ScrollView>
   );

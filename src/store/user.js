@@ -11,6 +11,7 @@ const userStore = create((set) => ({
   email: "",
   authError: "",
   logUser: async (phoneNumber, password) => {
+    console.log({phoneNumber, password})
     let error = false;
     let firstChar = phoneNumber[0];
     firstChar = "+243";
@@ -126,6 +127,15 @@ const userStore = create((set) => ({
       });
     }
   },
+  logoutUser: () =>
+    set(() => ({
+      confirmed: false,
+      isAuth: false,
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+    })),
 }));
 
 export default userStore;

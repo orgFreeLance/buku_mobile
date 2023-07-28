@@ -82,7 +82,7 @@ const Configs = ({navigation}) => {
             </Text>
           </Box>
         </Flex>
-        <StaggerMenu />
+        <StaggerMenu navigation={navigation} />
       </Flex>
     </View>
   );

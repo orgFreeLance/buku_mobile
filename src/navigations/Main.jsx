@@ -8,23 +8,35 @@ import VerifyCode from "../screens/auth/VerifyCode";
 import { observer } from "mobx-react-lite";
 import * as SecureStore from "expo-secure-store";
 import Splash from "../screens/splash/Splash";
+import userStore from "../store/user";
+import { shallow } from "zustand/shallow";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = observer(() => {
-  const [isAuth, setIsAuth] = useState(0);
-  const [confirmed, setConfirmed] = useState(0);
+  const [isAuth, setIsAuth] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userConfirm, userAuth] = userStore(
+    (state) => [state.confirmed, state.isAuth],
+    shallow
+  );
 
   const getAuthKeys = async () => {
     setLoading(true);
-    setIsAuth(parseInt(await SecureStore.getItemAsync("isAuth"), 10));
-    setConfirmed(parseInt(await SecureStore.getItemAsync("confirmed"), 10));
+    const isAuth =
+      parseInt(await SecureStore.getItemAsync("isAuth"), 10) === 1 || userAuth;
+    const confirmed =
+      parseInt(await SecureStore.getItemAsync("confirmed"), 10) === 1 ||
+      userConfirm;
+    setIsAuth(isAuth);
+    setConfirmed(confirmed);
     setLoading(false);
   };
 
   useEffect(() => {
     getAuthKeys();
+    console.log({ isAuth, confirmed });
   }, []);
   return (
     <Stack.Navigator
@@ -33,22 +45,21 @@ const MainNavigation = observer(() => {
       }}>
       {!loading ? (
         <>
-          {confirmed === 1 && (
-            <Stack.Group>
-              <Stack.Screen name="Bottom" component={Bottom} />
-            </Stack.Group>
-          )}
-          {confirmed !== 1 && isAuth !== 1 && (
+          {!confirmed && !isAuth && (
             <Stack.Group>
               <Stack.Screen name="Start" component={Start} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signup" component={Signup} />
             </Stack.Group>
           )}
-
-          {confirmed !== 1 && isAuth === 1 && (
+          {!confirmed && isAuth && (
             <Stack.Group>
               <Stack.Screen name="VerifyCode" component={VerifyCode} />
+            </Stack.Group>
+          )}
+          {confirmed && isAuth && (
+            <Stack.Group>
+              <Stack.Screen name="Bottom" component={Bottom} />
             </Stack.Group>
           )}
         </>

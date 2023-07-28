@@ -60,7 +60,7 @@ const Start = ({ navigation }) => {
             <CTAButton
               text={"Commencer"}
               onPress={() => {
-                goTo(navigation, "Signup");
+                goTo(navigation, "Login");
               }}
               icon={true}
             />

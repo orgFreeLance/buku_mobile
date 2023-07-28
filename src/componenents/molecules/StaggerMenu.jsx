@@ -14,7 +14,7 @@ import {
 import React from "react";
 import { height } from "../../constants/nativeSizes";
 
-const StaggerMenu = ({billing}) => {
+const StaggerMenu = ({ navigation, billing }) => {
   const { isOpen, onToggle } = useDisclose();
   return (
     <Box
@@ -59,6 +59,7 @@ const StaggerMenu = ({billing}) => {
             },
           }}>
           <IconButton
+            onPress={() => navigation.navigate("Profile")}
             mb="4"
             variant="solid"
             bg="indigo.500"
