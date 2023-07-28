@@ -1688,6 +1688,13 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@koale/useworker@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@koale/useworker/-/useworker-4.0.2.tgz#cb540a2581cd6025307c3ca6685bc60748773e58"
+  integrity sha512-xPIPADtom8/3/4FLNj7MvNcBM/Z2FleH85Fdx2O869eoKW8+PoEgtSVvoxWjCWMA46Sm9A5/R1TyzNGc+yM0wg==
+  dependencies:
+    dequal "^1.0.0"
+
 "@nicolo-ribaudo/semver-v6@^6.3.3":
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/semver-v6/-/semver-v6-6.3.3.tgz#ea6d23ade78a325f7a52750aab1526b02b628c29"
@@ -3983,6 +3990,11 @@ deprecated-react-native-prop-types@^3.0.1:
     invariant "*"
     prop-types "*"
 
+dequal@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dequal/-/dequal-1.0.1.tgz#dbbf9795ec626e9da8bd68782f4add1d23700d8b"
+  integrity sha512-Fx8jxibzkJX2aJgyfSdLhr9tlRoTnHKrRJuu2XHlAgKioN2j19/Bcbe0d4mFXYZ3+wpE2KVobUVTfDutcD17xQ==
+
 destroy@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
@@ -4202,6 +4214,19 @@ expo-asset@~8.9.1:
     md5-file "^3.2.3"
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
+
+expo-av@^13.4.1:
+  version "13.4.1"
+  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.4.1.tgz#83029b3202e64bf060f0a7a24591d93bf7ab728c"
+  integrity sha512-0K8QEFzZeNGrppzYUs8wOtjOyPPkxzlVYbEHM6WzIQOG1uYYNOJkJB3aQHVFXHmz+AzoHwMrUjcschofwaMNeg==
+
+expo-camera@~13.2.1:
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-13.2.1.tgz#bfd1e2248d10a5da43d43a4cc77e378e5acf25bb"
+  integrity sha512-fZdRyF402jJGGmLVlumrLcr5Em9+Y2SO1MIlxLBtHXnybyHbTRMRAbzVapKX1Aryfujqadh+Kl+sdsWYkMuJjg==
+  dependencies:
+    "@koale/useworker" "^4.0.2"
+    invariant "^2.2.4"
 
 expo-constants@~14.2.1:
   version "14.2.1"
@@ -4686,6 +4711,14 @@ getenv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/getenv/-/getenv-1.0.0.tgz#874f2e7544fbca53c7a4738f37de8605c3fcfc31"
   integrity sha512-7yetJWqbS9sbn0vIfliPsFgoXMKn/YMF+Wuiog97x+urnSRRRZ7xB+uVkwGKzRgq9CDFfMQnE9ruL5DHv9c6Xg==
+
+gl-react-expo@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/gl-react-expo/-/gl-react-expo-5.2.1.tgz#e9aba1dd9d8861260b67f928656f6da77853aa98"
+  integrity sha512-zAf0qMBiJa1HhthAUO7dxBciCgqm+4uNKkKkJ4k9L+mLSqYzGqFKA1UB/C7jxms2ul8MP8DApf80KBaZfSphWQ==
+  dependencies:
+    invariant "^2.2.4"
+    webgltexture-loader-expo "1.2.0"
 
 glob-parent@^5.1.2:
   version "5.1.2"
@@ -8284,6 +8317,30 @@ wcwidth@^1.0.1:
   integrity sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==
   dependencies:
     defaults "^1.0.3"
+
+webgltexture-loader-expo-camera@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/webgltexture-loader-expo-camera/-/webgltexture-loader-expo-camera-2.0.0.tgz#9073d29e899184be8fc8730a3cf3b9b1dc6a5bfa"
+  integrity sha512-HoVpwZbNZqLRD3Fg6EfK8LPBlWWbgXSMHiNjn0HOk9xSQ3gs8qiJkrR9tFqbpglwirgpf8VriXx2nNvXDGVWhw==
+  dependencies:
+    webgltexture-loader "^2.0.0"
+
+webgltexture-loader-expo@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/webgltexture-loader-expo/-/webgltexture-loader-expo-1.2.0.tgz#5bfeee5b5334e6274c94bb58b1bd61bf804bfe79"
+  integrity sha512-g+uHrXvsZ5hLWLmO3c08LGxlT8JVvR40OlGg7uWbb4bQslYXRzBjyplcVY0Y9CiS+D/YYqBKBkJzShEcylyxfw==
+  dependencies:
+    webgltexture-loader "^1.0.0"
+
+webgltexture-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/webgltexture-loader/-/webgltexture-loader-1.0.0.tgz#e3d5b687d79ac85bed29222a7931f1405b69da6a"
+  integrity sha512-TbQUdr0Bc3tcJ4pKIFoM9dKyLdYNf9Uxq05oZuIT+2e/vCcfaQS+WjNmW1FwYqaBrzcLr9CA/HBAmvyaS/REGw==
+
+webgltexture-loader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/webgltexture-loader/-/webgltexture-loader-2.0.0.tgz#5b1eab9d284a3eedd108222c28abef9828935ee0"
+  integrity sha512-j29YRGJ3tAL/Df2DaXOlE1Xz6+QcZqo9Rc4sOl6kwBT7Nh34iNEMdX72iSr4XAe+bFSvC+IQcVdThFVNiRl+tw==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

@@ -45,19 +45,14 @@ const MainNavigation = observer(() => {
       }}>
       {!loading ? (
         <>
-          {!confirmed && !isAuth && (
+          {!confirmed ? (
             <Stack.Group>
               <Stack.Screen name="Start" component={Start} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Signup" component={Signup} />
-            </Stack.Group>
-          )}
-          {!confirmed && isAuth && (
-            <Stack.Group>
               <Stack.Screen name="VerifyCode" component={VerifyCode} />
             </Stack.Group>
-          )}
-          {confirmed && isAuth && (
+          ) : (
             <Stack.Group>
               <Stack.Screen name="Bottom" component={Bottom} />
             </Stack.Group>

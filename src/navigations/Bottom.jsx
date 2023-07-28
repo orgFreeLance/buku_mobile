@@ -6,6 +6,7 @@ import Configs from "../screens/Configs";
 import Galery from "../screens/Galery";
 import Web from "../screens/Web";
 import UserConfigs from "./Configs";
+import HomeStack from "./HomeStack";
 const home = require("../../assets/home.png");
 const homeInactive = require("../../assets/home-inactive.png");
 const webview = require("../../assets/webview.png");
@@ -36,8 +37,8 @@ const Bottom = () => {
             );
           },
         }}
-        name="Home"
-        component={Home}
+        name="HomeStack"
+        component={HomeStack}
       />
       <Tab.Screen
         options={{

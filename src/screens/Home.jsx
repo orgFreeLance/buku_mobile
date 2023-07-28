@@ -1,5 +1,5 @@
 import { Box, Flex, StatusBar, Text, View } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableHighlight, TouchableOpacity } from "react-native";
 import theme from "../constants/theme";
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
@@ -12,7 +12,7 @@ const eventsIcon = require("../../assets/ci_ticket-voucher.png");
 const feedsIcon = require("../../assets/solar_feed-broken.png");
 const shopIcon = require("../../assets/solar_shop-2-broken.png");
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
   const pubs = [
     {
@@ -65,26 +65,29 @@ const Home = () => {
           <LinearGradient
             colors={[theme.colors.brand[900], theme.colors.brand[800]]}
             style={{
-                marginTop: height(10),
+              marginTop: height(10),
               borderTopLeftRadius: 250,
-              paddingBottom: height(15)
+              paddingBottom: height(15),
             }}>
             <Flex direction="row" justifyContent={"center"}>
               <Flex marginRight={width(10)}>
-                <Box
+                <TouchableOpacity
                   style={{
                     ...styles.iconContainer,
                     ...styles.topIconContainer,
-                  }}>
-                  <Image source={resultsIcon} />
-                  <Text>Résultats</Text>
-                </Box>
+                  }}
+                  onPress={() => navigation.navigate("ResusltConfig")}>
+                  <Box alignItems={"center"}> 
+                    <Image source={resultsIcon} />
+                    <Text>Résultats</Text>
+                  </Box>
+                </TouchableOpacity>
                 <Box style={styles.iconContainer}>
                   <Image source={feedsIcon} />
                   <Text>Feeds</Text>
                 </Box>
               </Flex>
-              <Flex marginTop={-height(2)} >
+              <Flex marginTop={-height(2)}>
                 <Box
                   style={{
                     ...styles.iconContainer,
