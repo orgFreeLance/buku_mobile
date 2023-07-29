@@ -1,5 +1,5 @@
 import { Center, Flex, Input, StatusBar, View, useToast } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import CTAContainer from "../../componenents/organisms/CTAContainer";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -10,15 +10,14 @@ import userStore from "../../store/user";
 import { Formik } from "formik";
 import * as yup from "yup";
 import goTo from "../../utils/goTo";
+import { getItemAsync } from "expo-secure-store";
 
 const VerifyCode = ({ navigation }) => {
   const toast = useToast();
   const [isLoading, setIsloading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState(false);
   //Add Inputs elements here
-  const [confirmUser, confirmed, phoneNumber] = userStore(
-    (state) => [state.confirmUser, state.confirmed, state.phoneNumber],
-    shallow
-  );
+  const [confirmUser] = userStore((state) => [state.confirmUser], shallow);
 
   const codeValidationSchema = yup.object().shape({
     first: yup
@@ -39,6 +38,15 @@ const VerifyCode = ({ navigation }) => {
       .required("Cette case est requise"),
   });
 
+  const getPhoneNumber = async () => {
+    const phone = await getItemAsync("phoneNumber");
+    setPhoneNumber(phone);
+  };
+
+  useEffect(() => {
+    getPhoneNumber();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -56,23 +64,25 @@ const VerifyCode = ({ navigation }) => {
         onSubmit={({ first, second, third, fourth }) => {
           const code = first + second + third + fourth;
           confirmUser(code, phoneNumber);
-        }}>
+        }}
+      >
         {({ handleSubmit, errors, handleChange, values, handleBlur }) => (
           <>
             <AuthForm
               title={"Confirmation numéro"}
               navigation={navigation}
               userExist={false}
-              isVerification={true}>
+              isVerification={true}
+            >
               <Center display={"flex"} style={{ flexDirection: "row" }}>
                 <Input
                   onChangeText={handleChange("first")}
                   value={values.first}
                   name={"first"}
                   backgroundColor={theme.colors.brand[500]}
-                  type="text"
-                  variant="filled"
-                  size="md"
+                  type='text'
+                  variant='filled'
+                  size='md'
                   isRequired
                   w={{
                     base: 50,
@@ -86,9 +96,9 @@ const VerifyCode = ({ navigation }) => {
                   value={values.second}
                   name={"second"}
                   backgroundColor={theme.colors.brand[500]}
-                  type="text"
-                  variant="filled"
-                  size="md"
+                  type='text'
+                  variant='filled'
+                  size='md'
                   isRequired
                   w={{
                     base: 50,
@@ -102,9 +112,9 @@ const VerifyCode = ({ navigation }) => {
                   value={values.third}
                   name={"third"}
                   backgroundColor={theme.colors.brand[500]}
-                  type="text"
-                  variant="filled"
-                  size="md"
+                  type='text'
+                  variant='filled'
+                  size='md'
                   isRequired
                   w={{
                     base: 50,
@@ -118,9 +128,9 @@ const VerifyCode = ({ navigation }) => {
                   value={values.fourth}
                   name={"fourth"}
                   backgroundColor={theme.colors.brand[500]}
-                  type="text"
-                  variant="filled"
-                  size="md"
+                  type='text'
+                  variant='filled'
+                  size='md'
                   isRequired
                   w={{
                     base: 50,

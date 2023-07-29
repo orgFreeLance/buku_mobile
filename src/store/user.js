@@ -11,7 +11,6 @@ const userStore = create((set) => ({
   email: "",
   authError: "",
   logUser: async (phoneNumber, password) => {
-    console.log({phoneNumber, password})
     let error = false;
     let firstChar = phoneNumber[0];
     firstChar = "+243";
@@ -87,28 +86,29 @@ const userStore = create((set) => ({
       console.log({ reason });
     });
 
-    const responseData = await response.data.json();
+    const responseData = await response.data;
 
     if (response.data) {
-      await SecureStore.setItemAsync("firstName", responseData.firstName);
-      await SecureStore.setItemAsync("phoneNumber", responseData.phoneNumber);
-      await SecureStore.setItemAsync("lastName", responseData.lastName);
-      await SecureStore.setItemAsync("email", responseData.email);
-      await SecureStore.setItemAsync("isAuth", isAuth);
-      await SecureStore.setItemAsync("confirmed", confirmed);
+      await SecureStore.setItemAsync("firstName", responseData.user.firstName);
+      await SecureStore.setItemAsync(
+        "phoneNumber",
+        responseData.user.phoneNumber
+      );
+      await SecureStore.setItemAsync("lastName", responseData.user.lastName);
+      await SecureStore.setItemAsync("email", responseData.user.email);
       return set((state) => {
         return {
           firstName: response.data.firstName,
           phoneNumber: response.data.phoneNumber,
           lastName: response.data.lastName,
           email: response.data.email,
-          isAuth: true,
         };
       });
     }
   },
   confirmUser: async (code, phoneNumber) => {
     let error = false;
+
     await API.post("authentification/confirm", {
       data: {
         phoneNumber,
@@ -119,6 +119,8 @@ const userStore = create((set) => ({
       console.log({ reason });
     });
     if (!error) {
+      await SecureStore.setItemAsync("isAuth", "1");
+      await SecureStore.setItemAsync("confirmed", "1");
       return set((state) => {
         return {
           confirmed: true,

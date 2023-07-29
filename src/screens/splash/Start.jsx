@@ -12,7 +12,7 @@ const logo = require("../../../assets/logo2.png");
 const Start = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor={theme.colors.brand.main} />
+      <StatusBar backgroundColor={theme.colors.brand.main} />
       <ImageBackground
         style={{
           flex: 1,
@@ -21,13 +21,14 @@ const Start = ({ navigation }) => {
           paddingBottom: height(5),
           paddingHorizontal: width(5),
         }}
-        resizeMode="cover"
-        source={backgroundImage}>
+        resizeMode='cover'
+        source={backgroundImage}
+      >
         <Box>
           <Image
             style={{ width: "100%", height: 50 }}
             source={logo}
-            contentFit="contain"
+            contentFit='contain'
             transition={1000}
           />
         </Box>
@@ -60,7 +61,7 @@ const Start = ({ navigation }) => {
             <CTAButton
               text={"Commencer"}
               onPress={() => {
-                goTo(navigation, "Login");
+                goTo(navigation, "Signup");
               }}
               icon={true}
             />

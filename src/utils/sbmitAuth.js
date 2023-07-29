@@ -33,7 +33,7 @@ export const submitForm = (
         confirmedPassword,
         codeExetat
       );
-      // goTo(navigation, "VerifyCode");
+      goTo(navigation, "VerifyCode");
       break;
 
     default:

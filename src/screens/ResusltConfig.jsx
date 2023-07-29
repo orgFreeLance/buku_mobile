@@ -14,7 +14,6 @@ const ResusltConfig = ({ navigation }) => {
     if(camera){
         const data = await Camera.recordAsync()
         setRecord(data.uri);
-        console.log(data.uri);
     }
   }
 

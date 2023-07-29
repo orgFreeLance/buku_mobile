@@ -27,8 +27,6 @@ const Profile = ({ route, navigation }) => {
   };
 
   const logout = async () => {
-    // logoutUser();
-    console.log("déconnexion");
     await deleteItemAsync("token");
     await deleteItemAsync("firstName");
     await deleteItemAsync("phoneNumber");
@@ -36,10 +34,7 @@ const Profile = ({ route, navigation }) => {
     await deleteItemAsync("email");
     await deleteItemAsync("isAuth");
     await deleteItemAsync("confirmed");
-    const parent = navigation.getParent().getParent();
-    console.log({ navigation });
-    console.log({ parent });
-    parent.goBack();
+    logoutUser();
   };
 
   useEffect(() => {
@@ -51,7 +46,8 @@ const Profile = ({ route, navigation }) => {
         <Box
           style={{
             paddingHorizontal: width(5),
-          }}>
+          }}
+        >
           <Header1 />
         </Box>
         <Center>
