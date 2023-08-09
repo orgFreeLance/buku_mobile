@@ -11,7 +11,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#962A7E"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "usesNonExemptEncryption": false
@@ -20,24 +22,27 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#962A7E"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "517e4468-4db2-4ccc-acf6-638a340f6a3b"
+        "projectId": "69255461-1b51-4c98-bdfd-23251d1f35c1"
       }
     },
-    "owner": "mbikutekango",
+    "owner": "sacre_mbiku",
     "plugins": [
       [
         "expo-camera",
         {
           "cameraPermission": "Autoriser l'accès à MONBAC à la caméra",
           "microphonePermission": "Autoriser l'accès à MONBAC au microphone"
-          
         }
       ]
     ]
