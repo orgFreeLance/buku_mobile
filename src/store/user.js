@@ -30,16 +30,15 @@ const userStore = create((set) => ({
         });
         if (!error) {
             const responseData = response.data;
-
             await SecureStore.setItemAsync("token", responseData.jwt);
-            await SecureStore.setItemAsync("firstName", responseData.firstName);
+            await SecureStore.setItemAsync("firstName", responseData.user.firstName);
             await SecureStore.setItemAsync(
                 "phoneNumber",
-                responseData.phoneNumber
+                responseData.user.phoneNumber
             );
-            await SecureStore.setItemAsync("lastName", responseData.lastName);
-            await SecureStore.setItemAsync("email", responseData.email);
-            await SecureStore.setItemAsync("id", `${responseData.id}`);
+            await SecureStore.setItemAsync("lastName", responseData.user.lastName);
+            await SecureStore.setItemAsync("email", responseData.user.email);
+            await SecureStore.setItemAsync("id", `${responseData.user.id}`);
             await SecureStore.setItemAsync("isAuth", "1");
             await SecureStore.setItemAsync("confirmed", "1");
 
