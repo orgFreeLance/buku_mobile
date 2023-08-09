@@ -1,6 +1,6 @@
-import { Image, TouchableHighlight, View } from "react-native";
+import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import React, { useState } from "react";
-import { Box, Center, Flex, Input, ScrollView, Text } from "native-base";
+import { Box, Center, Flex, Input, ScrollView, Text, useToast } from "native-base";
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import StaggerMenu from "../componenents/molecules/StaggerMenu";
@@ -9,15 +9,21 @@ import * as yup from "yup";
 import CTAContainer from "../componenents/organisms/CTAContainer";
 import theme from "../constants/theme";
 import CTAButton from "../componenents/atoms/CTAButtons";
+import userStore from "../store/user";
+import billingStore from "../store/billing";
+import { shallow } from "zustand/shallow";
 
 const airtelMoney = require("../../assets/Airtel-money.png");
 const orangeMoney = require("../../assets/Orange-money.png");
 const mpsa = require("../../assets/Mpsa.png");
 
-const Billing = ({ route,  }) => {
+const Billing = ({ route, navigation }) => {
   const [isActive, setIsActive] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const { subtitle } = route.params;
+  const { subtitle, billingId } = route.params;
+    const id = userStore((state) => state.id);
+  const [addPieces, pieces] = billingStore((state) => [state.addPieces, state.pieces], shallow)
+  const toast = useToast();
 
   const mobileMoney = [
     {
@@ -115,7 +121,16 @@ const Billing = ({ route,  }) => {
             }}
             validationSchema={signupValidationSchema}
             onSubmit={({ phoneNumber }) => {
-              // setIsLoading(true)
+              setIsLoading(true)
+              addPieces(billingId, id, phoneNumber, pieces)
+              toast.show({
+                render: () => {
+                  return <Box bg="emerald.300"  px="2" py="2" rounded="sm" mb={5}>
+                    Achat effectué avec succès
+                  </Box>;
+                }
+              })
+              setIsLoading(false)
             }}>
             {({ handleSubmit, errors, handleChange, values, handleBur }) => (
               <>
@@ -152,3 +167,14 @@ const Billing = ({ route,  }) => {
 };
 
 export default Billing;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  mainContents: {},
+  error: {
+    color: "red",
+    alignSelf: "flex-start",
+  },
+});

@@ -34,6 +34,7 @@ const Configs = ({navigation}) => {
           <Flex>
             <CardPieces
             navigation={navigation}
+            billingId={1}
               image={pieceOne}
               title={"1$"}
               subtitle={"1 pièce"}
@@ -42,6 +43,7 @@ const Configs = ({navigation}) => {
 
             <CardPieces
             navigation={navigation}
+            billingId={3}
               image={pieceFive}
               title={"5$"}
               subtitle={"3 pièces"}
@@ -52,6 +54,7 @@ const Configs = ({navigation}) => {
           <Flex marginLeft={4}>
             <CardPieces
             navigation={navigation}
+            billingId={2}
               image={pieceThree}
               title={"3$"}
               subtitle={"2 pièces"}
@@ -59,6 +62,7 @@ const Configs = ({navigation}) => {
             />
             <CardPieces
             navigation={navigation}
+            billingId={4}
               image={pieceTen}
               title={"10$"}
               subtitle={"5 pièce"}

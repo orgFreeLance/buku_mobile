@@ -10,6 +10,7 @@ const userStore = create((set) => ({
     phoneNumber: "",
     email: "",
     authError: "",
+    id: "",
     codeExetat: "",
     logUser: async (phoneNumber, password) => {
         let error = false;
@@ -31,13 +32,14 @@ const userStore = create((set) => ({
             const responseData = response.data;
 
             await SecureStore.setItemAsync("token", responseData.jwt);
-            await SecureStore.setItemAsync("firstName", responseData.user.firstName);
+            await SecureStore.setItemAsync("firstName", responseData.firstName);
             await SecureStore.setItemAsync(
                 "phoneNumber",
-                responseData.user.phoneNumber
+                responseData.phoneNumber
             );
-            await SecureStore.setItemAsync("lastName", responseData.user.lastName);
-            await SecureStore.setItemAsync("email", responseData.user.email);
+            await SecureStore.setItemAsync("lastName", responseData.lastName);
+            await SecureStore.setItemAsync("email", responseData.email);
+            await SecureStore.setItemAsync("id", `${responseData.id}`);
             await SecureStore.setItemAsync("isAuth", "1");
             await SecureStore.setItemAsync("confirmed", "1");
 
@@ -46,6 +48,7 @@ const userStore = create((set) => ({
                 phoneNumber: responseData.phoneNumber,
                 lastName: responseData.lastName,
                 email: responseData.email,
+                id: responseData.id,
                 isAuth: true,
                 confirmed: true,
             }));
@@ -103,6 +106,9 @@ const userStore = create((set) => ({
         });
 
 
+
+        console.log({ responseData })
+        console.log({ id: responseData.id })
         if (response.data) {
             await SecureStore.setItemAsync("firstName", responseData.firstName);
             await SecureStore.setItemAsync(
@@ -111,6 +117,7 @@ const userStore = create((set) => ({
             );
             await SecureStore.setItemAsync("lastName", responseData.lastName);
             await SecureStore.setItemAsync("email", responseData.email);
+            await SecureStore.setItemAsync("id", `${responseData.id}`);
             await SecureStore.setItemAsync("codeExetat", codeExetat);
             return set((state) => {
                 return {
@@ -118,6 +125,7 @@ const userStore = create((set) => ({
                     phoneNumber: responseData.phoneNumber,
                     lastName: responseData.lastName,
                     email: responseData.email,
+                    id: responseData.id,
                     codeExetat
                 };
             });
@@ -133,7 +141,7 @@ const userStore = create((set) => ({
             },
         }).catch((reason) => {
             error = true;
-            console.log({code, phoneNumber, reason });
+            console.log({ code, phoneNumber, reason });
         });
         if (!error) {
             await SecureStore.setItemAsync("isAuth", "1");

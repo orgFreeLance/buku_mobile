@@ -3,13 +3,14 @@ import React from "react";
 import { ImageBackground, TouchableHighlight } from "react-native";
 const pieceGold = require("../../../assets/piece-gold.png");
 
-const CardPieces = ({ image, title, subtitle, description, marginTop, navigation }) => {
+const CardPieces = ({ image, billingId,title, subtitle, description, marginTop, navigation }) => {
   return (
     <Box borderRadius={10} marginTop={marginTop ? 6 : 0}>
       <TouchableHighlight
         onPress={() => {
           navigation.navigate("Billing", {
-            subtitle
+            subtitle,
+            billingId
           })
         }}
         style={{ borderRadius: 9 }}>
