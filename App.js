@@ -6,7 +6,8 @@ import theme from './src/constants/theme';
 import * as SplashScreen from 'expo-splash-screen';
 import { LogBox } from "react-native"
 import { useFonts } from 'expo-font';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import billingStore from './src/store/billing';
 
 LogBox.ignoreLogs([
   'In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.',
@@ -22,6 +23,10 @@ export default function App() {
     'Poppins-Medium': require('./assets/fonts/poppins/Poppins-Medium.otf'),
     'Poppins-Regular': require('./assets/fonts/poppins/Poppins-Regular.otf'),
   });
+
+  const getBills = billingStore((state) => state.getBills);
+
+  useEffect(() => { getBills() }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {

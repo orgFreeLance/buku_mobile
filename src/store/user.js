@@ -43,11 +43,11 @@ const userStore = create((set) => ({
             await SecureStore.setItemAsync("confirmed", "1");
 
             return set((state) => ({
-                firstName: responseData.firstName,
-                phoneNumber: responseData.phoneNumber,
-                lastName: responseData.lastName,
-                email: responseData.email,
-                id: responseData.id,
+                firstName: responseData.user.firstName,
+                phoneNumber: responseData.user.phoneNumber,
+                lastName: responseData.user.lastName,
+                email: responseData.user.email,
+                id: responseData.user.id,
                 isAuth: true,
                 confirmed: true,
             }));

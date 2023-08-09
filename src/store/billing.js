@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import API from "../services/axios";
+import * as SecureStore from "expo-secure-store";
 
 const billingStore = create((set) => ({
   pieces: 0,
@@ -16,6 +17,8 @@ const billingStore = create((set) => ({
       error = true;
       console.log({ reason });
     });
+
+    console.log({ data })
     if (!error) {
 
       await SecureStore.setItemAsync("pieces", `${pieces + response.data.newAmount}`);
@@ -24,6 +27,14 @@ const billingStore = create((set) => ({
         return ({ pieces: state.pieces + response.data.newAmount })
       })
     }
+  },
+  getBills: async () => {
+    const pieces = await SecureStore.getItemAsync("pieces");
+    console.log({ pieces })
+    return set((state) => {
+
+      return ({ pieces: parseInt(pieces, 10) || 0 })
+    })
   },
   removePieces: (piecesNumber) =>
     set((state) => ({ pieces: state.pieces - piecesNumber })),
