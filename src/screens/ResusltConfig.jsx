@@ -2,6 +2,7 @@ import { Camera, CameraType } from "expo-camera";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Box, Flex } from "native-base";
+import { MaterialIcons } from '@expo/vector-icons';
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import CTAButton from "../componenents/atoms/CTAButtons";
@@ -54,7 +55,12 @@ const ResusltConfig = ({ navigation }) => {
         }}>
           <Camera style={styles.camera} type={type}>
             <View style={styles.buttonContainer}>
-              <View>
+              <View style={{alignItems: "flex-end", paddingHorizontal: 10, paddingVertical: 10}}>
+              <TouchableOpacity
+                  style={styles.button}
+                  onPress={toggleCameraType}>
+                  <MaterialIcons name="flip-camera-android" size={24} color="#fff" />
+                </TouchableOpacity>
                 {/* <TouchableOpacity
                   style={styles.button}
                   onPress={toggleCameraType}>
