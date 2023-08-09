@@ -4,16 +4,17 @@ import React, { useState } from "react";
 import { Box, Flex } from "native-base";
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
+import CTAButton from "../componenents/atoms/CTAButtons";
 
 const ResusltConfig = ({ navigation }) => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [record, setRecord] = useState(null);
-  
+
   const takeVideo = async () => {
-    if(camera){
-        const data = await Camera.recordAsync()
-        setRecord(data.uri);
+    if (camera) {
+      const data = await Camera.recordAsync()
+      setRecord(data.uri);
     }
   }
 
@@ -53,24 +54,31 @@ const ResusltConfig = ({ navigation }) => {
         }}>
           <Camera style={styles.camera} type={type}>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={toggleCameraType}>
-                <Text style={styles.text}>Flip Camera</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={takeVideo}>
-                <Text style={styles.text}>Take Vidéo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={stopVideo}>
-                <Text style={styles.text}>Arrêter la Vidéo</Text>
-              </TouchableOpacity>
+              <View>
+                {/* <TouchableOpacity
+                  style={styles.button}
+                  onPress={toggleCameraType}>
+                  <Text style={styles.text}>Flip Camera</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={takeVideo}>
+                  <Text style={styles.text}>Take Vidéo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={stopVideo}>
+                  <Text style={styles.text}>Arrêter la Vidéo</Text>
+                </TouchableOpacity> */}
+              </View>
+
+
 
             </View>
           </Camera>
+          <View style={{ marginBottom: -10, zIndex: 999 }}>
+            <CTAButton noTopRadius = {true} isLoading={false} onPress={() => { console.log('pressing...') }} text={"Vérifier"} />
+          </View>
         </View>
       </View>
     </View>
@@ -84,6 +92,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopRightRadius: 20,
     borderTopLefttRadius: 20,
-    borderRadius: 50
-}, overflow: 'hidden',
+    borderRadius: 50,
+    zIndex: 999
+  }, overflow: 'hidden',
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "space-between"
+  }
 });

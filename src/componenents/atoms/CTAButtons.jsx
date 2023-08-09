@@ -4,7 +4,7 @@ import theme from "../../constants/theme";
 import { height, width } from "../../constants/nativeSizes";
 import { Text, TouchableHighlight } from "react-native";
 
-const CTAButton = ({ onPress, text, isLoading, icon }) => {
+const CTAButton = ({ onPress, text, isLoading, icon, noTopRadius }) => {
   return (
     <TouchableHighlight
       isDisabled={isLoading}
@@ -21,8 +21,12 @@ const CTAButton = ({ onPress, text, isLoading, icon }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 9,
+          borderTopLeftRadius: noTopRadius ? 0 :  9,
+          borderTopRightRadius: noTopRadius ? 0 : 9,
+          borderBottomLeftRadius: 9,
+          borderBottomRightRadius: 9,
           flexDirection: "row",
+          
         }}>
         <Text
           style={{
