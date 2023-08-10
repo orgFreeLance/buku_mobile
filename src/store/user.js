@@ -30,6 +30,7 @@ const userStore = create((set) => ({
         });
         if (!error) {
             const responseData = response.data;
+            console.log({ responseData });
             await SecureStore.setItemAsync("token", responseData.jwt);
             await SecureStore.setItemAsync("firstName", responseData.user.firstName);
             await SecureStore.setItemAsync(

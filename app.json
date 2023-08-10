@@ -19,14 +19,18 @@
       "usesNonExemptEncryption": false
     },
     "android": {
+      "compileSdkVersion": 33,
+      "targetSdkVersion": 33,
+      "buildToolsVersion": "33.0.0",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#962A7E"
       },
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.sacre_mbiku.monbac"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -44,7 +48,8 @@
           "cameraPermission": "Autoriser l'accès à MONBAC à la caméra",
           "microphonePermission": "Autoriser l'accès à MONBAC au microphone"
         }
-      ]
+      ],
+      "expo-build-properties"
     ]
   }
 }

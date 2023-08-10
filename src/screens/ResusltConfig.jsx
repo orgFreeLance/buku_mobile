@@ -1,26 +1,29 @@
 import { Camera, CameraType } from "expo-camera";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
-import { Box, Flex } from "native-base";
+import React, { useEffect, useState } from "react";
+import { Box, Flex, Progress } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import CTAButton from "../componenents/atoms/CTAButtons";
+import theme from "../constants/theme";
 
 const ResusltConfig = ({ navigation }) => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [record, setRecord] = useState(null);
+  const [counter, setCounter] = useState(0);
+  const [progression, setProgression] = useState(0);
 
   const takeVideo = async () => {
-    if (camera) {
+    if (Camera) {
       const data = await Camera.recordAsync()
       setRecord(data.uri);
     }
   }
 
   const stopVideo = async () => {
-    camera.stopRecording();
+    Camera.stopRecording();
   }
 
   const toggleCameraType = () => {
@@ -28,6 +31,20 @@ const ResusltConfig = ({ navigation }) => {
       current === CameraType.back ? CameraType.front : CameraType.back
     );
   }
+
+
+  useEffect(() => {
+
+    if (counter <= 30) {
+      const interval = setInterval(() => {
+        setCounter(counter + 1);
+        setProgression(parseInt((counter + 1) / 30, 10)* 100)
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [record, counter]);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <Box
@@ -55,27 +72,12 @@ const ResusltConfig = ({ navigation }) => {
         }}>
           <Camera style={styles.camera} type={type}>
             <View style={styles.buttonContainer}>
-              <View style={{alignItems: "flex-end", paddingHorizontal: 10, paddingVertical: 10}}>
-              <TouchableOpacity
+              <View style={{ alignItems: "flex-end", paddingHorizontal: 10, paddingVertical: 10 }}>
+                <TouchableOpacity
                   style={styles.button}
                   onPress={toggleCameraType}>
                   <MaterialIcons name="flip-camera-android" size={24} color="#fff" />
                 </TouchableOpacity>
-                {/* <TouchableOpacity
-                  style={styles.button}
-                  onPress={toggleCameraType}>
-                  <Text style={styles.text}>Flip Camera</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={takeVideo}>
-                  <Text style={styles.text}>Take Vidéo</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={stopVideo}>
-                  <Text style={styles.text}>Arrêter la Vidéo</Text>
-                </TouchableOpacity> */}
               </View>
 
 
@@ -83,7 +85,11 @@ const ResusltConfig = ({ navigation }) => {
             </View>
           </Camera>
           <View style={{ marginBottom: -10, zIndex: 999 }}>
-            <CTAButton noTopRadius = {true} isLoading={false} onPress={() => { console.log('pressing...') }} text={"Vérifier"} />
+            {
+              record && <Progress value={45} />
+            }
+            <Progress value={progression} rounded="0" colorScheme={"lime"} />
+            <CTAButton noTopRadius={true} isLoading={false} onPress={() => { console.log('pressing...') }} text={"Vérifier"} />
           </View>
         </View>
       </View>

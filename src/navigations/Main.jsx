@@ -29,6 +29,7 @@ const MainNavigation = observer(() => {
     const confirmed =
       parseInt(await SecureStore.getItemAsync("confirmed"), 10) === 1 ||
       confirmed;
+      console.log({confirmed})
     setIsAuth(isAuth);
     setConfirmed(confirmed);
     setLoading(false);
