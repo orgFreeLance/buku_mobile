@@ -105,9 +105,9 @@ const ResusltConfig = ({ navigation }) => {
           <View style={{ marginBottom: -10, zIndex: 999 }}>
             {
 
-              record && <Progress value={45} />
+              recording && <Progress value={progression} rounded="0" colorScheme={"lime"} />
             }
-            <Progress value={progression} rounded="0" colorScheme={"lime"} />
+            
             <CTAButton noTopRadius={true} isLoading={progression >= 1 && progression < 100 ? true : false} onPress={() => takeVideo()} text={progression >= 1 && progression < 100 ? "Enregistrement" : "Vérifier"} />
           </View>
         </View>
