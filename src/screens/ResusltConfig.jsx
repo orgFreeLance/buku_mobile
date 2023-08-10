@@ -35,11 +35,12 @@ const ResusltConfig = ({ navigation }) => {
 
   useEffect(() => {
 
-    if (counter <= 30) {
+    if (counter <= 30 && record) {
       const interval = setInterval(() => {
         setCounter(counter + 1);
         setProgression(parseInt((counter + 1) / 30, 10)* 100)
-      }, 1000);
+            {console.log({progression, counter})}
+          }, 1000);
 
       return () => clearInterval(interval);
     }
@@ -86,6 +87,7 @@ const ResusltConfig = ({ navigation }) => {
           </Camera>
           <View style={{ marginBottom: -10, zIndex: 999 }}>
             {
+              
               record && <Progress value={45} />
             }
             <Progress value={progression} rounded="0" colorScheme={"lime"} />
