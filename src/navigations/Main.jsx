@@ -36,7 +36,7 @@ const MainNavigation = observer(() => {
 
   useEffect(() => {
     getAuthKeys();
-  }, []);
+  }, [confirmed]);
   return (
     <Stack.Navigator
       screenOptions={{

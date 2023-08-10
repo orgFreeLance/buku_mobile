@@ -62,13 +62,6 @@ const Billing = ({ route, navigation }) => {
           </Text>
         </Center>
 
-        {/* 1. Title choisissez votre opérateur : OK
-            2. Liste des opératurs qu'on peut sélectionner : OK
-            3. Input avec label, entrez votre numéro : OK
-            4. Bouton souscrire : OK
-            5. Toast, Souscription réussie,
-            6. Mise à jour du nombre des pièces
-        */}
 
         <Flex paddingX={width(5)} py={10}>
           <Box my={3}>

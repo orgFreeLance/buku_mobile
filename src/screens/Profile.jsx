@@ -6,6 +6,8 @@ import { deleteItemAsync, getItemAsync } from "expo-secure-store";
 import CTAButton from "../componenents/atoms/CTAButtons";
 import { width } from "../constants/nativeSizes";
 import userStore from "../store/user";
+import * as RootNavigation from "../navigations/RootNavigation";
+import billingStore from "../store/billing";
 
 const Profile = ({ route, navigation }) => {
   const [lastName, setLastName] = useState("");
@@ -14,6 +16,7 @@ const Profile = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const logoutUser = userStore((state) => state.logoutUser);
+  const removeAllPieces = billingStore((state) => state.removeAllPieces)
 
   const getUserData = async () => {
     const firstName = await getItemAsync("firstName");
@@ -26,6 +29,7 @@ const Profile = ({ route, navigation }) => {
     setEmail(email);
   };
 
+
   const logout = async () => {
     await deleteItemAsync("token");
     await deleteItemAsync("firstName");
@@ -34,7 +38,10 @@ const Profile = ({ route, navigation }) => {
     await deleteItemAsync("email");
     await deleteItemAsync("isAuth");
     await deleteItemAsync("confirmed");
+    await deleteItemAsync("pieces");
+    removeAllPieces();
     logoutUser();
+    RootNavigation.navigate(null);
   };
 
   useEffect(() => {

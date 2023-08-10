@@ -8,6 +8,7 @@ import { LogBox } from "react-native"
 import { useFonts } from 'expo-font';
 import { useCallback, useEffect } from 'react';
 import billingStore from './src/store/billing';
+import { navigationRef } from './src/navigations/RootNavigation';
 
 LogBox.ignoreLogs([
   'In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.',
@@ -41,7 +42,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <MainNavigation />
       </NavigationContainer>
     </NativeBaseProvider>

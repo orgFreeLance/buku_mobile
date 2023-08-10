@@ -2,12 +2,13 @@ import { Camera, CameraType, VideoQuality } from "expo-camera";
 import { Video, ResizeMode } from 'expo-av';
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Flex, Progress } from "native-base";
+import { Box, Flex, Progress, useToast } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import CTAButton from "../componenents/atoms/CTAButtons";
 import billingStore from "../store/billing";
+import { shallow } from "zustand/shallow";
 
 const ResusltConfig = ({ navigation }) => {
   const [type, setType] = useState(CameraType.back);
@@ -20,22 +21,38 @@ const ResusltConfig = ({ navigation }) => {
   const cameraRef = useRef();
   const video = useRef(null);
   const [status, setStatus] = useState({});
-  const removePieces = billingStore((state) => state.removePieces);
+  const [removePieces, pieces] = billingStore((state) => [state.removePieces, state.pieces], shallow);
+  const toast = useToast();
 
   const takeVideo = async () => {
-    await requestVideoPermission()
-    setRecording(true)
-    if (Camera) {
-      const data = await cameraRef.current.recordAsync(
-        {
-          quality: VideoQuality["1080p"],
-          mute: false,
+    if (pieces === 0) {
+      toast.show({
+        duration: 10000, 
+        render: () => {
+          return <Box bg="red.300" px="2" py="2" rounded="sm" mb={5}>
+            Désolé ! Vous n'avez pas assez des pièces, veuillez récharger
+          </Box>;
+        },
+        
+      })
 
-        }
-      ).catch((reason) => console.log({ reason }))
+      navigation.navigate("UserConfigs")
+    }
+    else {
+      await requestVideoPermission()
+      setRecording(true)
+      if (Camera) {
+        const data = await cameraRef.current.recordAsync(
+          {
+            quality: VideoQuality["1080p"],
+            mute: false,
 
-      removePieces();
-      setRecord(data.uri);
+          }
+        ).catch((reason) => console.log({ reason }))
+
+        removePieces();
+        setRecord(data.uri);
+      }
     }
   }
 
@@ -99,7 +116,7 @@ const ResusltConfig = ({ navigation }) => {
           borderTopLefttRadius: 9,
           borderRadius: 50
         }}>
-          
+
 
           {
             !record ? (<Camera style={styles.camera} ref={cameraRef} type={type}>
@@ -135,7 +152,7 @@ const ResusltConfig = ({ navigation }) => {
               recording && <Progress value={progression} rounded="0" colorScheme={"lime"} />
             }
 
-            <CTAButton noTopRadius={true} isLoading={recording} onPress={() => !record ? takeVideo() : handleVideoPlayer()} text={!record ?  "Vérifier" : status.isPlaying ? 'Pause' : 'Play'} />
+            <CTAButton noTopRadius={true} isLoading={recording} onPress={() => !record ? takeVideo() : handleVideoPlayer()} text={!record ? "Vérifier" : status.isPlaying ? 'Pause' : 'Play'} />
           </View>
         </View>
       </View>

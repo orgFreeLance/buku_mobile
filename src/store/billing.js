@@ -38,6 +38,8 @@ const billingStore = create((set) => ({
   },
   removePieces: () =>
     set((state) => ({ pieces: state.pieces - 1 })),
+  removeAllPieces: () =>
+    set((state) => ({ pieces: 0 })),
 }));
 
 export default billingStore;
