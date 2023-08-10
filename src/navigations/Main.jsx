@@ -29,7 +29,6 @@ const MainNavigation = observer(() => {
     const confirmed =
       parseInt(await SecureStore.getItemAsync("confirmed"), 10) === 1 ||
       confirmed;
-      console.log({confirmed})
     setIsAuth(isAuth);
     setConfirmed(confirmed);
     setLoading(false);
@@ -46,16 +45,17 @@ const MainNavigation = observer(() => {
     >
       {!loading ? (
         <>
-          {!confirmed ? (
+
+          {userConfirm ? (
+            <Stack.Group>
+              <Stack.Screen name='Bottom' component={Bottom} />
+            </Stack.Group>
+          ) : (
             <Stack.Group>
               <Stack.Screen name='Start' component={Start} />
               <Stack.Screen name='Login' component={Login} />
               <Stack.Screen name='Signup' component={Signup} />
               <Stack.Screen name='VerifyCode' component={VerifyCode} />
-            </Stack.Group>
-          ) : (
-            <Stack.Group>
-              <Stack.Screen name='Bottom' component={Bottom} />
             </Stack.Group>
           )}
         </>

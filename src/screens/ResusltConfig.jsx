@@ -1,29 +1,42 @@
-import { Camera, CameraType } from "expo-camera";
+import { Camera, CameraType, VideoQuality } from "expo-camera";
+import { Video, ResizeMode } from 'expo-av';
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Flex, Progress } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import CTAButton from "../componenents/atoms/CTAButtons";
-import theme from "../constants/theme";
 
 const ResusltConfig = ({ navigation }) => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [videoPermission, requestVideoPermission] = Camera.useMicrophonePermissions();
   const [record, setRecord] = useState(null);
+  const [recording, setRecording] = useState(false);
   const [counter, setCounter] = useState(0);
   const [progression, setProgression] = useState(0);
+  const cameraRef = useRef();
 
   const takeVideo = async () => {
+    await requestVideoPermission()
+    setRecording(true)
     if (Camera) {
-      const data = await Camera.recordAsync()
+      const data = await cameraRef.current.recordAsync(
+        {
+          quality: VideoQuality["720p"],
+          mute: false,
+
+        }
+      ).catch((reason) => console.log({reason}))
+
+      console.log({data: data.uri })
       setRecord(data.uri);
     }
   }
 
   const stopVideo = async () => {
-    Camera.stopRecording();
+    Camera.prototype.stopRecording();
   }
 
   const toggleCameraType = () => {
@@ -35,16 +48,24 @@ const ResusltConfig = ({ navigation }) => {
 
   useEffect(() => {
 
-    if (counter <= 30 && record) {
+
+    if (counter <= 20 && recording) {
       const interval = setInterval(() => {
+        const newCounter = counter + 1
+        const newProgression = parseInt((newCounter / 20) * 100, 10)
         setCounter(counter + 1);
-        setProgression(parseInt((counter + 1) / 30, 10)* 100)
-            {console.log({progression, counter})}
-          }, 1000);
+        setProgression(newProgression)
+      }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [record, counter]);
+
+    if (counter === 20) {
+      console.log({ record })
+      stopVideo()
+      setRecording(false)
+    }
+  }, [recording, counter]);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -71,7 +92,7 @@ const ResusltConfig = ({ navigation }) => {
           borderTopLefttRadius: 9,
           borderRadius: 50
         }}>
-          <Camera style={styles.camera} type={type}>
+          <Camera style={styles.camera} ref={cameraRef} type={type}>
             <View style={styles.buttonContainer}>
               <View style={{ alignItems: "flex-end", paddingHorizontal: 10, paddingVertical: 10 }}>
                 <TouchableOpacity
@@ -87,11 +108,11 @@ const ResusltConfig = ({ navigation }) => {
           </Camera>
           <View style={{ marginBottom: -10, zIndex: 999 }}>
             {
-              
+
               record && <Progress value={45} />
             }
             <Progress value={progression} rounded="0" colorScheme={"lime"} />
-            <CTAButton noTopRadius={true} isLoading={false} onPress={() => { console.log('pressing...') }} text={"Vérifier"} />
+            <CTAButton noTopRadius={true} isLoading={progression >= 1 && progression < 100 ? true : false} onPress={() => takeVideo()} text={progression >= 1 && progression < 100 ? "Enregistrement" : "Vérifier"} />
           </View>
         </View>
       </View>
