@@ -28,9 +28,8 @@ const ResusltConfig = ({ navigation }) => {
           mute: false,
 
         }
-      ).catch((reason) => console.log({reason}))
+      ).catch((reason) => console.log({ reason }))
 
-      console.log({data: data.uri })
       setRecord(data.uri);
     }
   }
@@ -47,8 +46,6 @@ const ResusltConfig = ({ navigation }) => {
 
 
   useEffect(() => {
-
-
     if (counter <= 20 && recording) {
       const interval = setInterval(() => {
         const newCounter = counter + 1
@@ -61,7 +58,6 @@ const ResusltConfig = ({ navigation }) => {
     }
 
     if (counter === 20) {
-      console.log({ record })
       stopVideo()
       setRecording(false)
     }
