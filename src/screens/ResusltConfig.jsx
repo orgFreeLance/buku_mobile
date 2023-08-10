@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Header1 from "../componenents/organisms/Header1";
 import { height, width } from "../constants/nativeSizes";
 import CTAButton from "../componenents/atoms/CTAButtons";
+import billingStore from "../store/billing";
 
 const ResusltConfig = ({ navigation }) => {
   const [type, setType] = useState(CameraType.back);
@@ -19,6 +20,7 @@ const ResusltConfig = ({ navigation }) => {
   const cameraRef = useRef();
   const video = useRef(null);
   const [status, setStatus] = useState({});
+  const removePieces = billingStore((state) => state.removePieces);
 
   const takeVideo = async () => {
     await requestVideoPermission()
@@ -32,6 +34,7 @@ const ResusltConfig = ({ navigation }) => {
         }
       ).catch((reason) => console.log({ reason }))
 
+      removePieces();
       setRecord(data.uri);
     }
   }
@@ -117,7 +120,6 @@ const ResusltConfig = ({ navigation }) => {
               source={{
                 uri: record,
               }}
-              useNativeControls
               resizeMode={ResizeMode.COVER}
               isLooping
               onPlaybackStatusUpdate={status => setStatus(() => status)}

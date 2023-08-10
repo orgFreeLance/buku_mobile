@@ -36,8 +36,8 @@ const billingStore = create((set) => ({
       return ({ pieces: parseInt(pieces, 10) || 0 })
     })
   },
-  removePieces: (piecesNumber) =>
-    set((state) => ({ pieces: state.pieces - piecesNumber })),
+  removePieces: () =>
+    set((state) => ({ pieces: state.pieces - 1 })),
 }));
 
 export default billingStore;
