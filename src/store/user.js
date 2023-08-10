@@ -28,6 +28,7 @@ const userStore = create((set) => ({
             error = true;
             console.log({ reason });
         });
+        console.log({error})
         if (!error) {
             const responseData = response.data;
             console.log({ responseData });
