@@ -79,6 +79,7 @@ const Signup = ({ navigation }) => {
           confirmedPassword,
           codeExetat,
         }) => {
+          setIsloading(true)
           submitForm(
             false,
             setIsloading,
@@ -94,6 +95,8 @@ const Signup = ({ navigation }) => {
             codeExetat,
             navigation
           );
+          setIsloading(true)
+(false)
         }}>
         {({ handleSubmit, errors, handleChange, values, handleBlur }) => (
           <>
