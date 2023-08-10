@@ -7,10 +7,8 @@ import { useState } from "react";
 import PubCarousel from "../componenents/molecules/PubCarousel";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-const resultsIcon = require("../../assets/solar_diploma-broken.png");
-const eventsIcon = require("../../assets/ci_ticket-voucher.png");
-const feedsIcon = require("../../assets/solar_feed-broken.png");
-const shopIcon = require("../../assets/solar_shop-2-broken.png");
+import { SvgXml } from "react-native-svg";
+import { eventsIcon, feedsIcon, resultIcon, shopsIcon } from "../constants/svgs";
 
 const Home = ({ navigation }) => {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
@@ -78,12 +76,12 @@ const Home = ({ navigation }) => {
                   }}
                   onPress={() => navigation.navigate("ResusltConfig")}>
                   <Box alignItems={"center"}> 
-                    <Image source={resultsIcon} />
+                    <SvgXml xml={resultIcon} />
                     <Text>Résultats</Text>
                   </Box>
                 </TouchableOpacity>
                 <Box style={styles.iconContainer}>
-                  <Image source={feedsIcon} />
+                <SvgXml xml={feedsIcon} />
                   <Text>Feeds</Text>
                 </Box>
               </Flex>
@@ -93,11 +91,11 @@ const Home = ({ navigation }) => {
                     ...styles.iconContainer,
                     ...styles.topIconContainer,
                   }}>
-                  <Image source={eventsIcon} />
+                  <SvgXml xml={eventsIcon} />
                   <Text>Events</Text>
                 </Box>
                 <Box style={styles.iconContainer}>
-                  <Image source={shopIcon} />
+                <SvgXml xml={shopsIcon} />
                   <Text>Shops</Text>
                 </Box>
               </Flex>

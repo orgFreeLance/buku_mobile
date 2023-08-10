@@ -3,8 +3,6 @@ import { View, Text, Box, Flex, StatusBar } from "native-base";
 import React from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 import { height, width } from "../../constants/nativeSizes";
-import CTAButton from "../../componenents/atoms/CTAButtons";
-import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 const backgroundImage = require("../../../assets/mainImage.png");
 const logo = require("../../../assets/logo2.png");

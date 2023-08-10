@@ -2,8 +2,8 @@ import { Flex, Text } from "native-base";
 import CustomIcon from "../atoms/CustomIcon";
 import theme from "../../constants/theme";
 import billingStore from "../../store/billing";
-const billIcon = require("../../../assets/biil-icon.png");
-const billIconGold = require("../../../assets/piece-gold.png");
+import { SvgXml } from "react-native-svg";
+import { bill, billGold } from "../../constants/svgs";
 
 const BillsStatus = () => {
     const pieces = billingStore((state) => state.pieces);
@@ -14,8 +14,8 @@ const BillsStatus = () => {
                 <Text textAlign={"center"} fontFamily={"Poppins-SemiBold"} color={theme.colors.brand[600]}>{piecesNumber === 0 ? "00" : piecesNumber}</Text>
             </Flex>
             {
-                piecesNumber === 0 ? (<CustomIcon iconModule={billIcon} width={27} height={27} />)
-                    : (<CustomIcon iconModule={billIconGold} width={27} height={27} />)
+                piecesNumber === 0 ? (<SvgXml xml={bill} />)
+                    : (<SvgXml xml={billGold} />)
             }
 
         </Flex>

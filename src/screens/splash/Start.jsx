@@ -6,8 +6,9 @@ import { height, width } from "../../constants/nativeSizes";
 import CTAButton from "../../componenents/atoms/CTAButtons";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+import { SvgXml } from "react-native-svg";
+import { logo } from "../../constants/svgs";
 const backgroundImage = require("../../../assets/mainImage.png");
-const logo = require("../../../assets/logo2.png");
 
 const Start = ({ navigation }) => {
   return (
@@ -25,12 +26,7 @@ const Start = ({ navigation }) => {
         source={backgroundImage}
       >
         <Box>
-          <Image
-            style={{ width: "100%", height: 50 }}
-            source={logo}
-            contentFit='contain'
-            transition={1000}
-          />
+          <SvgXml xml={logo} />
         </Box>
         <Flex>
           <Box paddingY={height(2)}>

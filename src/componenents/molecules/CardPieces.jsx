@@ -1,7 +1,8 @@
 import { Box, Flex, Text, Center, Image } from "native-base";
 import React from "react";
 import { ImageBackground, TouchableHighlight } from "react-native";
-const pieceGold = require("../../../assets/piece-gold.png");
+import { billGold } from "../../constants/svgs";
+import { SvgXml } from "react-native-svg";
 
 const CardPieces = ({ image, billingId,title, subtitle, description, marginTop, navigation }) => {
   return (
@@ -29,7 +30,7 @@ const CardPieces = ({ image, billingId,title, subtitle, description, marginTop, 
             </Text>
           </Center>
           <Flex direction="row" justifyContent={"center"} marginBottom={8}>
-            <Image alt="One piece" source={pieceGold} />
+              <SvgXml xml={billGold} />
             <Text
               marginLeft={2}
               fontFamily={"Poppins-Bold"}
