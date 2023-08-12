@@ -15,8 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "usesNonExemptEncryption": false
+      "supportsTablet": true
     },
     "android": {
       "compileSdkVersion": 33,
