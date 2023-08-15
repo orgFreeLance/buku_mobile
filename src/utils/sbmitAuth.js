@@ -16,14 +16,12 @@ export const submitForm = (
   codeExetat,
   navigation
 ) => {
-  setIsloading(true);
   switch (isLogin) {
     case true:
       logUser(phone, password);
       break;
 
     case false:
-      setIsloading(false);
       logUser(
         phone,
         password,
@@ -40,5 +38,4 @@ export const submitForm = (
       break;
   }
 
-  setIsloading(false);
 };

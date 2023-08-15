@@ -117,7 +117,9 @@ const ResusltConfig = ({ navigation }) => {
           borderRadius: 50
         }}>
 
-
+        {
+          console.log({record})
+        }
           {
             !record ? (<Camera style={styles.camera} ref={cameraRef} type={type}>
               <View style={styles.buttonContainer}>

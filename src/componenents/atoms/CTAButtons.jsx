@@ -28,6 +28,7 @@ const CTAButton = ({ onPress, text, isLoading, icon, noTopRadius }) => {
           flexDirection: "row",
           
         }}>
+          {console.log({isLoading})}
         <Text
           style={{
             fontFamily: "Poppins-Bold",

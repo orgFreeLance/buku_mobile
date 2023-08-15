@@ -46,7 +46,7 @@ const MainNavigation = observer(() => {
       {!loading ? (
         <>
 
-          {userConfirm ? (
+          {confirmed ? (
             <Stack.Group>
               <Stack.Screen name='Bottom' component={Bottom} />
             </Stack.Group>

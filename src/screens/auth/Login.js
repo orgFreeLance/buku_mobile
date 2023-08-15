@@ -29,11 +29,16 @@ const Login = ({ navigation }) => {
                 setPassword(value);
             }} backgroundColor={theme.colors.brand[500]} type='password' variant="filled" size="md" placeholder="*Mot de passe" isRequired />
         </AuthForm>
-        <CTAContainer onPress={() => {
-            setIsloading(true)
-            submitForm(true, setIsloading, logUser, isAuth, toast, phone, password)
-            setIsloading(false)
-        }} text={"Se connecter"} isLoading={isLoading} />
+        {
+            !isLoading ? (<CTAContainer onPress={() => {
+                setIsloading(true)
+                submitForm(true, setIsloading, logUser, isAuth, toast, phone, password)
+            }} text={"Se connecter"} isLoading={false} />) : (<CTAContainer onPress={() => {
+                setIsloading(true)
+                submitForm(true, setIsloading, logUser, isAuth, toast, phone, password)
+            }} text={"Chargement"} isLoading={true} />)
+        }
+       
     </View>
 };
 
