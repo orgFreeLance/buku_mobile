@@ -9,6 +9,7 @@ import { height, width } from "../../constants/nativeSizes";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import ButtonSecondary from "../../components/global/button/secondary";
+import ProgressSmall from "../../components/global/progress/small";
 const bg = require("../../../assets/welcome/bg.png");
 
 const Welecome = ({ navigation }) => {
@@ -62,7 +63,6 @@ const Welecome = ({ navigation }) => {
                 BUKU
               </Text>
             </Text>
-            <View></View>
             <Text
               style={{
                 textAlign: "center",
@@ -72,10 +72,14 @@ const Welecome = ({ navigation }) => {
               }}
             >
               Le numéro Un de magasin de livre en
-              <Text style={{ fontWeight: "bold" }}> Ligne</Text> en
-              <Text style={{ fontWeight: "bold" }}> RDC</Text>
+              <Text style={{ fontWeight: "600" }}> Ligne</Text> en
+              <Text style={{ fontWeight: "600" }}>
+                {" "}
+                République démocratique du congo
+              </Text>
             </Text>
           </View>
+          <ProgressSmall current={0} />
           <ButtonMain
             content="Je créé un compte"
             onPress={() => {
