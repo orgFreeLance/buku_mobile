@@ -1,36 +1,34 @@
 {
   "expo": {
-    "name": "Mon BAC",
-    "slug": "monbac",
+    "name": "buku",
+    "slug": "buku",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#962A7E"
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#962A7E"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#fff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo.png"
     },
     "extra": {
       "eas": {
         "projectId": "517e4468-4db2-4ccc-acf6-638a340f6a3b"
       }
     },
-    "owner": "mbikutekango"
+    "owner": "jeereq minganda"
   }
 }
