@@ -34,7 +34,8 @@ export default function ProgressSmall({ current = 0 }) {
                 height: 5,
                 borderRadius: 10,
                 marginRight: 5,
-                backgroundColor: theme.colors.brand.secondary,
+                opacity: 0.4,
+                backgroundColor: "grey",
               }}
             ></View>
           );
