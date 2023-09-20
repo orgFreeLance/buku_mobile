@@ -1,28 +1,64 @@
-import { Center, Flex, ScrollView, Stack, Text, StatusBar } from "native-base";
+import {
+  Center,
+  Flex,
+  ScrollView,
+  Stack,
+  Text,
+  StatusBar,
+  View,
+  Pressable,
+} from "native-base";
+import { ProgressBarAndroid } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { height, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 
-const AuthForm = ({ navigation, children, title, userExist }) => (
-  <ScrollView
-    style={{
-      flex: 1,
-      paddingHorizontal: width(5),
-      paddingTop: height(5),
-      backgroundColor: "red",
-    }}
-  >
-    <StatusBar backgroundColor={theme.colors.brand.secondary} />
-    <Flex paddingBottom={height(5)}>
-      <Center>
-        <Text fontFamily={"Poppins-Bold"} fontSize={20}>
-          {title}
-        </Text>
-      </Center>
-      <Stack minHeight={height(35)} space={3} w="100%" mx="auto">
-        {children}
-      </Stack>
-    </Flex>
-  </ScrollView>
-);
+const AuthForm = ({ navigation, children, title, userExist }) => {
+  const goBack = () => {
+    navigation.goBack();
+  };
+  return (
+    <ScrollView
+      style={{
+        flex: 1,
+        paddingHorizontal: width(5),
+        paddingBottom: height(5),
+      }}
+    >
+      <StatusBar backgroundColor={theme.colors.brand.secondary} />
+      <Flex paddingBottom={height(5)}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 20,
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Pressable onPress={goBack}>
+            <Text style={{ fontWeight: "bold" }}>
+              <Feather name="arrow-left" size={24} color="black" />
+            </Text>
+          </Pressable>
+          <ProgressBarAndroid
+            styleAttr="Horizontal"
+            indeterminate={false}
+            style={{ width: 180, borderRadius: 5 }}
+            progress={0.2}
+          />
+          <Text></Text>
+        </View>
+        <Center>
+          <Text fontFamily={"Poppins-Bold"} fontSize={24} paddingBottom={2}>
+            {title}
+          </Text>
+        </Center>
+        <Stack minHeight={height(83.5)} space={3} w="100%" mx="auto">
+          {children}
+        </Stack>
+      </Flex>
+    </ScrollView>
+  );
+};
 
 export default AuthForm;

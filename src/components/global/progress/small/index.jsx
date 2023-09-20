@@ -18,8 +18,9 @@ export default function ProgressSmall({ current = 0 }) {
           if (index == current)
             return (
               <View
+                key={index}
                 style={{
-                  width: 40,
+                  width: 30,
                   height: 5,
                   borderRadius: 10,
                   marginRight: 5,
@@ -29,6 +30,7 @@ export default function ProgressSmall({ current = 0 }) {
             );
           return (
             <View
+              key={index}
               style={{
                 width: 5,
                 height: 5,
