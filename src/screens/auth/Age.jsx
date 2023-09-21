@@ -35,7 +35,7 @@ const Age = ({ navigation }) => {
           }}
         >
           <View style={{ width: "100%", paddingBottom: 10 }}>
-            <Text>sélectionner le sexe pour un meilleur contenu</Text>
+            <Text>Sélectionnez une tranche d'âge pour un meilleur contenu</Text>
             <View
               style={{
                 backgroundColor: "red",

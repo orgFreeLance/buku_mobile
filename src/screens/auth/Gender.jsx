@@ -41,7 +41,7 @@ const Gender = ({ navigation }) => {
               <Radio.Group
                 defaultValue="M"
                 name="Gender"
-                space={5}
+                space={4}
                 accessibilityLabel="Choisi ton genre"
               >
                 <Radio value="M" my={1}>
