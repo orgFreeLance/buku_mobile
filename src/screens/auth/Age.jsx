@@ -1,4 +1,4 @@
-import { Input, StatusBar, View, Text } from "native-base";
+import { View, Text } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -6,9 +6,10 @@ import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
+import Category from "./Category";
 import goTo from "../../utils/goTo";
 
-const Gender = ({ navigation }) => {
+const Age = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,11 @@ const Gender = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AuthForm title={"Quel est ton genre ?"} navigation={navigation}>
+      <AuthForm
+        title={"Choisissez votre âge "}
+        navigation={navigation}
+        progress={0.4}
+      >
         <View
           style={{
             flex: 1,
@@ -44,7 +49,7 @@ const Gender = ({ navigation }) => {
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "Age");
+              goTo(navigation, "Category");
             }}
           />
         </View>
@@ -53,7 +58,7 @@ const Gender = ({ navigation }) => {
   );
 };
 
-export default Gender;
+export default Age;
 
 const styles = StyleSheet.create({
   container: {

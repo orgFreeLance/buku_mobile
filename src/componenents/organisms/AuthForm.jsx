@@ -13,7 +13,13 @@ import { Feather } from "@expo/vector-icons";
 import { height, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 
-const AuthForm = ({ navigation, children, title, userExist }) => {
+const AuthForm = ({
+  navigation,
+  children,
+  title,
+  userExist,
+  progress = 0.2,
+}) => {
   const goBack = () => {
     navigation.goBack();
   };
@@ -44,15 +50,13 @@ const AuthForm = ({ navigation, children, title, userExist }) => {
             styleAttr="Horizontal"
             indeterminate={false}
             style={{ width: 180, borderRadius: 5 }}
-            progress={0.2}
+            progress={progress}
           />
           <Text></Text>
         </View>
-        <Center>
-          <Text fontFamily={"Poppins-Bold"} fontSize={24} paddingBottom={2}>
-            {title}
-          </Text>
-        </Center>
+        <Text fontFamily={"Poppins-Bold"} fontSize={24} paddingBottom={2}>
+          {title}
+        </Text>
         <Stack minHeight={height(83.5)} space={3} w="100%" mx="auto">
           {children}
         </Stack>

@@ -1,4 +1,4 @@
-import { Input, StatusBar, View, Text } from "native-base";
+import { View, Text } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -6,9 +6,10 @@ import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
+import ButtonSecondary from "../../components/global/button/secondary";
 import goTo from "../../utils/goTo";
 
-const Gender = ({ navigation }) => {
+const Profile = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,11 @@ const Gender = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AuthForm title={"Quel est ton genre ?"} navigation={navigation}>
+      <AuthForm
+        title={"Complete ton profile "}
+        navigation={navigation}
+        progress={0.6}
+      >
         <View
           style={{
             flex: 1,
@@ -29,7 +34,7 @@ const Gender = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <View style={{ width: "100%", paddingBottom: 10 }}>
+          <View style={{ width: "100%", paddingBottom: 20 }}>
             <Text>sélectionner le sexe pour un meilleur contenu</Text>
             <View
               style={{
@@ -41,10 +46,11 @@ const Gender = ({ navigation }) => {
               }}
             ></View>
           </View>
+
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "Age");
+              goTo(navigation, "Signup");
             }}
           />
         </View>
@@ -53,7 +59,7 @@ const Gender = ({ navigation }) => {
   );
 };
 
-export default Gender;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
