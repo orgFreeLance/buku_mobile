@@ -8,6 +8,7 @@ import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import ButtonSecondary from "../../components/global/button/secondary";
 import goTo from "../../utils/goTo";
+import CardAuthCategory from "../../components/global/card/category";
 
 const Category = ({ navigation }) => {
   const toast = useToast();
@@ -18,7 +19,32 @@ const Category = ({ navigation }) => {
     (state) => [state.logUser, state.isAuth],
     shallow
   );
-
+  const [categories, setCategories] = useState([
+    { content: "romance", select: true },
+    { content: "fantay", select: false },
+    { content: "sci-fi", select: false },
+    { content: "horror", select: false },
+    { content: "mystery", select: false },
+    { content: "thriller", select: false },
+    { content: "psychologie", select: false },
+    { content: "inspiration", select: false },
+    { content: "comedy", select: false },
+    { content: "action", select: false },
+    { content: "aventure", select: false },
+    { content: "comics", select: false },
+    { content: "children's", select: false },
+    { content: "manga", select: false },
+    { content: "art et photographie", select: false },
+    { content: "biographie", select: false },
+  ]);
+  const onPress = (current) => {
+    setCategories((state) => {
+      return state.map((item, index) => {
+        if (current == index) return { ...item, select: !item.select };
+        return { ...item };
+      });
+    });
+  };
   return (
     <View style={styles.container}>
       <AuthForm
@@ -38,13 +64,24 @@ const Category = ({ navigation }) => {
             <Text>sélectionner le sexe pour un meilleur contenu</Text>
             <View
               style={{
-                backgroundColor: "red",
                 paddingVertical: 15,
-                height: 50,
                 width: "100%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "flex-start",
                 marginTop: 10,
               }}
-            ></View>
+            >
+              {categories.map(({ content, select }, index) => (
+                <CardAuthCategory
+                  content={content}
+                  onPress={onPress}
+                  select={select}
+                  index={index}
+                  key={index}
+                />
+              ))}
+            </View>
           </View>
           <View
             style={{
