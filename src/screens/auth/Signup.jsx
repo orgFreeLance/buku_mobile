@@ -1,7 +1,6 @@
 import { Input, StatusBar, View, useToast } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import CTAContainer from "../../componenents/organisms/CTAContainer";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import theme from "../../constants/theme";
 import { submitForm } from "../../utils/sbmitAuth";

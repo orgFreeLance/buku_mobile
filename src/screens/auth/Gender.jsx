@@ -1,4 +1,4 @@
-import { Input, StatusBar, View, Text } from "native-base";
+import { Input, Radio, View, Text } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -33,13 +33,25 @@ const Gender = ({ navigation }) => {
             <Text>sélectionner le sexe pour un meilleur contenu</Text>
             <View
               style={{
-                backgroundColor: "red",
                 paddingVertical: 15,
-                height: 50,
                 width: "100%",
                 marginTop: 10,
               }}
-            ></View>
+            >
+              <Radio.Group
+                defaultValue="M"
+                name="Gender"
+                space={5}
+                accessibilityLabel="Choisi ton genre"
+              >
+                <Radio value="M" my={1}>
+                  Homme
+                </Radio>
+                <Radio value="F" my={1}>
+                  Femme
+                </Radio>
+              </Radio.Group>
+            </View>
           </View>
           <ButtonMain
             content="continue"
