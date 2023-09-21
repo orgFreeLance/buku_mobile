@@ -24,7 +24,7 @@ const Category = ({ navigation }) => {
       <AuthForm
         title={"Choisissez le genre de livre que vous aimez "}
         navigation={navigation}
-        progress={0.6}
+        progress={60}
       >
         <View
           style={{

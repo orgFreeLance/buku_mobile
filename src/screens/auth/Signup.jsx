@@ -32,6 +32,7 @@ const Signup = ({ navigation }) => {
         title={"Informations du candidat"}
         navigation={navigation}
         userExist={true}
+        progress={100}
       >
         <Input
           onChangeText={(value) => {

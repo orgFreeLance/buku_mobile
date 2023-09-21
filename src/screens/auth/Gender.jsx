@@ -20,7 +20,11 @@ const Gender = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AuthForm title={"Quel est ton genre ?"} navigation={navigation}>
+      <AuthForm
+        title={"Quel est ton genre ?"}
+        progress={20}
+        navigation={navigation}
+      >
         <View
           style={{
             flex: 1,

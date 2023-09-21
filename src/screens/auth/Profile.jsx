@@ -24,7 +24,7 @@ const Profile = ({ navigation }) => {
       <AuthForm
         title={"Complete ton profile "}
         navigation={navigation}
-        progress={0.6}
+        progress={80}
       >
         <View
           style={{

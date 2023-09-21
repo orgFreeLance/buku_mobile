@@ -7,19 +7,14 @@ import {
   StatusBar,
   View,
   Pressable,
+  Progress,
 } from "native-base";
 import { ProgressBarAndroid } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { height, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 
-const AuthForm = ({
-  navigation,
-  children,
-  title,
-  userExist,
-  progress = 0.2,
-}) => {
+const AuthForm = ({ navigation, children, title, progress = 20 }) => {
   const goBack = () => {
     navigation.goBack();
   };
@@ -46,11 +41,11 @@ const AuthForm = ({
               <Feather name="arrow-left" size={24} color="black" />
             </Text>
           </Pressable>
-          <ProgressBarAndroid
+          <Progress
             styleAttr="Horizontal"
             indeterminate={false}
             style={{ width: 180, borderRadius: 5 }}
-            progress={progress}
+            value={progress}
           />
           <Text></Text>
         </View>

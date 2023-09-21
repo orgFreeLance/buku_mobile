@@ -1,4 +1,4 @@
-import { View, Text } from "native-base";
+import { View, Text, Radio } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -6,7 +6,6 @@ import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
-import Category from "./Category";
 import goTo from "../../utils/goTo";
 
 const Age = ({ navigation }) => {
@@ -24,7 +23,7 @@ const Age = ({ navigation }) => {
       <AuthForm
         title={"Choisissez votre âge "}
         navigation={navigation}
-        progress={0.4}
+        progress={40}
       >
         <View
           style={{
@@ -38,13 +37,26 @@ const Age = ({ navigation }) => {
             <Text>Sélectionnez une tranche d'âge pour un meilleur contenu</Text>
             <View
               style={{
-                backgroundColor: "red",
                 paddingVertical: 15,
                 height: 50,
                 width: "100%",
                 marginTop: 10,
               }}
-            ></View>
+            >
+              <Radio.Group
+                defaultValue="M"
+                name="Gender"
+                space={4}
+                accessibilityLabel="Choisi ton genre"
+              >
+                <Radio value="M" my={1}>
+                  Homme
+                </Radio>
+                <Radio value="F" my={1}>
+                  Femme
+                </Radio>
+              </Radio.Group>
+            </View>
           </View>
           <ButtonMain
             content="continue"
