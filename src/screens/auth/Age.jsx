@@ -7,16 +7,34 @@ import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
+import CardAge from "../../components/global/card/age";
 
 const Age = ({ navigation }) => {
   const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsloading] = useState(false);
   const [logUser, isAuth] = userStore(
     (state) => [state.logUser, state.isAuth],
     shallow
   );
+  const [ages, setAges] = useState([
+    { content: "0 - 10", select: true },
+    { content: "11 - 13", select: false },
+    { content: "14 - 17", select: false },
+    { content: "18 - 24", select: false },
+    { content: "25 - 29", select: false },
+    { content: "30 - 34", select: false },
+    { content: "35 - 39", select: false },
+    { content: "40 - 44", select: false },
+    { content: "45 - 49", select: false },
+    { content: ">= 50", select: false },
+  ]);
+  const onPress = (current) => {
+    setAges((state) => {
+      return state.map((item, index) => {
+        if (current == index) return { ...item, select: true };
+        return { ...item, select: false };
+      });
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -43,19 +61,24 @@ const Age = ({ navigation }) => {
                 marginTop: 10,
               }}
             >
-              <Radio.Group
-                defaultValue="M"
-                name="Gender"
-                space={4}
-                accessibilityLabel="Choisi ton genre"
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                }}
               >
-                <Radio value="M" my={1}>
-                  Homme
-                </Radio>
-                <Radio value="F" my={1}>
-                  Femme
-                </Radio>
-              </Radio.Group>
+                {ages.map(({ content, select }, index) => (
+                  <CardAge
+                    content={content}
+                    onPress={onPress}
+                    select={select}
+                    index={index}
+                    key={index}
+                  />
+                ))}
+              </View>
             </View>
           </View>
           <ButtonMain

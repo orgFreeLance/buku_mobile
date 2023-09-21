@@ -1,4 +1,4 @@
-import { Input, StatusBar, View } from "native-base"; 
+import { Input, StatusBar, View } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import CTAContainer from "../../componenents/organisms/CTAContainer";
@@ -21,9 +21,12 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AuthForm title={"Connexion"} navigation={navigation} userExist={false}>
-        
-      </AuthForm>
+      <AuthForm
+        title={"Connexion"}
+        progress={100}
+        navigation={navigation}
+        userExist={false}
+      ></AuthForm>
     </View>
   );
 };
