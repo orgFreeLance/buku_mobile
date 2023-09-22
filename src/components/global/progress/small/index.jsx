@@ -36,7 +36,7 @@ export default function ProgressSmall({ current = 0 }) {
                 height: 5,
                 borderRadius: 10,
                 marginRight: 5,
-                opacity: 0.4,
+                opacity: 0.2,
                 backgroundColor: "grey",
               }}
             ></View>
