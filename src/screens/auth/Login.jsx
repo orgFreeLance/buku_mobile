@@ -1,32 +1,94 @@
-import { Input, StatusBar, View } from "native-base";
+import {
+  Text,
+  FormControl,
+  Input,
+  Stack,
+  StatusBar,
+  View,
+  useToast,
+} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import CTAContainer from "../../componenents/organisms/CTAContainer";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
-import { useToast } from "native-base";
-import { submitForm } from "../../utils/sbmitAuth";
+import userStore from "../../store/user";
+import ButtonMain from "../../components/global/button/main";
+import goTo from "../../utils/goTo";
 
 const Login = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [isLoading, setIsloading] = useState(false);
-  const [logUser, isAuth] = userStore(
-    (state) => [state.logUser, state.isAuth],
+  //Add Inputs elements here
+  const [signupUser, isAuth] = userStore(
+    (state) => [state.signupUser, state.isAuth],
     shallow
   );
 
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Connexion"}
-        progress={100}
+        title={"Bonjour à tous"}
         navigation={navigation}
-        userExist={false}
-      ></AuthForm>
+        userExist={true}
+        progress={100}
+      >
+        <View
+          style={{
+            flex: 1,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ width: "100%", flex: 1 }}>
+            <Text>
+              Veuillez saisir votre numéro de téléphone et votre mot de passe
+              pour vous connecter.
+            </Text>
+            <View
+              style={{
+                paddingVertical: 15,
+                width: "100%",
+                marginTop: 10,
+              }}
+            >
+              <FormControl isRequired>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Nom complet</FormControl.Label>
+                  <Input
+                    style={{ paddingHorizontal: 10 }}
+                    type="text"
+                    placeholder="Nom complet"
+                  />
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Numero de téléphone</FormControl.Label>
+                  <Input placeholder="Numero de téléphone" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 10 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 10 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+              </FormControl>
+            </View>
+          </View>
+          <ButtonMain
+            content="continue"
+            onPress={() => {
+              goTo(navigation, "Signup");
+            }}
+          />
+        </View>
+      </AuthForm>
     </View>
   );
 };

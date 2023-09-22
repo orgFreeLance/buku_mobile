@@ -13,6 +13,8 @@ import AuthForm from "../../componenents/organisms/AuthForm";
 import theme from "../../constants/theme";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
+import ButtonMain from "../../components/global/button/main";
+import goTo from "../../utils/goTo";
 
 const Signup = ({ navigation }) => {
   const toast = useToast();
@@ -31,10 +33,6 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barsTyle={"light-content"}
-        backgroundColor={theme.colors.brand.main}
-      />
       <AuthForm
         title={"Créer un compte"}
         navigation={navigation}
@@ -49,7 +47,7 @@ const Signup = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <View style={{ width: "100%", flex: 1, paddingBottom: 20 }}>
+          <View style={{ width: "100%", flex: 1 }}>
             <Text>
               Entrez votre nom d'utilisateur et votre mot de passe, si vous les
               avez oubliés. il faut alors faire "mot de passe oublié".
@@ -72,8 +70,29 @@ const Signup = ({ navigation }) => {
                 </Stack>
                 <Stack style={{ marginBottom: 10 }}>
                   <FormControl.Label>Numero de téléphone</FormControl.Label>
-
                   <Input placeholder="Numero de téléphone" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 10 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 10 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Numero de téléphone</FormControl.Label>
+                  <Input placeholder="Numero de téléphone" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 10 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 10 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>
+                    Confirmer le mot de passe
+                  </FormControl.Label>
+                  <Input placeholder="Confirmer le mot de passe" />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
@@ -84,6 +103,12 @@ const Signup = ({ navigation }) => {
               </FormControl>
             </View>
           </View>
+          <ButtonMain
+            content="continue"
+            onPress={() => {
+              goTo(navigation, "Signup");
+            }}
+          />
         </View>
       </AuthForm>
     </View>
