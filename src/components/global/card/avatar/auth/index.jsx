@@ -27,8 +27,11 @@ export default function CardAvatarAuth() {
           flexDirection: "row",
         }}
       >
-        {!selectedImage && <ImageViewer selectedImage={avatar} />}
-        {selectedImage && <ImageViewer selectedImage={selectedImage} />}
+        {selectedImage ? (
+          <ImageViewer selectedImage={selectedImage} />
+        ) : (
+          <ImageViewer selectedImage={avatar} />
+        )}
       </View>
     </Pressable>
   );
@@ -40,8 +43,8 @@ function ImageViewer({ selectedImage }) {
       source={selectedImage}
       size={100}
       style={{
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 120,
         borderRadius: 100,
         borderColor: theme.colors.brand.secondary,
         borderWidth: 2,
