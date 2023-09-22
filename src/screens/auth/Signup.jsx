@@ -1,36 +1,25 @@
-import {
-  Text,
-  FormControl,
-  Input,
-  Stack,
-  StatusBar,
-  View,
-  useToast,
-} from "native-base";
+import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
-import theme from "../../constants/theme";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
+import Example from "../../components/global/modal/notification";
+import ModalContainer from "../../components/global/modal/notification";
 
 const Signup = ({ navigation }) => {
   const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsloading] = useState(false);
+  const [modal, setModal] = useState(false);
   //Add Inputs elements here
   const [signupUser, isAuth] = userStore(
     (state) => [state.signupUser, state.isAuth],
     shallow
   );
-
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
     <View style={styles.container}>
       <AuthForm
@@ -98,10 +87,21 @@ const Signup = ({ navigation }) => {
               </FormControl>
             </View>
           </View>
+          <ModalContainer
+            modal={modal}
+            children={
+              <>
+                <View
+                  style={{ width: "100%", height: 200, backgroundColor: "red" }}
+                ></View>
+              </>
+            }
+            closeModal={setModal}
+          />
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "Signup");
+              setModal(true);
             }}
           />
         </View>
