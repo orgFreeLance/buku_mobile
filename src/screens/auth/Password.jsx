@@ -1,12 +1,22 @@
-import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
+import {
+  Text,
+  FormControl,
+  Input,
+  Stack,
+  View,
+  useToast,
+  Image,
+} from "native-base";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+import ModalContainer from "../../components/global/modal/notification";
+const signup_bg = require("../../../assets/notifications/password.png");
 
 const Password = ({ navigation }) => {
   const toast = useToast();
@@ -18,11 +28,15 @@ const Password = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsloading] = useState(false);
   //Add Inputs elements here
+  const [modal, setModal] = useState(false);
+  //Add Inputs elements here
   const [signupUser, isAuth] = userStore(
     (state) => [state.signupUser, state.isAuth],
     shallow
   );
-
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
     <View style={styles.container}>
       <AuthForm
@@ -78,10 +92,63 @@ const Password = ({ navigation }) => {
               </FormControl>
             </View>
           </View>
+          <ModalContainer
+            modal={modal}
+            children={
+              <>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <ImageViewer selectedImage={signup_bg} />
+                  <Text
+                    style={{
+                      fontSize: 32,
+                      fontWeight: "600",
+                      paddingVertical: 10,
+                      color: theme.colors.brand.secondary,
+                      textAlign: "center",
+                      lineHeight: 30,
+                    }}
+                  >
+                    Réinitialisation du mot de passe réussie
+                  </Text>
+                  <Text
+                    style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                  >
+                    votre mot de passe a été modifié avec succès
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignContent: "center",
+                      justifyContent: "center",
+                      width: "100%",
+                      flexWrap: "wrap",
+                      marginTop: 15,
+                    }}
+                  >
+                    <ButtonMain
+                      content="Aller à l'accueil"
+                      onPress={() => {
+                        setModal(true);
+                      }}
+                    />
+                  </View>
+                </View>
+              </>
+            }
+            closeModal={setModal}
+          />
           <ButtonMain
-            content="Connecte toi"
+            content="continue"
             onPress={() => {
-              goTo(navigation, "Home");
+              setModal(true);
             }}
           />
         </View>
@@ -91,7 +158,18 @@ const Password = ({ navigation }) => {
 };
 
 export default Password;
-
+function ImageViewer({ selectedImage }) {
+  return (
+    <Image
+      source={selectedImage}
+      size={200}
+      style={{
+        width: 200,
+      }}
+      alt="image background"
+    />
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
