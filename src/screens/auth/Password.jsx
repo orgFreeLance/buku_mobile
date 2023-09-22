@@ -1,12 +1,4 @@
-import {
-  Text,
-  FormControl,
-  Input,
-  Stack,
-  StatusBar,
-  View,
-  useToast,
-} from "native-base";
+import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -14,8 +6,9 @@ import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
+import theme from "../../constants/theme";
 
-const Forgot = ({ navigation }) => {
+const Password = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -33,10 +26,10 @@ const Forgot = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Mot de passe oublié"}
+        title={"Crée un nouveau mot de passe"}
         navigation={navigation}
         userExist={true}
-        progress={33}
+        progress={100}
       >
         <View
           style={{
@@ -44,12 +37,13 @@ const Forgot = ({ navigation }) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
+            paddingBottom: 10,
           }}
         >
           <View style={{ width: "100%", flex: 1 }}>
             <Text>
-              Entrez votre numéro de téléphone, nous vous enverrons un code OTP
-              pour la vérification à l'étape suivante.
+              Entrez votre nouveau mot de passe si vous l'avez oublié. alors tu
+              dois faire mot de passe oublié.
             </Text>
             <View
               style={{
@@ -60,26 +54,34 @@ const Forgot = ({ navigation }) => {
             >
               <FormControl isRequired>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="text"
-                    placeholder="Numero de téléphone"
-                  />
+                  <FormControl.Label>Mot de passe</FormControl.Label>
+                  <Input type="password" placeholder="Mot de passe" />
                   <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
+                    Doit comporter au moins 7 caractères.
                   </FormControl.HelperText>
                   <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
+                    Au moins 7 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>
+                    Confirmer le Mot de passe
+                  </FormControl.Label>
+                  <Input type="password" placeholder="Mot de passe" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 7 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 7 caractères sont requis.
                   </FormControl.ErrorMessage>
                 </Stack>
               </FormControl>
             </View>
           </View>
           <ButtonMain
-            content="continue"
+            content="Connecte toi"
             onPress={() => {
-              goTo(navigation, "CodeOtp");
+              goTo(navigation, "Home");
             }}
           />
         </View>
@@ -88,7 +90,7 @@ const Forgot = ({ navigation }) => {
   );
 };
 
-export default Forgot;
+export default Password;
 
 const styles = StyleSheet.create({
   container: {

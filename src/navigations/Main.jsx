@@ -12,6 +12,7 @@ import Category from "../screens/auth/Category";
 import Profile from "../screens/auth/Profile";
 import Forgot from "../screens/auth/Forgot";
 import CodeOtp from "../screens/auth/CodeOtp";
+import Password from "../screens/auth/Password";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ const MainNavigation = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Forgot" component={Forgot} />
           <Stack.Screen name="CodeOtp" component={CodeOtp} />
+          <Stack.Screen name="Password" component={Password} />
         </Stack.Group>
       ) : (
         <Stack.Group>

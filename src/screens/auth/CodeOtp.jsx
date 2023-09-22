@@ -28,7 +28,7 @@ const CodeOtp = ({ navigation }) => {
         title={"Il y a un sms pour vous"}
         navigation={navigation}
         userExist={true}
-        progress={25}
+        progress={66}
       >
         <View
           style={{
@@ -95,7 +95,7 @@ const CodeOtp = ({ navigation }) => {
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "Home");
+              goTo(navigation, "Password");
             }}
           />
         </View>
