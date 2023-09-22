@@ -1,4 +1,12 @@
-import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
+import {
+  Text,
+  FormControl,
+  Input,
+  Stack,
+  StatusBar,
+  View,
+  useToast,
+} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -6,9 +14,8 @@ import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
-import theme from "../../constants/theme";
 
-const Login = ({ navigation }) => {
+const Forgot = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +33,10 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Bonjour à tous"}
+        title={"Mot de passe oublié"}
         navigation={navigation}
         userExist={true}
-        progress={100}
+        progress={33}
       >
         <View
           style={{
@@ -41,8 +48,8 @@ const Login = ({ navigation }) => {
         >
           <View style={{ width: "100%", flex: 1 }}>
             <Text>
-              Veuillez saisir votre numéro de téléphone et votre mot de passe
-              pour vous connecter.
+              Entrez votre numéro de téléphone, nous vous enverrons un code OTP
+              pour la vérification à l'étape suivante.
             </Text>
             <View
               style={{
@@ -66,45 +73,13 @@ const Login = ({ navigation }) => {
                     Au moins 10 caractères sont requis.
                   </FormControl.ErrorMessage>
                 </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Mot de passe</FormControl.Label>
-                  <Input type="password" placeholder="Mot de passe" />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 7 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 7 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
               </FormControl>
-              <View
-                style={{
-                  marginTop: 20,
-                  width: "100%",
-                  height: 100,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: "600",
-                    textAlign: "center",
-                    paddingTop: 25,
-                    color: theme.colors.brand.secondary,
-                  }}
-                  onPress={() => {
-                    goTo(navigation, "Forgot");
-                  }}
-                >
-                  Mot de passe oublié
-                </Text>
-              </View>
             </View>
           </View>
           <ButtonMain
-            content="Connecte toi"
+            content="continue"
             onPress={() => {
-              goTo(navigation, "Home");
+              goTo(navigation, "CodeOtp");
             }}
           />
         </View>
@@ -113,7 +88,7 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default Forgot;
 
 const styles = StyleSheet.create({
   container: {

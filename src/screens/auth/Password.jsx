@@ -8,17 +8,26 @@ import {
   Image,
 } from "native-base";
 import React, { useState } from "react";
-import { StyleSheet, ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
-import ModalContainer from "../../components/global/modal/notification";
-const signup_bg = require("../../../assets/notifications/signup.png");
 import theme from "../../constants/theme";
-const Signup = ({ navigation }) => {
+import ModalContainer from "../../components/global/modal/notification";
+const signup_bg = require("../../../assets/notifications/password.png");
+
+const Password = ({ navigation }) => {
   const toast = useToast();
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsloading] = useState(false);
+  //Add Inputs elements here
   const [modal, setModal] = useState(false);
   //Add Inputs elements here
   const [signupUser, isAuth] = userStore(
@@ -31,7 +40,7 @@ const Signup = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Crée ton compte"}
+        title={"Crée un nouveau mot de passe"}
         navigation={navigation}
         userExist={true}
         progress={100}
@@ -42,12 +51,13 @@ const Signup = ({ navigation }) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
+            paddingBottom: 10,
           }}
         >
           <View style={{ width: "100%", flex: 1 }}>
             <Text>
-              Entrez votre nom d'utilisateur et votre mot de passe, si vous les
-              avez oubliés. il faut alors faire "mot de passe oublié".
+              Entrez votre nouveau mot de passe si vous l'avez oublié. alors tu
+              dois faire mot de passe oublié.
             </Text>
             <View
               style={{
@@ -58,38 +68,25 @@ const Signup = ({ navigation }) => {
             >
               <FormControl isRequired>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Pseudo</FormControl.Label>
-                  <Input placeholder="Pseudo" />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
                   <FormControl.Label>Mot de passe</FormControl.Label>
                   <Input type="password" placeholder="Mot de passe" />
                   <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
+                    Doit comporter au moins 7 caractères.
                   </FormControl.HelperText>
                   <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
+                    Au moins 7 caractères sont requis.
                   </FormControl.ErrorMessage>
                 </Stack>
                 <Stack style={{ marginBottom: 10 }}>
                   <FormControl.Label>
-                    Confirmer le mot de passe
+                    Confirmer le Mot de passe
                   </FormControl.Label>
-                  <Input
-                    type="password"
-                    placeholder="Confirmer le mot de passe"
-                  />
+                  <Input type="password" placeholder="Mot de passe" />
                   <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
+                    Doit comporter au moins 7 caractères.
                   </FormControl.HelperText>
                   <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
+                    Au moins 7 caractères sont requis.
                   </FormControl.ErrorMessage>
                 </Stack>
               </FormControl>
@@ -115,15 +112,16 @@ const Signup = ({ navigation }) => {
                       fontWeight: "600",
                       paddingVertical: 10,
                       color: theme.colors.brand.secondary,
+                      textAlign: "center",
+                      lineHeight: 30,
                     }}
                   >
-                    Inscription réussie
+                    Réinitialisation du mot de passe réussie
                   </Text>
                   <Text
                     style={{ width: "80%", textAlign: "center", fontSize: 14 }}
                   >
-                    votre compte a été créé. veuillez patienter un instant. nous
-                    nous préparons à vous accueillir.
+                    votre mot de passe a été modifié avec succès
                   </Text>
                   <View
                     style={{
@@ -135,18 +133,19 @@ const Signup = ({ navigation }) => {
                       marginTop: 15,
                     }}
                   >
-                    <ActivityIndicator
-                      size="large"
-                      color={theme.colors.brand.secondary}
+                    <ButtonMain
+                      content="Aller à l'accueil"
+                      onPress={() => {
+                        goTo(navigation, "Login");
+                      }}
                     />
                   </View>
                 </View>
               </>
             }
-            closeModal={setModal}
           />
           <ButtonMain
-            content="Inscrivez-vous"
+            content="continue"
             onPress={() => {
               setModal(true);
             }}
@@ -157,7 +156,7 @@ const Signup = ({ navigation }) => {
   );
 };
 
-export default Signup;
+export default Password;
 function ImageViewer({ selectedImage }) {
   return (
     <Image

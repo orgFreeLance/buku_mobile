@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { View, Text } from "native-base";
+import { FontAwesome } from "@expo/vector-icons";
 import { Image, Pressable } from "react-native";
 import avatar from "../../../../../../assets/avatar.jpeg";
 import theme from "../../../../../constants/theme";
@@ -28,9 +29,43 @@ export default function CardAvatarAuth() {
         }}
       >
         {selectedImage ? (
-          <ImageViewer selectedImage={selectedImage} />
+          <View style={{ position: "relative" }}>
+            <View
+              style={{
+                position: "absolute",
+                zIndex: 50,
+                bottom: 8,
+                right: 8,
+                padding: 3,
+                alignContent: "center",
+                justifyContent: "center",
+                backgroundColor: theme.colors.brand.secondary,
+                borderRadius: 5,
+              }}
+            >
+              <FontAwesome name="edit" size={14} color="white" />
+            </View>
+            <ImageViewer selectedImage={selectedImage} />
+          </View>
         ) : (
-          <ImageViewer selectedImage={avatar} />
+          <View style={{ position: "relative" }}>
+            <View
+              style={{
+                position: "absolute",
+                zIndex: 50,
+                bottom: 10,
+                right: 10,
+                padding: 4,
+                alignContent: "center",
+                justifyContent: "center",
+                backgroundColor: theme.colors.brand.secondary,
+                borderRadius: 5,
+              }}
+            >
+              <FontAwesome name="edit" size={16} color="white" />
+            </View>
+            <ImageViewer selectedImage={avatar} />
+          </View>
         )}
       </View>
     </Pressable>
