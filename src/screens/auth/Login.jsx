@@ -1,12 +1,4 @@
-import {
-  Text,
-  FormControl,
-  Input,
-  Stack,
-  StatusBar,
-  View,
-  useToast,
-} from "native-base";
+import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -87,19 +79,17 @@ const Login = ({ navigation }) => {
               </FormControl>
               <View
                 style={{
-                  marginTop: 10,
+                  marginTop: 20,
                   width: "100%",
                   height: 100,
-                  borderTopWidth: 1,
-                  borderColor: "gray",
                 }}
               >
                 <Text
                   style={{
-                    fontSize: 24,
-                    fontWeight: "bold",
+                    fontSize: 16,
+                    fontWeight: "600",
                     textAlign: "center",
-                    paddingTop: 15,
+                    paddingTop: 25,
                     color: theme.colors.brand.secondary,
                   }}
                   onPress={() => {

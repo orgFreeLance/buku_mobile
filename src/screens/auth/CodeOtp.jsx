@@ -1,12 +1,4 @@
-import {
-  Text,
-  FormControl,
-  Input,
-  Stack,
-  StatusBar,
-  View,
-  useToast,
-} from "native-base";
+import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -15,7 +7,7 @@ import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 
-const Forgot = ({ navigation }) => {
+const CodeOtp = ({ navigation }) => {
   const toast = useToast();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +25,7 @@ const Forgot = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Mot de passe oublié"}
+        title={"Il y a un sms pour vous"}
         navigation={navigation}
         userExist={true}
         progress={25}
@@ -48,8 +40,8 @@ const Forgot = ({ navigation }) => {
         >
           <View style={{ width: "100%", flex: 1 }}>
             <Text>
-              Entrez votre numéro de téléphone, nous vous enverrons un code OTP
-              pour la vérification à l'étape suivante.
+              Nous avons envoyé le code de vérification OTP à votre numéro de
+              téléphone et entrez le code ci-dessous.
             </Text>
             <View
               style={{
@@ -58,20 +50,44 @@ const Forgot = ({ navigation }) => {
                 marginTop: 10,
               }}
             >
-              <FormControl isRequired>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="text"
-                    placeholder="Numero de téléphone"
-                  />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
+              <FormControl
+                isRequired
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Stack
+                  style={{
+                    width: 50,
+                    marginBottom: 10,
+                  }}
+                >
+                  <Input type="text" defaultValue="0" />
+                </Stack>
+                <Stack
+                  style={{
+                    width: 50,
+                    marginBottom: 10,
+                  }}
+                >
+                  <Input type="text" defaultValue="0" />
+                </Stack>
+                <Stack
+                  style={{
+                    width: 50,
+                    marginBottom: 10,
+                  }}
+                >
+                  <Input type="text" defaultValue="0" />
+                </Stack>
+                <Stack
+                  style={{
+                    width: 50,
+                    marginBottom: 10,
+                  }}
+                >
+                  <Input type="text" defaultValue="0" />
                 </Stack>
               </FormControl>
             </View>
@@ -79,7 +95,7 @@ const Forgot = ({ navigation }) => {
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "CodeOtp");
+              goTo(navigation, "Home");
             }}
           />
         </View>
@@ -88,7 +104,7 @@ const Forgot = ({ navigation }) => {
   );
 };
 
-export default Forgot;
+export default CodeOtp;
 
 const styles = StyleSheet.create({
   container: {
