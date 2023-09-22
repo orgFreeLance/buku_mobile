@@ -7,7 +7,9 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
+  Pressable,
 } from "native-base";
+import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -15,15 +17,32 @@ import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
-import ButtonSecondary from "../../components/global/button/secondary";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import goTo from "../../utils/goTo";
+import theme from "../../constants/theme";
 import CardAvatarAuth from "../../components/global/card/avatar/auth";
 
 const Profile = ({ navigation }) => {
   const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsloading] = useState(false);
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
   const [logUser, isAuth] = userStore(
     (state) => [state.logUser, state.isAuth],
     shallow
@@ -78,12 +97,33 @@ const Profile = ({ navigation }) => {
                   </FormControl.ErrorMessage>
                 </Stack>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Date de naissance</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="date"
-                    placeholder="Date de naissance"
-                  />
+                  <Pressable onPress={showDatepicker}>
+                    <FormControl.Label>Date de naissance</FormControl.Label>
+                    <Input
+                      placeholder="Date de naissance"
+                      value={date.toDateString()}
+                      InputRightElement={
+                        <>
+                          <FontAwesome
+                            name="calendar"
+                            size={16}
+                            style={{ margin: 5 }}
+                            color={theme.colors.brand.secondary}
+                            onPress={showDatepicker}
+                          />
+                        </>
+                      }
+                    />
+                  </Pressable>
+                  {show && (
+                    <DateTimePicker
+                      testID="dateTimePicker"
+                      value={date}
+                      mode={mode}
+                      is24Hour={true}
+                      onChange={onChange}
+                    />
+                  )}
                   <FormControl.ErrorMessage>
                     Au moins 10 caractères sont requis.
                   </FormControl.ErrorMessage>
