@@ -8,7 +8,7 @@ import {
   Image,
 } from "native-base";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
@@ -125,13 +125,28 @@ const Signup = ({ navigation }) => {
                     votre compte a été créé. veuillez patienter un instant. nous
                     nous préparons à vous accueillir.
                   </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignContent: "center",
+                      justifyContent: "center",
+                      width: "100%",
+                      flexWrap: "wrap",
+                      marginTop: 15,
+                    }}
+                  >
+                    <ActivityIndicator
+                      size="large"
+                      color={theme.colors.brand.secondary}
+                    />
+                  </View>
                 </View>
               </>
             }
             closeModal={setModal}
           />
           <ButtonMain
-            content="continue"
+            content="Inscrivez-vous"
             onPress={() => {
               setModal(true);
             }}

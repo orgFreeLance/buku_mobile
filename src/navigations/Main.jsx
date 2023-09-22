@@ -10,6 +10,7 @@ import Gender from "../screens/auth/Gender";
 import Age from "../screens/auth/Age";
 import Category from "../screens/auth/Category";
 import Profile from "../screens/auth/Profile";
+import Forgot from "../screens/auth/Forgot";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ const MainNavigation = () => {
           <Stack.Screen name="Category" component={Category} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Forgot" component={Forgot} />
         </Stack.Group>
       ) : (
         <Stack.Group>
