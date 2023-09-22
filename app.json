@@ -29,6 +29,7 @@
         "projectId": "517e4468-4db2-4ccc-acf6-638a340f6a3b"
       }
     },
-    "owner": "jeereq minganda"
+    "owner": "jeereq minganda",
+    "plugins": ["expo-document-picker"]
   }
 }

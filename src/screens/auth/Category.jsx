@@ -61,7 +61,10 @@ const Category = ({ navigation }) => {
           }}
         >
           <View style={{ width: "100%", paddingBottom: 20 }}>
-            <Text>sélectionnez votre genre de livre préféré pour de meilleures recommandations</Text>
+            <Text>
+              sélectionnez votre genre de livre préféré pour de meilleures
+              recommandations
+            </Text>
             <View
               style={{
                 paddingVertical: 15,
