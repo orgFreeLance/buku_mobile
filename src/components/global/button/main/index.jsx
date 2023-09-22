@@ -1,10 +1,13 @@
-import { Text } from "native-base";
+import { Button } from "native-base";
 import theme from "../../../../constants/theme";
 
 export default function ButtonMain({ content = "Commencer", onPress }) {
   return (
     <>
-      <Text
+      <Button
+        _focus={{
+          backgroundColor: theme.colors.brand.main,
+        }}
         onPress={onPress}
         style={{
           width: "95%",
@@ -18,9 +21,10 @@ export default function ButtonMain({ content = "Commencer", onPress }) {
           paddingVertical: 13,
           marginTop: 10,
         }}
+        _
       >
         {content}
-      </Text>
+      </Button>
     </>
   );
 }
