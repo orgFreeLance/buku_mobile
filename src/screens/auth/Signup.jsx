@@ -1,4 +1,12 @@
-import { Input, StatusBar, View, useToast } from "native-base";
+import {
+  Text,
+  FormControl,
+  Input,
+  Stack,
+  StatusBar,
+  View,
+  useToast,
+} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -28,77 +36,55 @@ const Signup = ({ navigation }) => {
         backgroundColor={theme.colors.brand.main}
       />
       <AuthForm
-        title={"Informations du candidat"}
+        title={"Créer un compte"}
         navigation={navigation}
         userExist={true}
         progress={100}
       >
-        <Input
-          onChangeText={(value) => {
-            setFirstName(value);
+        <View
+          style={{
+            flex: 1,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Prénom*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setLastName(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Nom*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPhone(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="Phone*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setEmail(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="text"
-          variant="filled"
-          size="md"
-          placeholder="E-mail*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPassword(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="password"
-          variant="filled"
-          size="md"
-          placeholder="Mot de passe*"
-          isRequired
-        />
-        <Input
-          onChangeText={(value) => {
-            setPasswordConfirm(value);
-          }}
-          backgroundColor={theme.colors.brand[500]}
-          type="password"
-          variant="filled"
-          size="md"
-          placeholder="Confirmer Mot de passe*"
-          isRequired
-        />
+        >
+          <View style={{ width: "100%", flex: 1, paddingBottom: 20 }}>
+            <Text>
+              Entrez votre nom d'utilisateur et votre mot de passe, si vous les
+              avez oubliés. il faut alors faire "mot de passe oublié".
+            </Text>
+            <View
+              style={{
+                paddingVertical: 15,
+                width: "100%",
+                marginTop: 10,
+              }}
+            >
+              <FormControl isRequired>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Nom complet</FormControl.Label>
+                  <Input
+                    style={{ paddingHorizontal: 10 }}
+                    type="text"
+                    placeholder="Nom complet"
+                  />
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Numero de téléphone</FormControl.Label>
+
+                  <Input placeholder="Numero de téléphone" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 10 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 10 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+              </FormControl>
+            </View>
+          </View>
+        </View>
       </AuthForm>
     </View>
   );

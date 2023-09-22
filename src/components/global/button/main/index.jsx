@@ -16,7 +16,7 @@ export default function ButtonMain({ content = "Commencer", onPress }) {
           borderRadius: 20,
           paddingHorizontal: 10,
           paddingVertical: 13,
-          marginBottom: 10,
+          marginTop: 10,
         }}
       >
         {content}

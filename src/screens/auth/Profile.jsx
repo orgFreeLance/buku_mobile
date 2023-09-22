@@ -59,11 +59,18 @@ const Profile = ({ navigation }) => {
           style={{
             flex: 1,
             width: "100%",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <View style={{ width: "100%", paddingBottom: 20 }}>
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              paddingBottom: 20,
+            }}
+          >
             <Text>
               Ne vous inquiétez pas, vous êtes le seul à pouvoir consulter vos
               données personnelles, personne d'autre ne pourra les voir.
@@ -131,7 +138,6 @@ const Profile = ({ navigation }) => {
               </FormControl>
             </View>
           </View>
-
           <ButtonMain
             content="continue"
             onPress={() => {

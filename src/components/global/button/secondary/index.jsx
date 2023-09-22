@@ -18,7 +18,7 @@ export default function ButtonSecondary({ content = "Commencer", onPress }) {
             borderRadius: 20,
             paddingHorizontal: 10,
             paddingVertical: 13,
-            marginBottom: 10,
+            marginTop: 10,
             borderColor: theme.colors.brand.secondary,
             borderWidth: 1,
           }}

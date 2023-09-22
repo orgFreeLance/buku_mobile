@@ -57,10 +57,11 @@ const Category = ({ navigation }) => {
             flex: 1,
             width: "100%",
             alignItems: "center",
+            flexDirection: "column",
             justifyContent: "space-between",
           }}
         >
-          <View style={{ width: "100%", paddingBottom: 20 }}>
+          <View style={{ width: "100%", flex: 1, paddingBottom: 20 }}>
             <Text>
               sélectionnez votre genre de livre préféré pour de meilleures
               recommandations
@@ -91,17 +92,10 @@ const Category = ({ navigation }) => {
               width: "100%",
               justifyContent: "space-between",
               flexDirection: "row",
+              marginBottom: 10,
             }}
           >
-            <View style={{ width: "50%" }}>
-              <ButtonSecondary
-                content="passer"
-                onPress={() => {
-                  goTo(navigation, "Profile");
-                }}
-              />
-            </View>
-            <View style={{ width: "50%" }}>
+            <View style={{ width: "100%" }}>
               <ButtonMain
                 content="continue"
                 onPress={() => {
