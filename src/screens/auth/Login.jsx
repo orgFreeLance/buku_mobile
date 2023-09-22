@@ -61,21 +61,27 @@ const Login = ({ navigation }) => {
             >
               <FormControl isRequired>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Nom complet</FormControl.Label>
+                  <FormControl.Label>Numero de téléphone</FormControl.Label>
                   <Input
                     style={{ paddingHorizontal: 10 }}
                     type="text"
-                    placeholder="Nom complet"
+                    placeholder="Numero de téléphone"
                   />
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input placeholder="Numero de téléphone" />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
                   <FormControl.ErrorMessage>
                     Au moins 10 caractères sont requis.
+                  </FormControl.ErrorMessage>
+                </Stack>
+                <Stack style={{ marginBottom: 10 }}>
+                  <FormControl.Label>Mot de passe</FormControl.Label>
+                  <Input type="password" placeholder="Mot de passe" />
+                  <FormControl.HelperText>
+                    Doit comporter au moins 7 caractères.
+                  </FormControl.HelperText>
+                  <FormControl.ErrorMessage>
+                    Au moins 7 caractères sont requis.
                   </FormControl.ErrorMessage>
                 </Stack>
               </FormControl>

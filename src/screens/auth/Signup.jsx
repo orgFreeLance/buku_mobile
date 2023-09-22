@@ -72,7 +72,7 @@ const Signup = ({ navigation }) => {
                 </Stack>
                 <Stack style={{ marginBottom: 10 }}>
                   <FormControl.Label>Mot de passe</FormControl.Label>
-                  <Input placeholder="Mot de passe" />
+                  <Input type="password" placeholder="Mot de passe" />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
@@ -84,7 +84,10 @@ const Signup = ({ navigation }) => {
                   <FormControl.Label>
                     Confirmer le mot de passe
                   </FormControl.Label>
-                  <Input placeholder="Confirmer le mot de passe" />
+                  <Input
+                    type="password"
+                    placeholder="Confirmer le mot de passe"
+                  />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
