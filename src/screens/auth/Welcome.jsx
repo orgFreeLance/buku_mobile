@@ -74,7 +74,6 @@ const Welecome = ({ navigation }) => {
               Le numéro Un de magasin de livre en
               <Text style={{ fontWeight: "600" }}> Ligne</Text> en
               <Text style={{ fontWeight: "600" }}>
-                {" "}
                 République démocratique du congo
               </Text>
             </Text>
@@ -83,7 +82,7 @@ const Welecome = ({ navigation }) => {
           <ButtonMain
             content="Je créé un compte"
             onPress={() => {
-              goTo(navigation, "Signup");
+              goTo(navigation, "Gender");
             }}
           />
           <ButtonSecondary
