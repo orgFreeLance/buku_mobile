@@ -34,7 +34,7 @@ const Signup = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Créer un compte"}
+        title={"Créer ton compte"}
         navigation={navigation}
         userExist={true}
         progress={100}
@@ -61,16 +61,8 @@ const Signup = ({ navigation }) => {
             >
               <FormControl isRequired>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Nom complet</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="text"
-                    placeholder="Nom complet"
-                  />
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input placeholder="Numero de téléphone" />
+                  <FormControl.Label>Pseudo</FormControl.Label>
+                  <Input placeholder="Pseudo" />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
@@ -79,8 +71,8 @@ const Signup = ({ navigation }) => {
                   </FormControl.ErrorMessage>
                 </Stack>
                 <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input placeholder="Numero de téléphone" />
+                  <FormControl.Label>Mot de passe</FormControl.Label>
+                  <Input placeholder="Mot de passe" />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.
                   </FormControl.HelperText>
