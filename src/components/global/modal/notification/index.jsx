@@ -11,12 +11,14 @@ export default function ModalContainer({
     <>
       <Modal
         isOpen={modal}
-        onClose={() => closeModal()}
+        onClose={closeModal}
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
       >
-        <Modal.Content>
-          <Modal.Body>{children}</Modal.Body>
+        <Modal.Content style={{ backgroundColor: "white" }}>
+          <Modal.Body style={{ width: "100%", justifyContent: "center" }}>
+            {children}
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </>

@@ -1,4 +1,12 @@
-import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
+import {
+  Text,
+  FormControl,
+  Input,
+  Stack,
+  View,
+  useToast,
+  Image,
+} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
@@ -6,9 +14,9 @@ import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
-import Example from "../../components/global/modal/notification";
 import ModalContainer from "../../components/global/modal/notification";
-
+const signup_bg = require("../../../assets/notifications/signup.png");
+import theme from "../../constants/theme";
 const Signup = ({ navigation }) => {
   const toast = useToast();
   const [modal, setModal] = useState(false);
@@ -92,8 +100,32 @@ const Signup = ({ navigation }) => {
             children={
               <>
                 <View
-                  style={{ width: "100%", height: 200, backgroundColor: "red" }}
-                ></View>
+                  style={{
+                    flexDirection: "row",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <ImageViewer selectedImage={signup_bg} />
+                  <Text
+                    style={{
+                      fontSize: 32,
+                      fontWeight: "600",
+                      paddingVertical: 10,
+                      color: theme.colors.brand.secondary,
+                    }}
+                  >
+                    Inscription réussie
+                  </Text>
+                  <Text
+                    style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                  >
+                    votre compte a été créé. veuillez patienter un instant. nous
+                    nous préparons à vous accueillir.
+                  </Text>
+                </View>
               </>
             }
             closeModal={setModal}
@@ -111,7 +143,18 @@ const Signup = ({ navigation }) => {
 };
 
 export default Signup;
-
+function ImageViewer({ selectedImage }) {
+  return (
+    <Image
+      source={selectedImage}
+      size={200}
+      style={{
+        width: 200,
+      }}
+      alt="image background"
+    />
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

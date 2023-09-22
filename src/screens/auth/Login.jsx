@@ -10,7 +10,6 @@ import {
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
-import theme from "../../constants/theme";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
@@ -96,7 +95,7 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <ButtonMain
-            content="continue"
+            content="Connecte toi"
             onPress={() => {
               goTo(navigation, "Home");
             }}
