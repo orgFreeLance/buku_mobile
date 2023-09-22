@@ -1,5 +1,4 @@
 import { Text, Button } from "native-base";
-import { Pressable } from "react-native";
 import theme from "../../../../constants/theme";
 
 export default function ButtonSecondary({ content = "Commencer", onPress }) {
@@ -9,7 +8,6 @@ export default function ButtonSecondary({ content = "Commencer", onPress }) {
         onPress={onPress}
         style={{
           width: "95%",
-          color: theme.colors.brand.secondary,
           textAlign: "center",
           fontWeight: "500",
           fontSize: 18,
@@ -22,7 +20,13 @@ export default function ButtonSecondary({ content = "Commencer", onPress }) {
           borderWidth: 1,
         }}
       >
-        {content}
+        <Text
+          style={{
+            color: theme.colors.brand.secondary,
+          }}
+        >
+          {content}
+        </Text>
       </Button>
     </>
   );

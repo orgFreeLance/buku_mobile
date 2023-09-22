@@ -21,7 +21,6 @@ export default function ButtonMain({ content = "Commencer", onPress }) {
           paddingVertical: 13,
           marginTop: 10,
         }}
-        _
       >
         {content}
       </Button>
