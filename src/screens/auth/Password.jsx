@@ -136,14 +136,13 @@ const Password = ({ navigation }) => {
                     <ButtonMain
                       content="Aller à l'accueil"
                       onPress={() => {
-                        setModal(true);
+                        goTo(navigation, "Login");
                       }}
                     />
                   </View>
                 </View>
               </>
             }
-            closeModal={setModal}
           />
           <ButtonMain
             content="continue"
