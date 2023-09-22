@@ -85,12 +85,20 @@ const Login = ({ navigation }) => {
                   </FormControl.ErrorMessage>
                 </Stack>
               </FormControl>
+              <View
+                style={{
+                  marginTop: 50,
+                  backgroundColor: "red",
+                  width: "100%",
+                  height: 100,
+                }}
+              ></View>
             </View>
           </View>
           <ButtonMain
             content="continue"
             onPress={() => {
-              goTo(navigation, "Signup");
+              goTo(navigation, "Home");
             }}
           />
         </View>

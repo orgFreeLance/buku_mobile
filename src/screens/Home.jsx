@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <StatusBar
-        backgroundColor={theme.colors.brand.main}
+        backgroundColor={theme.colors.brand.secondary}
         barsTyle={"light-content"}
       />
       <Text>Home</Text>

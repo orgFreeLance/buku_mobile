@@ -31,6 +31,7 @@ const MainNavigation = () => {
           <Stack.Screen name="Age" component={Age} />
           <Stack.Screen name="Category" component={Category} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Group>
       ) : (
         <Stack.Group>

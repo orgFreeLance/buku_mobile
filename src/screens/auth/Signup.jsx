@@ -34,7 +34,7 @@ const Signup = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <AuthForm
-        title={"Créer ton compte"}
+        title={"Crée ton compte"}
         navigation={navigation}
         userExist={true}
         progress={100}
