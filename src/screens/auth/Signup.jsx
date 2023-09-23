@@ -90,7 +90,7 @@ const Signup = ({ navigation }) => {
                   </FormControl.HelperText>
                   <FormControl.ErrorMessage>
                     Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
+                  </FormControl.ErrorMessage> 
                 </Stack>
               </FormControl>
             </View>

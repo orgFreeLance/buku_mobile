@@ -71,9 +71,9 @@ const Welecome = ({ navigation }) => {
                 fontWeight: 400,
               }}
             >
-              Le numéro Un de magasin de livre en
-              <Text style={{ fontWeight: "600" }}> Ligne</Text> en
+              Votre bibliotheque de poche, en
               <Text style={{ fontWeight: "600" }}>
+                {" "}
                 République démocratique du congo
               </Text>
             </Text>
