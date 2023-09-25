@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigation from "./src/navigations/Main";
 import { NativeBaseProvider } from "native-base";

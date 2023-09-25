@@ -1,4 +1,4 @@
-import { View, Text, Radio } from "native-base";
+import { View, Text } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
