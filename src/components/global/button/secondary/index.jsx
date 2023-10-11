@@ -1,4 +1,4 @@
-import { Text, Button } from "native-base";
+import { Text } from "native-base";
 import {
   TouchableOpacity,
 } from "react-native"

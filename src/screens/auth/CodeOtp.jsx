@@ -59,35 +59,11 @@ const CodeOtp = ({ navigation }) => {
               >
                 <Stack
                   style={{
-                    width: 50,
+                    width: "100%",
                     marginBottom: 10,
                   }}
                 >
-                  <Input type="text" defaultValue="0" />
-                </Stack>
-                <Stack
-                  style={{
-                    width: 50,
-                    marginBottom: 10,
-                  }}
-                >
-                  <Input type="text" defaultValue="0" />
-                </Stack>
-                <Stack
-                  style={{
-                    width: 50,
-                    marginBottom: 10,
-                  }}
-                >
-                  <Input type="text" defaultValue="0" />
-                </Stack>
-                <Stack
-                  style={{
-                    width: 50,
-                    marginBottom: 10,
-                  }}
-                >
-                  <Input type="text" defaultValue="0" />
+                  <Input type="text" />
                 </Stack>
               </FormControl>
             </View>

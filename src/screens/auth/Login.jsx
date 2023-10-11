@@ -1,6 +1,6 @@
 import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
@@ -77,7 +77,7 @@ const Login = ({ navigation }) => {
                   </FormControl.ErrorMessage>
                 </Stack>
               </FormControl>
-              <View
+              <TouchableOpacity
                 style={{
                   marginTop: 20,
                   width: "100%",
@@ -98,7 +98,7 @@ const Login = ({ navigation }) => {
                 >
                   Mot de passe oublié
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <ButtonMain
