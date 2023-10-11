@@ -1,0 +1,1 @@
+export const TOUCHABLEOPACITY = .45

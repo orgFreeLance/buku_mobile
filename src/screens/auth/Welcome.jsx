@@ -2,9 +2,6 @@ import { StatusBar, View, Box, Text } from "native-base";
 import React, { useState } from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
-import { shallow } from "zustand/shallow";
-import { useToast } from "native-base";
 import { height, width } from "../../constants/nativeSizes";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
@@ -13,12 +10,7 @@ import ProgressSmall from "../../components/global/progress/small";
 const bg = require("../../../assets/welcome/bg.png");
 
 const Welecome = ({ navigation }) => {
-  const toast = useToast();
-  const [logUser, isAuth] = userStore(
-    (state) => [state.logUser, state.isAuth],
-    shallow
-  );
-
+ 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={theme.colors.brand.secondary} />

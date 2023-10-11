@@ -12,6 +12,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { height, screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
+import { TOUCHABLEOPACITY } from "../../constants";
 
 const AuthForm = ({ navigation, children, title, progress = 20 }) => {
   const goBack = () => {
@@ -40,7 +41,7 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity onPress={goBack}>
+          <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={goBack}>
             <Text style={{ fontWeight: "bold" }}>
               <Feather name="arrow-left" size={24} color="black" />
             </Text>

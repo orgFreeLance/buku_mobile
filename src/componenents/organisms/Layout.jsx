@@ -17,7 +17,8 @@ import { TouchableOpacity } from "react-native";
 import goTo from "../../utils/goTo";
 import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
-const bg = require("../../../assets/home/bg.png");
+import { TOUCHABLEOPACITY } from "../../constants";
+const bg = require("../../../assets/white.jpeg");
 const avatar = require("../../../assets/avatar.jpeg");
 
 const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScreen = true, settingScreen = true, payrollScreen = true, fileScreen = true, title = "" }) => {
@@ -43,8 +44,9 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
         flex: 1,
         flexDirection: "column",
       }}
-    ><ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
-      <StatusBar backgroundColor={theme.colors.brand.secondary} />
+    >
+      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+      <StatusBar backgroundColor={"white"} />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
           style={{
@@ -59,7 +61,10 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 {title}
               </Text>
             </View>
-            <TouchableOpacity onPress={() => setModal(true)}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY}
+              onPress={() => setModal(true)}
+            >
               <View style={{ position: "relative" }}>
                 <View style={{
                   overflow: "hidden",
@@ -85,8 +90,6 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
         <View
           backgroundColor={"white"}
           style={{
-            padding: width(2),
-            paddingBottom: 17.5,
             width: "100%",
             flexDirection: "row",
             justifyContent: "center",
@@ -99,48 +102,53 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
             style={{
               paddingHorizontal: width(3),
               paddingVertical: width(2),
-              width: "90%",
+              width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              borderRadius: 50,
               color: "white",
               shadowRadius: 50
             }}
           >
-            <TouchableOpacity onPress={() => {
-              goTo(navigation, "Home")
-            }}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+                goTo(navigation, "Home")
+              }}>
               <View style={!home ? styles.link : styles.link_hover} >
-                <FontAwesome name="home" size={20} color={!home ? "white" : theme.colors.brand.secondary} />
+                <FontAwesome name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />
+                <Text color={home ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12 }}>Accueil</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              goTo(navigation, "Contract")
-            }}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+                goTo(navigation, "Contract")
+              }}>
               <View style={!file ? styles.link : styles.link_hover} >
-                <FontAwesome5 name="file-contract" size={20} color={!file ? "white" : theme.colors.brand.secondary} />
+                <FontAwesome5 name="file-contract" size={20} color={file ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              goTo(navigation, "Payroll")
-            }}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+                goTo(navigation, "Payroll")
+              }}>
               <View style={!payroll ? styles.link : styles.link_hover} >
-                <Entypo name="wallet" size={20} color={!payroll ? "white" : theme.colors.brand.secondary} />
+                <Entypo name="wallet" size={20} color={payroll ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              goTo(navigation, "User")
-            }}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+                goTo(navigation, "User")
+              }}>
               <View style={!profil ? styles.link : styles.link_hover} >
-                <FontAwesome name="user" size={20} color={!profil ? "white" : theme.colors.brand.secondary} />
+                <FontAwesome name="user" size={20} color={profil ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              goTo(navigation, "Setting")
-            }}>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+                goTo(navigation, "Setting")
+              }}>
               <View style={!setting ? styles.link : styles.link_hover} >
-                <Feather name="more-horizontal" size={20} color={!setting ? "white" : theme.colors.brand.secondary} />
+                <Feather name="more-horizontal" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
           </View>
@@ -157,8 +165,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 80, width: "100%",
-    paddingHorizontal: width(5), flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: theme.colors.brand.secondary
+    height: 60, width: "100%",
+    paddingHorizontal: width(5), flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "white"
   },
   avatar: {
     height: 50,
@@ -168,16 +176,15 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingTop: 20,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "700",
-    color: "white"
+    color: "black"
   },
   link: {
     height: 50,
     width: 50,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.colors.brand.secondary,
     borderRadius: 50
   },
   link_hover: {
@@ -185,7 +192,6 @@ const styles = StyleSheet.create({
     width: 40,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
     borderRadius: 60
   }
 });
