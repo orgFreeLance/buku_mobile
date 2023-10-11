@@ -4,7 +4,7 @@ import userStore from "../store/user";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 import Welecome from "../screens/auth/Welcome";
-import Home from "../screens/Home";
+import Home from "../screens/app/Home";
 import Start from "../screens/splash/Start";
 import Gender from "../screens/auth/Gender";
 import Age from "../screens/auth/Age";

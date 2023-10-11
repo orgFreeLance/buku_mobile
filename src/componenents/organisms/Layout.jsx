@@ -1,7 +1,6 @@
 import {
   Flex,
   ScrollView,
-  Stack,
   StatusBar,
   Text,
   View,
@@ -14,7 +13,7 @@ import { Feather } from '@expo/vector-icons';
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import { useEffect, useState } from "react";
-import { Pressable } from "react-native";
+import { TouchableOpacity } from "react-native";
 import goTo from "../../utils/goTo";
 import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
@@ -25,7 +24,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
   const [profil] = useState(profilScreen)
   const [home] = useState(homeScreen)
   const [file] = useState(fileScreen)
-  const { phoneNumber, picture, ...rest } = userStore()
+  const { phoneNumber, picture, } = userStore()
   const [modal, setModal] = useState(false)
   const [setting] = useState(settingScreen)
   const [payroll] = useState(payrollScreen)
@@ -33,7 +32,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
 
   useEffect(() => {
     if (!isAuth) {
-      goTo(navigation, "Welcome")
+      // goTo(navigation, "Welcome")
     }
   }, [isAuth])
 
@@ -60,7 +59,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 {title}
               </Text>
             </View>
-            <Pressable onPress={() => setModal(true)}>
+            <TouchableOpacity onPress={() => setModal(true)}>
               <View style={{ position: "relative" }}>
                 <View style={{
                   overflow: "hidden",
@@ -72,7 +71,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 </View>
                 <View style={{ height: 15, width: 15, borderRadius: 20, borderWidth: 2, borderColor: "white", backgroundColor: "green", position: "absolute", top: 0, zIndex: 50, right: 0 }}></View>
               </View>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <ScrollView
             flex={1}
@@ -109,41 +108,41 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
               shadowRadius: 50
             }}
           >
-            <Pressable onPress={() => {
+            <TouchableOpacity onPress={() => {
               goTo(navigation, "Home")
             }}>
               <View style={!home ? styles.link : styles.link_hover} >
                 <FontAwesome name="home" size={20} color={!home ? "white" : theme.colors.brand.secondary} />
               </View>
-            </Pressable>
-            <Pressable onPress={() => {
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
               goTo(navigation, "Contract")
             }}>
               <View style={!file ? styles.link : styles.link_hover} >
                 <FontAwesome5 name="file-contract" size={20} color={!file ? "white" : theme.colors.brand.secondary} />
               </View>
-            </Pressable>
-            <Pressable onPress={() => {
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
               goTo(navigation, "Payroll")
             }}>
               <View style={!payroll ? styles.link : styles.link_hover} >
                 <Entypo name="wallet" size={20} color={!payroll ? "white" : theme.colors.brand.secondary} />
               </View>
-            </Pressable>
-            <Pressable onPress={() => {
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
               goTo(navigation, "User")
             }}>
               <View style={!profil ? styles.link : styles.link_hover} >
                 <FontAwesome name="user" size={20} color={!profil ? "white" : theme.colors.brand.secondary} />
               </View>
-            </Pressable>
-            <Pressable onPress={() => {
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
               goTo(navigation, "Setting")
             }}>
               <View style={!setting ? styles.link : styles.link_hover} >
                 <Feather name="more-horizontal" size={20} color={!setting ? "white" : theme.colors.brand.secondary} />
               </View>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Flex >

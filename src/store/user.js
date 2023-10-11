@@ -7,6 +7,7 @@ const userStore = create((set) => ({
     phone: "0823311664",
     email: "",
     password: "123456789",
+    picture: false,
     logUser: (phone, password) => (set((state) => (state.phone == phone && state.password == password ? ({ isAuth: true }) : ({ isAuth: false })))),
     signupUser: (phone, password, firstName, lastName, email) => (set((state) => {
         return { firstName: firstName, phone: phone, lastName: lastName, email: email, isAuth: true };
