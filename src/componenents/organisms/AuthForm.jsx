@@ -1,14 +1,14 @@
 import {
-  Center,
   Flex,
-  ScrollView,
   Stack,
   Text,
   StatusBar,
   View,
-  Pressable,
   Progress,
 } from "native-base";
+import {
+  TouchableOpacity
+} from "react-native"
 import { Feather } from "@expo/vector-icons";
 import { height, screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -40,11 +40,11 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
             alignItems: "center",
           }}
         >
-          <Pressable onPress={goBack}>
+          <TouchableOpacity onPress={goBack}>
             <Text style={{ fontWeight: "bold" }}>
               <Feather name="arrow-left" size={24} color="black" />
             </Text>
-          </Pressable>
+          </TouchableOpacity>
           <Progress
             styleAttr="Horizontal"
             indeterminate={false}
