@@ -10,7 +10,7 @@ import {
   Progress,
 } from "native-base";
 import { Feather } from "@expo/vector-icons";
-import { height, width } from "../../constants/nativeSizes";
+import { height, screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 
 const AuthForm = ({ navigation, children, title, progress = 20 }) => {
@@ -18,15 +18,20 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
     navigation.goBack();
   };
   return (
-    <ScrollView
+    <View
       style={{
         flex: 1,
-        paddingHorizontal: width(5),
-        paddingBottom: height(5),
+        flexDirection: "column",
       }}
     >
       <StatusBar backgroundColor={theme.colors.brand.secondary} />
-      <Flex>
+      <Flex
+        flex={1}
+        style={{
+          paddingHorizontal: width(5),
+          paddingBottom: height(2),
+        }}
+        height={screenHeight}>
         <View
           style={{
             flexDirection: "row",
@@ -51,17 +56,11 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
         <Text fontFamily={"Poppins-Bold"} fontSize={32} paddingBottom={2}>
           {title}
         </Text>
-        <Stack
-          minHeight={height(80)}
-          style={{ flex: 1 }}
-          space={3}
-          w="100%"
-          mx="auto"
-        >
+        <Stack flex={1} style={{ flex: 1 }} space={2} w="100%" mx="auto">
           {children}
         </Stack>
       </Flex>
-    </ScrollView>
+    </View>
   );
 };
 
