@@ -20,14 +20,14 @@ import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
 const bg = require("../../../assets/white.jpeg");
 const avatar = require("../../../assets/avatar.jpeg");
 
-const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScreen = true, settingScreen = true, payrollScreen = true, fileScreen = true, title = "" }) => {
-  const [profil] = useState(profilScreen)
+const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, settingScreen = true, coinScreen = true, fileScreen = true, title = "" }) => {
+  const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
   const [file] = useState(fileScreen)
   const { phone_number, picture, } = userStore()
   const [modal, setModal] = useState(false)
   const [setting] = useState(settingScreen)
-  const [payroll] = useState(payrollScreen)
+  const [coin] = useState(coinScreen)
   const { isAuth } = userStore()
 
   useEffect(() => {
@@ -128,14 +128,15 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "Payroll")
+                goTo(navigation, "coin")
               }}>
-              <View style={!payroll ? styles.link : styles.link_hover} >
-                <Entypo name="wallet" size={20} color={payroll ? "grey" : theme.colors.brand.secondary} />
+              <View style={!coin ? styles.link : styles.link_hover} >
+                <Entypo name="wallet" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
-            <CardLinkFooter condition={profil} navigation={navigation} page={"User"} text={"Compte"} Icon={<Feather name="shopping-cart" size={20} color={profil ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={setting} navigation={navigation} page={"Setting"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={account} navigation={navigation} page={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={account} navigation={navigation} page={"Account"} text={"Compte"} Icon={<Feather name="shopping-cart" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={setting} navigation={navigation} page={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />} />
           </View>
         </View>
       </Flex >

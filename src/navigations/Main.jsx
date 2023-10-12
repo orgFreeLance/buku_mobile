@@ -13,6 +13,7 @@ import Profile from "../screens/auth/Profile";
 import Forgot from "../screens/auth/Forgot";
 import CodeOtp from "../screens/auth/CodeOtp";
 import Password from "../screens/auth/Password";
+import Account from "../screens/app/Account";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -60,6 +61,7 @@ const MainNavigation = () => {
       ) : (
         <Stack.Group>
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Account" component={Account} />
         </Stack.Group>
       )}
     </Stack.Navigator>
