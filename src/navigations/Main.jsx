@@ -64,6 +64,8 @@ const MainNavigation = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Account" component={Account} />
           <Stack.Screen name="Purchase" component={Purchase} />
+          <Stack.Screen name="Coins" component={Purchase} />
+          <Stack.Screen name="Discover" component={Purchase} />
         </Stack.Group>
       )}
     </Stack.Navigator>
