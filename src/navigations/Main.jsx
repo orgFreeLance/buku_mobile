@@ -18,6 +18,9 @@ import Purchase from "../screens/app/Purchase";
 import Coins from "../screens/app/Coins";
 import Discover from "../screens/app/Discover";
 import Search from "../screens/app/Search";
+import Genre from "../screens/app/Genre";
+import BookByGenre from "../screens/app/BookByGenre";
+import Books from "../screens/app/Books";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -70,7 +73,13 @@ const MainNavigation = () => {
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Search" component={Search}
             options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Genre" component={Genre}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="BookByGenre" component={BookByGenre}
+            options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Purchase" component={Purchase}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Books" component={Books}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Coins" component={Coins}
             options={{ cardStyleInterpolator: forFade }} />

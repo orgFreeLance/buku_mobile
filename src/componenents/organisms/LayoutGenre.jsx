@@ -7,7 +7,7 @@ import {
 } from "native-base";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation, Feather, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, Foundation, Feather, AntDesign, Ionicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -18,11 +18,11 @@ import CardLinkFooter from "../../components/global/card/linkFooter";
 import goTo from "../../utils/goTo";
 const bg = require("../../../assets/white.jpeg");
 
-const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
+const LayoutGenre = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, purchaseScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
   const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
   const [discover] = useState(discoverScreen)
-  const [book] = useState(bookScreen)
+  const [purchase] = useState(purchaseScreen)
   const [coin] = useState(coinScreen)
   const { phone_number, picture, } = userStore()
   const [modal, setModal] = useState(false)
@@ -53,16 +53,26 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
           source={image}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>
-              {title}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity
+                activeOpacity={TOUCHABLEOPACITY}
+                onPress={() => {
+                navigation.goBack()
+                }}
+              >
+                <Ionicons name="ios-arrow-back-outline" size={20} color="black" style={{ marginRight: 5 }} />
+              </TouchableOpacity>
+              <Text style={styles.title}>
+                {title}
+              </Text>
+            </View>
             <TouchableOpacity
               activeOpacity={TOUCHABLEOPACITY}
               onPress={() => {
                 goTo(navigation, "Search")
               }}
             >
-              <AntDesign name="search1" size={24} color="black" />
+              <AntDesign name="search1" size={20} color="black" />
             </TouchableOpacity>
           </View>
           <ScrollView
@@ -73,43 +83,13 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
           >
             {children}
           </ScrollView>
-        </ImageBackground>
-        <View
-          backgroundColor={"white"}
-          style={{
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignContent: "center"
-          }}
-        >
-          <View
-            elevation={5}
-            backgroundColor={"white"}
-            style={{
-              paddingHorizontal: width(7),
-              paddingVertical: width(3),
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              color: "white",
-              shadowRadius: 50
-            }}
-          >
-            <CardLinkFooter condition={home} navigation={navigation} screen={"Home"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={discover} navigation={navigation} screen={"Discover"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={coin} navigation={navigation} screen={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={book} navigation={navigation} screen={"Books"} text={"Mes livres"} Icon={<Foundation name="book" size={20} color={book ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={account} navigation={navigation} screen={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
-          </View>
-        </View>
+        </ImageBackground>   
       </Flex >
     </View >
   );
 };
 
-export default Layout;
+export default LayoutGenre;
 
 
 const styles = StyleSheet.create({

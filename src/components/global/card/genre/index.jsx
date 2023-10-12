@@ -1,10 +1,11 @@
 import { View } from "native-base";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 
-export default function CardBook({ horizontal = true, navigation }) {
+export default function CardGenre({ fixSize = false, navigation }) {
     return <>
-        <View style={horizontal ? styles.containerHorizontal : styles.containerVertical}>
+        <View style={!fixSize ? styles.container : styles.containerFixSize}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
                 style={{
@@ -18,19 +19,19 @@ export default function CardBook({ horizontal = true, navigation }) {
     </>
 }
 const styles = StyleSheet.create({
-    containerHorizontal: {
-        height: 300,
-        width: 175,
+    container: {
+        height: 100,
+        width: 150,
         borderRadius: 15,
         backgroundColor: "red",
         marginRight: 5,
-        marginTop: 5
     },
-    containerVertical: {
-        height: 300,
+    containerFixSize: {
+        height: 100,
         width: "48.5%",
         borderRadius: 15,
         backgroundColor: "red",
-        marginTop: 5
-    }
+        marginBottom: 5
+    },
+
 })
