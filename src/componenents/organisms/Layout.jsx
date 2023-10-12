@@ -7,26 +7,24 @@ import {
 } from "native-base";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation } from '@expo/vector-icons';
+import { FontAwesome5, Foundation, Feather } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
-import { Entypo } from '@expo/vector-icons';
-import { FontAwesome, Feather } from '@expo/vector-icons';
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import goTo from "../../utils/goTo";
 import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
+import CardLinkFooter from "../../components/global/card/linkFooter";
 const bg = require("../../../assets/white.jpeg");
 const avatar = require("../../../assets/avatar.jpeg");
 
-const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, settingScreen = true, coinScreen = true, fileScreen = true, title = "" }) => {
+const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, purchaseScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
   const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
-  const [file] = useState(fileScreen)
+  const [discover] = useState(discoverScreen)
   const { phone_number, picture, } = userStore()
   const [modal, setModal] = useState(false)
-  const [setting] = useState(settingScreen)
+  const [purchase] = useState(purchaseScreen)
   const [coin] = useState(coinScreen)
   const { isAuth } = userStore()
 
@@ -109,34 +107,11 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
               shadowRadius: 50
             }}
           >
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "Home")
-              }}>
-              <View style={!home ? styles.link : styles.link_hover} >
-                <Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />
-                <Text color={home ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>Accueil</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "Contract")
-              }}>
-              <View style={!file ? styles.link : styles.link_hover} >
-                <FontAwesome5 name="file-contract" size={20} color={file ? "grey" : theme.colors.brand.secondary} />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "coin")
-              }}>
-              <View style={!coin ? styles.link : styles.link_hover} >
-                <Entypo name="wallet" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />
-              </View>
-            </TouchableOpacity>
-            <CardLinkFooter condition={account} navigation={navigation} page={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={account} navigation={navigation} page={"Account"} text={"Compte"} Icon={<Feather name="shopping-cart" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={setting} navigation={navigation} page={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={home} navigation={navigation} screen={"Coins"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={discover} navigation={navigation} screen={"Coins"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={coin} navigation={navigation} screen={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={purchase} navigation={navigation} screen={"Purchase"} text={"Achats"} Icon={<Feather name="shopping-cart" size={20} color={purchase ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={account} navigation={navigation} screen={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
           </View>
         </View>
       </Flex >
@@ -145,17 +120,7 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
 };
 
 export default Layout;
-const CardLinkFooter = ({ Icon, text, condition, navigation, page }) => {
-  return <TouchableOpacity
-    activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-      goTo(navigation, page)
-    }}>
-    <View style={!condition ? styles.link : styles.link_hover} >
-      {Icon}
-      <Text color={condition ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>{text}</Text>
-    </View>
-  </TouchableOpacity>
-}
+
 
 const styles = StyleSheet.create({
   container: {

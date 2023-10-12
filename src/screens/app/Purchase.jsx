@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 
-const Account = ({ navigation }) => {
+const Purchase = ({ navigation }) => {
   return (
     <Layout
-      title={"Parametres"}
+      title={"Achats"}
       navigation={navigation}
       userExist={true}
       progress={100}
@@ -14,7 +14,7 @@ const Account = ({ navigation }) => {
   );
 };
 
-export default Account;
+export default Purchase;
 
 const styles = StyleSheet.create({
   container: {
