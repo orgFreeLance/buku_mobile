@@ -17,6 +17,7 @@ import Account from "../screens/app/Account";
 import Purchase from "../screens/app/Purchase";
 import Coins from "../screens/app/Coins";
 import Discover from "../screens/app/Discover";
+import Search from "../screens/app/Search";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -66,6 +67,8 @@ const MainNavigation = () => {
           <Stack.Screen name="Home" component={Home}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Account" component={Account}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Search" component={Search}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Purchase" component={Purchase}
             options={{ cardStyleInterpolator: forFade }} />

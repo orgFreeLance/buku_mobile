@@ -1,2 +1,2 @@
-export const TOUCHABLEOPACITY = .45
+export const TOUCHABLEOPACITY = .35
 export const OPACITY = .85

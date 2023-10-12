@@ -1,22 +1,20 @@
 import { StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import Layout from "../../componenents/organisms/Layout";
+import LayoutSearch from "../../componenents/organisms/LayoutSearch";
 
-const Account = ({ navigation }) => {
+const Search = ({ navigation }) => {
   return (
-    <Layout
-      title={"Paramètres"}
+    <LayoutSearch
+      title={"Parametres"}
       navigation={navigation}
       userExist={true}
       progress={100}
-      accountScreen={false}>
-        
-      </Layout>
+      accountScreen={false}></LayoutSearch>
   );
 };
 
-export default Account;
+export default Search;
 
 const styles = StyleSheet.create({
   container: {

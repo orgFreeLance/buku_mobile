@@ -48,6 +48,8 @@ const Login = ({ navigation }) => {
                     style={{ paddingHorizontal: 10 }}
                     type="text"
                     placeholder="Numero de téléphone"
+                    leftElement={<></>}
+                    rightElement={<></>}
                   />
                   <FormControl.HelperText>
                     Doit comporter au moins 10 caractères.

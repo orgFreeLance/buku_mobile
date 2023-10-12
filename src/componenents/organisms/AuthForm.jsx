@@ -25,7 +25,7 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
         flexDirection: "column",
       }}
     >
-      <StatusBar backgroundColor={theme.colors.brand.secondary} />
+      <StatusBar backgroundColor={"white"} />
       <Flex
         flex={1}
         style={{
