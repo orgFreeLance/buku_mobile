@@ -5,19 +5,18 @@ import {
   Text,
   View,
 } from "native-base";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { FontAwesome5, Foundation } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
 import goTo from "../../utils/goTo";
 import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
-import { TOUCHABLEOPACITY } from "../../constants";
+import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
 const bg = require("../../../assets/white.jpeg");
 const avatar = require("../../../assets/avatar.jpeg");
 
@@ -25,7 +24,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
   const [profil] = useState(profilScreen)
   const [home] = useState(homeScreen)
   const [file] = useState(fileScreen)
-  const { phoneNumber, picture, } = userStore()
+  const { phone_number, picture, } = userStore()
   const [modal, setModal] = useState(false)
   const [setting] = useState(settingScreen)
   const [payroll] = useState(payrollScreen)
@@ -101,7 +100,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
             backgroundColor={"white"}
             style={{
               paddingHorizontal: width(3),
-              paddingVertical: width(2),
+              paddingVertical: width(3),
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -115,8 +114,8 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 goTo(navigation, "Home")
               }}>
               <View style={!home ? styles.link : styles.link_hover} >
-                <FontAwesome name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />
-                <Text color={home ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12 }}>Accueil</Text>
+                <Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />
+                <Text color={home ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>Accueil</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -148,7 +147,8 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 goTo(navigation, "Setting")
               }}>
               <View style={!setting ? styles.link : styles.link_hover} >
-                <Feather name="more-horizontal" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />
+                <FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />
+                <Text color={setting ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>COMPTE</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -181,17 +181,14 @@ const styles = StyleSheet.create({
     color: "black"
   },
   link: {
-    height: 50,
-    width: 50,
     justifyContent: "center",
+    padding: width(1),
     alignItems: "center",
-    borderRadius: 50
   },
   link_hover: {
-    height: 40,
-    width: 40,
     justifyContent: "center",
+    padding: width(1),
     alignItems: "center",
-    borderRadius: 60
+    opacity: OPACITY
   }
 });
