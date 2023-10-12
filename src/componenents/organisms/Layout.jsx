@@ -10,7 +10,7 @@ import { TouchableOpacity } from "react-native";
 import { FontAwesome5, Foundation } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import goTo from "../../utils/goTo";
@@ -99,7 +99,7 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
             elevation={5}
             backgroundColor={"white"}
             style={{
-              paddingHorizontal: width(3),
+              paddingHorizontal: width(7),
               paddingVertical: width(3),
               width: "100%",
               flexDirection: "row",
@@ -134,23 +134,8 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
                 <Entypo name="wallet" size={20} color={payroll ? "grey" : theme.colors.brand.secondary} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "User")
-              }}>
-              <View style={!profil ? styles.link : styles.link_hover} >
-                <FontAwesome name="user" size={20} color={profil ? "grey" : theme.colors.brand.secondary} />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-                goTo(navigation, "Setting")
-              }}>
-              <View style={!setting ? styles.link : styles.link_hover} >
-                <FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />
-                <Text color={setting ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>COMPTE</Text>
-              </View>
-            </TouchableOpacity>
+            <CardLinkFooter condition={profil} navigation={navigation} page={"User"} text={"Compte"} Icon={<Feather name="shopping-cart" size={20} color={profil ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={setting} navigation={navigation} page={"Setting"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={setting ? "grey" : theme.colors.brand.secondary} />} />
           </View>
         </View>
       </Flex >
@@ -159,6 +144,17 @@ const Layout = ({ image = bg, navigation, children, profilScreen = true, homeScr
 };
 
 export default Layout;
+const CardLinkFooter = ({ Icon, text, condition, navigation, page }) => {
+  return <TouchableOpacity
+    activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+      goTo(navigation, page)
+    }}>
+    <View style={!condition ? styles.link : styles.link_hover} >
+      {Icon}
+      <Text color={condition ? "grey" : theme.colors.brand.secondary} style={{ fontSize: 12, textTransform: "lowercase" }}>{text}</Text>
+    </View>
+  </TouchableOpacity>
+}
 
 const styles = StyleSheet.create({
   container: {
