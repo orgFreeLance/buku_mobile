@@ -7,23 +7,13 @@ import CardBook from "../../components/global/card/book";
 const Book = ({ navigation }) => {
   return (
     <Layout
-      title={"Mes Livres"}
+      title={"Nom du livre"}
       navigation={navigation}
       userExist={true}
       progress={100}
       bookScreen={false}>
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
-        <CardBook horizontal={false} navigation={navigation} />
+       
       </View>
     </Layout>
   );

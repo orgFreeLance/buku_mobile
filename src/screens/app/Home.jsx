@@ -17,9 +17,9 @@ const Home = ({ navigation }) => {
       progress={100}
       homeScreen={false}>
       <ScrollView horizontal={true} style={{}}>
-        <CardBook />
-        <CardBook />
-        <CardBook />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>
@@ -30,9 +30,9 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true}>
-        <CardGender />
-        <CardGender />
-        <CardGender />
+        <CardGender navigation={navigation} />
+        <CardGender navigation={navigation} />
+        <CardGender navigation={navigation} />
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
@@ -41,9 +41,9 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        <CardBook />
-        <CardBook />
-        <CardBook />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
@@ -52,9 +52,9 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        <CardBook />
-        <CardBook />
-        <CardBook />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
+        <CardBook navigation={navigation} />
       </ScrollView>
     </Layout>
   );

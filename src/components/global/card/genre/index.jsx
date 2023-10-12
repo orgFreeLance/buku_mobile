@@ -2,12 +2,16 @@ import { View } from "native-base";
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TOUCHABLEOPACITY } from "../../../../constants";
+import goTo from "../../../../utils/goTo";
 
 export default function CardGenre({ fixSize = false, navigation }) {
     return <>
         <View style={!fixSize ? styles.container : styles.containerFixSize}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
+                onPress={() => {
+                    goTo(navigation, "BookByGenre")
+                }}
                 style={{
                     height: "100%",
                     width: "100%",

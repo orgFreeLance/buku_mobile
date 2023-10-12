@@ -21,6 +21,7 @@ import Search from "../screens/app/Search";
 import Genre from "../screens/app/Genre";
 import BookByGenre from "../screens/app/BookByGenre";
 import Books from "../screens/app/Books";
+import Book from "../screens/app/Book";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -76,6 +77,8 @@ const MainNavigation = () => {
           <Stack.Screen name="Genre" component={Genre}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="BookByGenre" component={BookByGenre}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Book" component={Book}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Purchase" component={Purchase}
             options={{ cardStyleInterpolator: forFade }} />
