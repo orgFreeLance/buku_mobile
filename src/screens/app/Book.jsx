@@ -3,10 +3,11 @@ import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 import CardBook from "../../components/global/card/book";
+import LayoutBook from "../../componenents/organisms/LayoutBook";
 
 const Book = ({ navigation }) => {
   return (
-    <Layout
+    <LayoutBook
       title={"Nom du livre"}
       navigation={navigation}
       userExist={true}
@@ -15,7 +16,7 @@ const Book = ({ navigation }) => {
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
        
       </View>
-    </Layout>
+    </LayoutBook>
   );
 };
 

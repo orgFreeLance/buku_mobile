@@ -13,17 +13,17 @@ const BookByGenre = ({ navigation }) => {
             progress={100}
             accountScreen={false}>
             <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
-                <CardBook horizontal={false} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
+                <CardBook horizontal={false} navigation={navigation} />
             </View>
         </LayoutGenre>
     );
