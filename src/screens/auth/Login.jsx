@@ -10,18 +10,8 @@ import theme from "../../constants/theme";
 
 const Login = ({ navigation }) => {
   const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsloading] = useState(false);
   //Add Inputs elements here
-  const [signupUser, isAuth] = userStore(
-    (state) => [state.signupUser, state.isAuth],
-    shallow
-  );
+  const { userChange } = userStore();
 
   return (
     <View style={styles.container}>
@@ -104,6 +94,7 @@ const Login = ({ navigation }) => {
           <ButtonMain
             content="Connecte toi"
             onPress={() => {
+              userChange({ isAuth: true })
               goTo(navigation, "Home");
             }}
           />

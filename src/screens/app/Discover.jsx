@@ -10,7 +10,7 @@ const Discover = ({ navigation }) => {
       navigation={navigation}
       userExist={true}
       progress={100}
-      homeScreen={false}>
+      discoverScreen={false}>
 
     </Layout>
   );

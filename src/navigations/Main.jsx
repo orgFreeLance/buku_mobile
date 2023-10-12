@@ -15,6 +15,8 @@ import CodeOtp from "../screens/auth/CodeOtp";
 import Password from "../screens/auth/Password";
 import Account from "../screens/app/Account";
 import Purchase from "../screens/app/Purchase";
+import Coins from "../screens/app/Coins";
+import Discover from "../screens/app/Discover";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -61,11 +63,16 @@ const MainNavigation = () => {
         </Stack.Group>
       ) : (
         <Stack.Group>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Account" component={Account} />
-          <Stack.Screen name="Purchase" component={Purchase} />
-          <Stack.Screen name="Coins" component={Purchase} />
-          <Stack.Screen name="Discover" component={Purchase} />
+          <Stack.Screen name="Home" component={Home}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Account" component={Account}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Purchase" component={Purchase}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Coins" component={Coins}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Discover" component={Discover}
+            options={{ cardStyleInterpolator: forFade }} />
         </Stack.Group>
       )}
     </Stack.Navigator>

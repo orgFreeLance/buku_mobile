@@ -10,7 +10,7 @@ const Account = ({ navigation }) => {
       navigation={navigation}
       userExist={true}
       progress={100}
-      homeScreen={false}></Layout>
+      accountScreen={false}></Layout>
   );
 };
 

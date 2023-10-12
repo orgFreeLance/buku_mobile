@@ -22,15 +22,15 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
   const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
   const [discover] = useState(discoverScreen)
-  const { phone_number, picture, } = userStore()
-  const [modal, setModal] = useState(false)
   const [purchase] = useState(purchaseScreen)
   const [coin] = useState(coinScreen)
+  const { phone_number, picture, } = userStore()
+  const [modal, setModal] = useState(false)
   const { isAuth } = userStore()
 
   useEffect(() => {
     if (!isAuth) {
-      // goTo(navigation, "Welcome")
+      goTo(navigation, "Welcome")
     }
   }, [isAuth])
 
@@ -107,8 +107,8 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
               shadowRadius: 50
             }}
           >
-            <CardLinkFooter condition={home} navigation={navigation} screen={"Coins"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={discover} navigation={navigation} screen={"Coins"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={home} navigation={navigation} screen={"Home"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter condition={discover} navigation={navigation} screen={"Discover"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
             <CardLinkFooter condition={coin} navigation={navigation} screen={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
             <CardLinkFooter condition={purchase} navigation={navigation} screen={"Purchase"} text={"Achats"} Icon={<Feather name="shopping-cart" size={20} color={purchase ? "grey" : theme.colors.brand.secondary} />} />
             <CardLinkFooter condition={account} navigation={navigation} screen={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
