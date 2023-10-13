@@ -6,6 +6,7 @@ const appStore = create((set) => ({
     },
     currentBook: {},
     currentGenre: {},
+    categories: [],
     appChange: (app) => {
         return set((state) => ({ ...state, ...app }))
     },

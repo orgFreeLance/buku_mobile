@@ -1,10 +1,13 @@
-import { StatusBar, Text, View } from "native-base";
-import { StyleSheet } from "react-native";
-import theme from "../../constants/theme";
+import { View } from "native-base";
 import LayoutGenre from "../../componenents/organisms/LayoutGenre";
 import CardGenre from "../../components/global/card/genre";
+import appStore from "../../store/app";
+
 
 const Genre = ({ navigation }) => {
+
+    const { categories } = appStore()
+
     return (
         <LayoutGenre
             title={"Explorer par genre"}
@@ -13,27 +16,10 @@ const Genre = ({ navigation }) => {
             progress={100}
             accountScreen={false}>
             <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
-                <CardGenre fixSize={true} navigation={navigation} />
+                {categories.map(({ attributes, id }) => <CardGenre fixSize={true} {...attributes} key={id} navigation={navigation} />)}
             </View>
         </LayoutGenre>
     );
 };
 
 export default Genre;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    mainContents: {},
-});

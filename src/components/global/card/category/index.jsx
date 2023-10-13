@@ -1,20 +1,22 @@
 import { View, Text } from "native-base";
 import theme from "../../../../constants/theme";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { TOUCHABLEOPACITY } from "../../../../constants";
 
 export default function CardAuthCategory({
-  content,
+  name,
   index,
   onPress,
   select = false,
 }) {
   const onClick = () => {
     onPress(index);
-    console.log("press");
   };
   if (select)
     return (
       <>
-        <View
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
           style={{
             color: "#fff",
             textAlign: "center",
@@ -24,8 +26,6 @@ export default function CardAuthCategory({
             borderRadius: 20,
             paddingHorizontal: 20,
             paddingVertical: 13,
-            marginBottom: 10,
-            marginRight: 10,
           }}
         >
           <Text
@@ -35,24 +35,25 @@ export default function CardAuthCategory({
               textAlign: "center",
             }}
           >
-            {content}
+            {name}
           </Text>
-        </View>
+        </TouchableOpacity>
       </>
     );
   return (
     <>
-      <View
+      <TouchableOpacity
+        activeOpacity={TOUCHABLEOPACITY}
         style={{
           textAlign: "center",
-          marginRight: 10,
           fontWeight: "500",
           fontSize: 18,
+          overflow: "hidden",
+          textAlign: "center",
           backgroundColor: "white",
           borderRadius: 20,
           paddingHorizontal: 20,
           paddingVertical: 13,
-          marginBottom: 10,
           borderColor: theme.colors.brand.secondary,
           borderWidth: 1,
         }}
@@ -60,13 +61,12 @@ export default function CardAuthCategory({
         <Text
           onPress={onClick}
           style={{
-            textAlign: "center",
             color: theme.colors.brand.secondary,
           }}
         >
-          {content}
+          {name}
         </Text>
-      </View>
+      </TouchableOpacity>
     </>
   );
 }

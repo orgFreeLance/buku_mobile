@@ -7,8 +7,10 @@ import CardBook from "../../components/global/card/book";
 import CardGender from "../../components/global/card/genre";
 import { TOUCHABLEOPACITY } from "../../constants";
 import goTo from "../../utils/goTo";
+import appStore from "../../store/app";
 
 const Home = ({ navigation }) => {
+  const { categories, appChange } = appStore()
   return (
     <Layout
       title={"Buku"}
@@ -30,9 +32,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true}>
-        <CardGender navigation={navigation} />
-        <CardGender navigation={navigation} />
-        <CardGender navigation={navigation} />
+        {categories.map(({ attributes, id }) => <CardGender {...attributes} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>

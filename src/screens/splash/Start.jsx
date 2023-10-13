@@ -1,19 +1,33 @@
 import { Image } from "expo-image";
 import { View, Box, StatusBar } from "native-base";
-import React, { useEffect } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, ImageBackground } from "react-native";
 import { height, width } from "../../constants/nativeSizes";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+import { API_LINK, headers } from "../../constants";
+import appStore from "../../store/app";
 const backgroundImage = require("../../../assets/white.jpeg");
 const logo = require("../../../assets/logo.png");
 
 const Start = ({ navigation }) => {
+  const [loading, setLoading] = useState(true)
+  const { appChange } = appStore()
   useEffect(() => {
-    setTimeout(() => {
-      goTo(navigation, "Welcome");
-    }, 3000);
-  }, [navigation]);
+    fetch(`${API_LINK}/categories?populate=*`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      setLoading(false)
+      if (status == 200) {
+        appChange({ categories: data.map((item) => ({ ...item, select: false })) })
+        goTo(navigation, "Welcome");
+      }
+    }).catch(error => {
+      setLoading(false)
+    })
+  }, [])
   return (
     <View style={{ flex: 1 }}>
       <StatusBar backgroundColor={theme.colors.brand.secondary} />
@@ -38,6 +52,7 @@ const Start = ({ navigation }) => {
             contentFit="contain"
             transition={1000}
           />
+          {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
         </Box>
       </ImageBackground>
     </View>
