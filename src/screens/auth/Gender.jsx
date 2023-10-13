@@ -1,22 +1,14 @@
-import { Input, Radio, View, Text } from "native-base";
-import React, { useState } from "react";
+import { Radio, View, Text } from "native-base";
+import React from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
-import userStore from "../../store/user";
-import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
+import appStore from "../../store/app";
 
 const Gender = ({ navigation }) => {
-  const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsloading] = useState(false);
-  const [logUser, isAuth] = userStore(
-    (state) => [state.logUser, state.isAuth],
-    shallow
-  );
+  const { gender, appChange } = appStore()
 
   return (
     <View style={styles.container}>
@@ -43,9 +35,12 @@ const Gender = ({ navigation }) => {
               }}
             >
               <Radio.Group
-                defaultValue="M"
+                defaultValue={gender}
                 name="Gender"
                 space={4}
+                onChange={(gender) => {
+                  appChange({ gender })
+                }}
                 accessibilityLabel="Choisi ton genre"
               >
                 <Radio value="M" my={1}>

@@ -15,7 +15,7 @@ const Category = ({ navigation }) => {
   const toast = useToast();
   const { } = userStore();
   const { categories, appChange } = appStore()
-
+  const { } = userStore()
 
   const onPress = (current) => {
     const setCategories = (categories) => {
@@ -62,7 +62,7 @@ const Category = ({ navigation }) => {
             >
               {categories.map(({ attributes: { name }, id, select }, index) => {
                 return (
-                  <View style={{ marginTop: 5, marginRight: 5 }}>
+                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden" }}>
                     <CardAuthCategory
                       name={name}
                       onPress={onPress}

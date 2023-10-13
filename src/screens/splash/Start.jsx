@@ -26,6 +26,7 @@ const Start = ({ navigation }) => {
       }
     }).catch(error => {
       setLoading(false)
+      console.log(error)
     })
   }, [])
   return (

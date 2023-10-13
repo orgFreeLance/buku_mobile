@@ -1,17 +1,19 @@
 import { View, Text } from "native-base";
 import theme from "../../../../constants/theme";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { TOUCHABLEOPACITY } from "../../../../constants";
 
-export default function CardAge({ content, index, onPress, select = false }) {
+export default function CardAge({ name, index, onPress, select = false }) {
   const onClick = () => {
     onPress(index);
-    console.log("press");
   };
   if (select)
     return (
       <>
-        <View
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
           style={{
-            width: "48%",
+            width: "100%",
             color: "#fff",
             textAlign: "center",
             fontWeight: "500",
@@ -20,7 +22,6 @@ export default function CardAge({ content, index, onPress, select = false }) {
             borderRadius: 20,
             paddingHorizontal: 10,
             paddingVertical: 13,
-            marginBottom: 10,
           }}
         >
           <Text
@@ -30,16 +31,17 @@ export default function CardAge({ content, index, onPress, select = false }) {
               textAlign: "center",
             }}
           >
-            {content}
+            {name}
           </Text>
-        </View>
+        </TouchableOpacity>
       </>
     );
   return (
     <>
-      <View
+      <TouchableOpacity
+        activeOpacity={TOUCHABLEOPACITY}
         style={{
-          width: "48%",
+          width: "100%",
           textAlign: "center",
           fontWeight: "500",
           fontSize: 18,
@@ -47,7 +49,6 @@ export default function CardAge({ content, index, onPress, select = false }) {
           borderRadius: 20,
           paddingHorizontal: 10,
           paddingVertical: 13,
-          marginBottom: 10,
           borderColor: theme.colors.brand.secondary,
           borderWidth: 1,
         }}
@@ -59,9 +60,9 @@ export default function CardAge({ content, index, onPress, select = false }) {
             color: theme.colors.brand.secondary,
           }}
         >
-          {content}
+          {name}
         </Text>
-      </View>
+      </TouchableOpacity>
     </>
   );
 }
