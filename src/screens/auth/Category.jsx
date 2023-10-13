@@ -85,7 +85,7 @@ const Category = ({ navigation }) => {
           >
             <View style={{ width: "100%" }}>
               <ButtonMain
-                name="continue"
+                content="continue"
                 onPress={() => {
                   goTo(navigation, "Profile");
                 }}
