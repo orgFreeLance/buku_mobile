@@ -3,11 +3,13 @@ import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import LayoutGenre from "../../componenents/organisms/LayoutGenre";
 import CardBook from "../../components/global/card/book";
+import appStore from "../../store/app";
 
 const BookByGenre = ({ navigation }) => {
+    const { currentPage } = appStore()
     return (
         <LayoutGenre
-            title={"Genre"}
+            title={currentPage.name}
             navigation={navigation}
             userExist={true}
             progress={100}

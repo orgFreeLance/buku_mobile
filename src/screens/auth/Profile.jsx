@@ -24,11 +24,12 @@ const Profile = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const { username,
-    phone_number,
-    birth_date
-  } = userStore(
-    );
+
+  const {
+    username,
+    phone_number
+  } = userStore();
+
   const {
     control,
     handleSubmit,
@@ -40,12 +41,11 @@ const Profile = ({ navigation }) => {
       birth_date: date
     },
   });
+  
   const onChangeDate = (selectedDate, onChange) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
-    onChange({ birth_date: selectedDate })
-    console.log({ birth_date: selectedDate })
   };
 
   const showMode = (currentMode) => {
@@ -174,13 +174,14 @@ const Profile = ({ navigation }) => {
                   rules={{
                     required: true,
                   }}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { value, ...rest1 }, ...rest }) => (
                     <Stack style={{ marginBottom: 10 }}>
+                      {console.log(rest1)}
                       <Pressable onPress={showDatepicker}>
                         <FormControl.Label>Date de naissance</FormControl.Label>
                         <Input
                           placeholder="Date de naissance"
-                          value={value}
+                          value={date.toDateString()}
                           InputRightElement={
                             <>
                               <FontAwesome
@@ -200,7 +201,7 @@ const Profile = ({ navigation }) => {
                           value={date}
                           mode={mode}
                           is24Hour={true}
-                          onChange={(event, selectedDate) => { onChangeDate(event, selectedDate, onChange) }}
+                          onChange={(event, selectedDate) => { onChangeDate(event, selectedDate, setValue) }}
                         />
                       )}
                       {errors.birth_date ? (
