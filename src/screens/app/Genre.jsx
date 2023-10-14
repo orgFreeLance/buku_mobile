@@ -3,7 +3,6 @@ import LayoutGenre from "../../componenents/organisms/LayoutGenre";
 import CardGenre from "../../components/global/card/genre";
 import appStore from "../../store/app";
 
-
 const Genre = ({ navigation }) => {
 
     const { categories } = appStore()
