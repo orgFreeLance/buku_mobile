@@ -4,9 +4,6 @@ import {
   FormControl,
   Input,
   Stack,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
   Pressable,
 } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
@@ -14,24 +11,41 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../componenents/organisms/AuthForm";
 import userStore from "../../store/user";
-import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useForm, Controller } from "react-hook-form";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 import CardAvatarAuth from "../../components/global/card/avatar/auth";
 
 const Profile = ({ navigation }) => {
   const toast = useToast();
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
+  const { username,
+    phone_number,
+    birth_date
+  } = userStore(
+    );
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username,
+      phone_number,
+      birth_date: date
+    },
+  });
+  const onChangeDate = (selectedDate, onChange) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
+    onChange({ birth_date: selectedDate })
+    console.log({ birth_date: selectedDate })
   };
 
   const showMode = (currentMode) => {
@@ -43,10 +57,6 @@ const Profile = ({ navigation }) => {
     showMode("date");
   };
 
-  const [logUser, isAuth] = userStore(
-    (state) => [state.logUser, state.isAuth],
-    shallow
-  );
 
   return (
     <View style={styles.container}>
@@ -84,65 +94,135 @@ const Profile = ({ navigation }) => {
             >
               <FormControl isRequired>
                 <CardAvatarAuth />
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Nom complet</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="text"
-                    placeholder="Nom complet"
-                  />
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                    minLength: 2,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Stack style={{ marginBottom: 10 }}>
+                      <FormControl.Label>Nom complet</FormControl.Label>
+                      <Input
 
-                  <Input placeholder="Numero de téléphone" />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <Pressable onPress={showDatepicker}>
-                    <FormControl.Label>Date de naissance</FormControl.Label>
-                    <Input
-                      placeholder="Date de naissance"
-                      value={date.toDateString()}
-                      InputRightElement={
-                        <>
-                          <FontAwesome
-                            name="calendar"
-                            size={16}
-                            style={{ margin: 5 }}
-                            color={theme.colors.brand.secondary}
-                            onPress={showDatepicker}
-                          />
-                        </>
-                      }
-                    />
-                  </Pressable>
-                  {show && (
-                    <DateTimePicker
-                      testID="dateTimePicker"
-                      value={date}
-                      mode={mode}
-                      is24Hour={true}
-                      onChange={onChange}
-                    />
+                        style={{ paddingHorizontal: 10 }}
+                        type="text"
+                        keyboardType="text"
+                        placeholder="Nom complet"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+
+                      {errors.username ? (
+                        <Text style={{ color: "red", fontSize: 10 }}>
+                          Aux moins 2 caractères sont requis.
+                        </Text>
+                      ) : (
+                        <Text>Doit comporter plus de 2 caractères.</Text>
+                      )}
+                    </Stack>
                   )}
-                  <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
+                  name="username"
+                />
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                    minLength: 9,
+                    maxLength: 9,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Stack style={{ marginBottom: 10 }}>
+                      <FormControl.Label>Numero de téléphone</FormControl.Label>
+                      <Input
+                        InputLeftElement={
+                          <Text
+                            style={{
+                              paddingHorizontal: 5,
+                              paddingVertical: 13,
+                              backgroundColor: "white",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            +243
+                          </Text>
+                        }
+                        style={{ paddingHorizontal: 10 }}
+                        type="text"
+                        keyboardType="numeric"
+                        placeholder="Numero de téléphone"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+
+                      {errors.phone_number ? (
+                        <Text style={{ color: "red", fontSize: 10 }}>
+                          9 caractères sont requis.
+                        </Text>
+                      ) : (
+                        <Text>Doit comporter 9 caractères.</Text>
+                      )}
+                    </Stack>
+                  )}
+                  name="phone_number"
+                />
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Stack style={{ marginBottom: 10 }}>
+                      <Pressable onPress={showDatepicker}>
+                        <FormControl.Label>Date de naissance</FormControl.Label>
+                        <Input
+                          placeholder="Date de naissance"
+                          value={value}
+                          InputRightElement={
+                            <>
+                              <FontAwesome
+                                name="calendar"
+                                size={16}
+                                style={{ margin: 5 }}
+                                color={theme.colors.brand.secondary}
+                                onPress={showDatepicker}
+                              />
+                            </>
+                          }
+                        />
+                      </Pressable>
+                      {show && (
+                        <DateTimePicker
+                          testID="dateTimePicker"
+                          value={date}
+                          mode={mode}
+                          is24Hour={true}
+                          onChange={(event, selectedDate) => { onChangeDate(event, selectedDate, onChange) }}
+                        />
+                      )}
+                      {errors.birth_date ? (
+                        <Text style={{ color: "red", fontSize: 10 }}>
+                          la date est requis
+                        </Text>
+                      ) : (
+                        <></>
+                      )}
+                    </Stack>
+                  )}
+                  name="birth_date"
+                />
+
               </FormControl>
             </View>
           </View>
           <ButtonMain
             content="continue"
-            onPress={() => {
+            onPress={handleSubmit(() => {
               goTo(navigation, "Signup");
-            }}
+            })}
           />
         </View>
       </AuthForm>

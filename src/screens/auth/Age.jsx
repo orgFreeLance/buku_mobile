@@ -59,7 +59,8 @@ const Age = ({ navigation }) => {
                 }}
               >
                 {age_ranges.map(({ name, select }, index) => (
-                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden", width: "48%" }}>
+                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden", width: "48%" }}
+                    key={index}>
                     <CardAge
                       name={name}
                       onPress={onPress}

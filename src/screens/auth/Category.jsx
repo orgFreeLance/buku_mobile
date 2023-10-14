@@ -62,7 +62,8 @@ const Category = ({ navigation }) => {
             >
               {categories.map(({ attributes: { name }, id, select }, index) => {
                 return (
-                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden" }}>
+                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden" }}
+                    key={index}>
                     <CardAuthCategory
                       name={name}
                       onPress={onPress}
