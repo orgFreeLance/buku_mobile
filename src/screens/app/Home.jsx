@@ -5,12 +5,45 @@ import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 import CardBook from "../../components/global/card/book";
 import CardGender from "../../components/global/card/genre";
-import { TOUCHABLEOPACITY } from "../../constants";
+import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
+import { useEffect, useState } from "react";
 
 const Home = ({ navigation }) => {
-  const { categories, appChange } = appStore()
+  const { categories, tomes, appChange } = appStore()
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      setLoading(false)
+      if (status == 200) {
+        appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
+        goTo(navigation, "Welcome");
+      }
+    }).catch(error => {
+      setLoading(false)
+      console.log(error)
+    })
+    if (categories.length == 0)
+      fetch(`${API_LINK}/categories?populate=*`, { headers }).then(async res => {
+        const status = res.status
+        const data = await res.json()
+        return ({ ...data, status })
+      }).then(({ data, status }) => {
+        setLoading(false)
+        if (status == 200) {
+          appChange({ categories: data.map((item) => ({ ...item, select: false })) })
+          goTo(navigation, "Welcome");
+        }
+      }).catch(error => {
+        setLoading(false)
+        console.log(error)
+      })
+  }, [])
   return (
     <Layout
       title={"Buku"}
@@ -19,9 +52,8 @@ const Home = ({ navigation }) => {
       progress={100}
       homeScreen={false}>
       <ScrollView horizontal={true} style={{}}>
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
+
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>
@@ -36,25 +68,27 @@ const Home = ({ navigation }) => {
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => goTo(navigation, "BookByGenre")}>
+        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+          appChange({ currentPage: { name: "Recommandé pour vous" } })
+          goTo(navigation, "BookByGenre")
+        }}>
           <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => goTo(navigation, "BookByGenre")}>
+        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
+          appChange({ currentPage: { name: "Meilleurs ventes" } })
+          goTo(navigation, "BookByGenre")
+        }}>
           <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
-        <CardBook navigation={navigation} />
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
       </ScrollView>
     </Layout>
   );

@@ -3,8 +3,29 @@ import { ScrollView, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 import CardBook from "../../components/global/card/book";
+import { useState, useEffect } from "react";
+import appStore from "../../store/app";
+import { API_LINK, headers } from "../../constants";
 
 const Discover = ({ navigation }) => {
+  const [loading, setLoading] = useState(true)
+  const { tomes, appChange } = appStore()
+  useEffect(() => {
+    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      setLoading(false)
+      if (status == 200) {
+        appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
+        goTo(navigation, "Welcome");
+      }
+    }).catch(error => {
+      setLoading(false)
+      console.log(error)
+    })
+  }, [])
   return (
     <Layout
       title={"Découvertes"}
@@ -13,17 +34,7 @@ const Discover = ({ navigation }) => {
       progress={100}
       discoverScreen={false}>
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
-        <CardBook horizontal={false} />
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
       </View>
     </Layout>
   );
