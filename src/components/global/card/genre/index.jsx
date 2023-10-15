@@ -6,14 +6,14 @@ import goTo from "../../../../utils/goTo";
 import appStore from "../../../../store/app";
 const bg = require('../../../../../assets/genre/bg.png')
 
-export default function CardGenre({ fixSize = false, navigation, name = "", picture }) {
+export default function CardGenre({ fixSize = false, navigation, name = "", picture, ...rest }) {
     const { appChange } = appStore()
     return <>
         <View style={!fixSize ? styles.container : styles.containerFixSize}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => {
-                    appChange({ currentPage: { name } })
+                    appChange({ currentPage: { name, ...rest } })
                     goTo(navigation, "BookByGenre")
                 }}
                 style={{

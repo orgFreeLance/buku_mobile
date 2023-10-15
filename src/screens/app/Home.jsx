@@ -22,7 +22,6 @@ const Home = ({ navigation }) => {
       setLoading(false)
       if (status == 200) {
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
-        goTo(navigation, "Welcome");
       }
     }).catch(error => {
       setLoading(false)
@@ -37,7 +36,6 @@ const Home = ({ navigation }) => {
         setLoading(false)
         if (status == 200) {
           appChange({ categories: data.map((item) => ({ ...item, select: false })) })
-          goTo(navigation, "Welcome");
         }
       }).catch(error => {
         setLoading(false)

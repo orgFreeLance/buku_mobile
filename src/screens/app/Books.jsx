@@ -3,8 +3,26 @@ import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 import CardBook from "../../components/global/card/book";
+import { useEffect, useState } from "react";
+import { API_LINK, headers } from "../../constants";
 
 const Books = ({ navigation }) => {
+  const [loading, setLoading] = useState(true)
+  const { tomes, appChange } = appStore()
+  useEffect(() => {
+    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      setLoading(false)
+      if (status == 200) {
+        appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
+      }
+    }).catch(error => {
+      setLoading(false)
+    })
+  }, [])
   return (
     <Layout
       title={"Mes Livres"}

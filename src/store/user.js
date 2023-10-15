@@ -12,7 +12,7 @@ const userStore = create((set) => ({
         picture: "",
         password: "",
         confirmPassword: "",
-        confirmed: true,
+        confirmed: true,    
         blocked: false
     },
     userChange: (user) => {

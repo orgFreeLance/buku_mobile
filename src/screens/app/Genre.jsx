@@ -15,7 +15,7 @@ const Genre = ({ navigation }) => {
             progress={100}
             accountScreen={false}>
             <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-                {categories.map(({ attributes, id }) => <CardGenre fixSize={true} {...attributes} key={id} navigation={navigation} />)}
+                {categories.map(({ attributes, id }) => <CardGenre fixSize={true} {...attributes} id={id} key={id} navigation={navigation} />)}
             </View>
         </LayoutGenre>
     );
