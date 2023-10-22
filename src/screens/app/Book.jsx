@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
-import LayoutBook from "../../componenents/organisms/LayoutBook";
+import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
