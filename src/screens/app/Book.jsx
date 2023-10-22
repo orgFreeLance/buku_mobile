@@ -3,10 +3,10 @@ import { ImageBackground, StyleSheet } from "react-native";
 import LayoutBook from "../../componenents/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
+import CardCategoryBook from "../../components/global/card/categoryBook";
 
 const Book = ({ navigation }) => {
   const { currentBook } = appStore()
-  console.log(currentBook)
   return (
     <LayoutBook
       title={""}
@@ -21,6 +21,9 @@ const Book = ({ navigation }) => {
         <View style={styles.containerRight}>
           <Text adjustsFontSizeToFit={true} style={styles.title}>{currentBook.name}</Text>
           <Text style={styles.author}>{currentBook.author.data.attributes.username}</Text>
+          <View style={styles.containerCategory}>
+            {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
+          </View>
         </View>
       </View>
     </LayoutBook>
@@ -43,6 +46,13 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+  containerCategory: {
+    width: "100%",
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    flexWrap: "wrap"
   },
   title: {
     width: "60%",
