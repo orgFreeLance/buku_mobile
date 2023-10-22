@@ -1,5 +1,5 @@
 import { StatusBar, Text, View } from "native-base";
-import { ScrollView, StyleSheet } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
 import CardBook from "../../components/global/card/book";
@@ -11,13 +11,14 @@ const Discover = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { tomes, appChange } = appStore()
   useEffect(() => {
-    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&populate[0]=likes`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
     }).then(({ data, status }) => {
       setLoading(false)
       if (status == 200) {
+        console.log(data)
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
       }
     }).catch(error => {
@@ -31,6 +32,7 @@ const Discover = ({ navigation }) => {
       userExist={true}
       progress={100}
       discoverScreen={false}>
+      {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
       </View>

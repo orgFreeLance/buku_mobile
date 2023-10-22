@@ -6,9 +6,10 @@ const appStore = create((set) => ({
     },
     gender: "M",
     currentBook: {},
-    currentGenre: {},
+    currentCategory: {},
     categories: [],
     tomes: [],
+    tomesByGenre: [],
     age_ranges: [
         { name: "0 - 10", select: true },
         { name: "11 - 13", select: false },

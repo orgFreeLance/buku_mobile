@@ -4,7 +4,7 @@ import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
-import { getDate } from "../../constants";
+import { BORDERRADIUS, getDate } from "../../constants";
 
 const Book = ({ navigation }) => {
   const { currentBook } = appStore()
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   picture: {
     height: 230,
     width: "40%",
-    borderRadius: 20,
+    borderRadius: BORDERRADIUS,
     overflow: "hidden"
   },
   containerRight: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   containerCategory: {
-    width: "100%",
+    width: "80%",
     marginTop: 10,
     flexDirection: "row",
     justifyContent: "flex-start",

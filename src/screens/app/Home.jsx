@@ -1,5 +1,5 @@
 import { Text, View } from "native-base";
-import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import theme from "../../constants/theme";
 import Layout from "../../componenents/organisms/Layout";
@@ -14,7 +14,7 @@ const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[]=id&populate[0]=likes`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
@@ -50,8 +50,8 @@ const Home = ({ navigation }) => {
       progress={100}
       homeScreen={false}>
       <ScrollView horizontal={true} style={{}}>
+        {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
-
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>
@@ -62,7 +62,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true}>
-        {categories.map(({ attributes, id }) => <CardGender {...attributes} key={id} navigation={navigation} />)}
+        {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
