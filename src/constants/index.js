@@ -6,3 +6,10 @@ export const headers = {
     "content-type": "application/json"
 }
 export const API_LINK = "https://buku-api.onrender.com/api"
+export const getDate = (date) => {
+    const month = new Date(date).getMonth()
+    const year = new Date(date).getFullYear()
+    return `${MONTHS[month]} ${year}`
+}
+
+export const MONTHS = ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"]

@@ -4,6 +4,7 @@ import LayoutBook from "../../componenents/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
+import { getDate } from "../../constants";
 
 const Book = ({ navigation }) => {
   const { currentBook } = appStore()
@@ -21,6 +22,7 @@ const Book = ({ navigation }) => {
         <View style={styles.containerRight}>
           <Text adjustsFontSizeToFit={true} style={styles.title}>{currentBook.name}</Text>
           <Text style={styles.author}>{currentBook.author.data.attributes.username}</Text>
+          <Text style={styles.createdAt}>publié en {getDate(currentBook.createdAt)}</Text>
           <View style={styles.containerCategory}>
             {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
           </View>
@@ -37,12 +39,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   picture: {
-    height: 250,
+    height: 230,
     width: "40%",
     borderRadius: 20,
     overflow: "hidden"
   },
   containerRight: {
+    width: "70%",
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap'
@@ -52,10 +55,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: "row",
     justifyContent: "flex-start",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    paddingBottom: 10
   },
   title: {
-    width: "60%",
+    width: "80%",
     fontSize: 24,
     lineHeight: 30,
     fontWeight: "700",
@@ -65,9 +69,16 @@ const styles = StyleSheet.create({
   author: {
     width: "100%",
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "400",
     textTransform: "uppercase",
     color: theme.colors.brand.secondary
+  },
+  createdAt: {
+    width: "100%",
+    marginTop: 10,
+    fontSize: 14,
+    fontWeight: "600",
+    textTransform: "uppercase",
   }
 });

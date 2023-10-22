@@ -5,7 +5,7 @@ import { TOUCHABLEOPACITY } from "../../../../constants";
 
 const CardCategoryBook = ({ name }) => {
     return (
-        <View style={{ marginRight: 5, borderRadius: 10, overflow: "hidden" }}>
+        <View style={{ marginRight: 5, marginBottom: 5, borderRadius: 10, overflow: "hidden" }}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY}
             >
                 <View backgroundColor={"gray.200"} style={{ padding: 5 }}><Text style={styles.title}>{name}</Text></View>
@@ -18,7 +18,7 @@ export default CardCategoryBook;
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 14,
+        fontSize: 12,
         lineHeight: 30,
         fontWeight: "700",
         textAlign: "left",
