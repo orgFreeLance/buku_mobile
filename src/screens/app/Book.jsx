@@ -1,11 +1,8 @@
-import { StatusBar, View } from "native-base";
-import { ImageBackground, Text, StyleSheet } from "react-native";
-import theme from "../../constants/theme";
-import Layout from "../../componenents/organisms/Layout";
-import CardBook from "../../components/global/card/book";
+import { Text, View } from "native-base";
+import { ImageBackground, StyleSheet } from "react-native";
 import LayoutBook from "../../componenents/organisms/LayoutBook";
 import appStore from "../../store/app";
-import { height } from "../../constants/nativeSizes";
+import theme from "../../constants/theme";
 
 const Book = ({ navigation }) => {
   const { currentBook } = appStore()
@@ -22,8 +19,8 @@ const Book = ({ navigation }) => {
           <ImageBackground source={{ uri: currentBook.picture }} style={{ width: "100%", height: "100%" }} />
         </View>
         <View style={styles.containerRight}>
-          <Text style={styles.title}>{currentBook.name}</Text>
-          {/* <Text style={styles.title}>{currentBook.author}</Text> */}
+          <Text adjustsFontSizeToFit={true} style={styles.title}>{currentBook.name}</Text>
+          <Text style={styles.author}>{currentBook.author.data.attributes.username}</Text>
         </View>
       </View>
     </LayoutBook>
@@ -38,15 +35,29 @@ const styles = StyleSheet.create({
   },
   picture: {
     height: 250,
-    width: "50%",
+    width: "40%",
     borderRadius: 20,
     overflow: "hidden"
   },
   containerRight: {
-    padding: 10
+    padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   title: {
-    fontSize: 20,
+    width: "60%",
+    fontSize: 24,
+    lineHeight: 30,
     fontWeight: "700",
+    textAlign: "left",
+    flexShrink: 1,
+  },
+  author: {
+    width: "100%",
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "400",
+    textTransform: "uppercase",
+    color: theme.colors.brand.secondary
   }
 });
