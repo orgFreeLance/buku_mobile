@@ -19,7 +19,7 @@ const Start = ({ navigation }) => {
       const data = await res.json()
       return ({ ...data, status })
     }),
-    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[]=id&populate[0]=likes`, { headers }).then(async res => {
+    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[2]=id&populate[0]=likes`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })

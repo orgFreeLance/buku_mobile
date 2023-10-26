@@ -1,23 +1,36 @@
 import { Text, View } from "native-base";
 import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
-import { API_LINK, BORDERRADIUS, getDate, headers } from "../../constants";
+import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
 import { useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const { currentBook, appChange } = appStore()
   useEffect(() => {
-    fetch(`${API_LINK}/tomes/${currentBook.id}?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}/tomes/${currentBook?.id}?populate=*`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
+
       return ({ ...data, status })
     }).then(({ data, status }) => {
+      console.log(data)
       if (status == 200) {
+        const readersNumber = +data.attributes.readersNumber || 0
+        const body = JSON.stringify({ data: { readersNumber: `${readersNumber + 1}` } })
         appChange({ currentBook: { ...data.attributes, id: data.id } })
+        fetch(`${API_LINK}/tomes/${currentBook?.id}`, { headers, method: "PUT", body }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        }).then(() => {
+          appChange({ currentBook: { ...data.attributes, id: data.id, readersNumber: `${readersNumber + 1}` } })
+        }).catch(error => { console.log(error) })
       }
       setLoading(false)
     }).catch(error => {
@@ -48,7 +61,40 @@ const Book = ({ navigation }) => {
                 {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
               </View>
             </View>
-          </View></>
+
+          </View>
+          <View style={{ width: "100%", marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={styles.card}>
+              <Text style={{ fontWeight: "700" }}>
+                {currentBook.likes.data.length}<AntDesign name="staro" size={16} color="black" />
+              </Text>
+              <Text style={styles.titleCard}>Likes</Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={{ fontWeight: "700" }}>{currentBook.pages}</Text>
+              <Text style={styles.titleCard}>Pages</Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={{ fontWeight: "700", alignItems: "center" }}>
+                <AntDesign name="eye" style={{ marginRight: 2 }} size={16} color="black" />
+                {currentBook.visitUser}
+              </Text>
+              <Text style={styles.titleCard}>visiteurs</Text>
+            </View>
+            <View style={styles.card}>
+              <Text style={{ fontWeight: "700", alignItems: "center" }}>
+                <Entypo name="open-book" style={{ marginRight: 2 }} size={16} color="black" />
+                {currentBook.readersNumber}
+              </Text>
+              <Text style={styles.titleCard}>Lecteurs</Text>
+            </View>
+          </View>
+          <View style={{ borderRadius: 50, overflow: "hidden" }}>
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={styles.buy}>
+              <Text style={{ color: "white", textAlign: "center" }}> {currentBook.price} Pc</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       }
     </LayoutBook>
   );
@@ -59,6 +105,19 @@ export default Book;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  buy: {
+    width: "100%",
+    padding: 10,
+    backgroundColor: theme.colors.brand.secondary
+  },
+  card: {
+    borderRightColor: "gray",
+    borderRightWidth: 1,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "center"
   },
   picture: {
     height: 230,
@@ -101,6 +160,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 14,
     fontWeight: "600",
+    textTransform: "uppercase",
+  },
+  titleCard: {
+    fontWeight: "400",
+    fontSize: 10,
     textTransform: "uppercase",
   }
 });

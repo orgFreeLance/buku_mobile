@@ -11,13 +11,13 @@ const BookByGenre = ({ navigation }) => {
     const { tomesByGenre, appChange, currentPage } = appStore()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch(`${API_LINK}/categories/${currentPage?.id}?populate[0]=tomes&fields[0]=name`, { headers }).then(async res => {
+        fetch(`${API_LINK}/categories/${currentPage?.id}?populate[tomes][populate]=*`, { headers }).then(async res => {
             const status = res.status
             const data = await res.json()
             return ({ ...data, status })
         }).then(({ data, status }) => {
-            setLoading(false)
             if (status == 200) {
+                setLoading(false)
                 appChange({ tomesByGenre: data.attributes.tomes.data.map((item) => ({ ...item, select: false })) })
             }
         }).catch(error => {
@@ -38,7 +38,6 @@ const BookByGenre = ({ navigation }) => {
                     {tomesByGenre.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
                 </View>
             }
-
         </LayoutGenre>
     );
 };
