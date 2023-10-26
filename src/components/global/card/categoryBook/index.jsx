@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: "700",
         textAlign: "left",
-        flexShrink: 1, 
+        flexShrink: 1,
     },
 });

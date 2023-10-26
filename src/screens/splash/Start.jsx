@@ -13,21 +13,30 @@ const logo = require("../../../assets/logo.png");
 const Start = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { appChange } = appStore()
-  useEffect(() => {
+  const promises = [
     fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
-    }).then(({ data, status }) => {
-      setLoading(false)
-      console.log(data)
-      if (status == 200) {
-        appChange({ categories: data.map((item) => ({ ...item, select: false })) })
+    }),
+    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[]=id&populate[0]=likes`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    })
+  ]
+  useEffect(() => {
+    Promise.all(promises).then(([category, tome]) => {
+
+      if (category.status == 200 && tome.status == 200) {
+        appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
         goTo(navigation, "Welcome");
+        setLoading(false)
       }
-    }).catch(error => {
+    }).then(error => {
       setLoading(false)
     })
+
   }, [])
   return (
     <View style={{ flex: 1 }}>

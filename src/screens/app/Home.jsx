@@ -25,7 +25,6 @@ const Home = ({ navigation }) => {
       }
     }).catch(error => {
       setLoading(false)
-      console.log(error)
     })
     if (categories.length == 0)
       fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
