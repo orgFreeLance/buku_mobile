@@ -1,7 +1,7 @@
 import { View } from "native-base";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator } from "react-native";
 import theme from "../../constants/theme";
-import LayoutGenre from "../../componenents/organisms/LayoutGenre";
+import LayoutGenre from "../../layouts/organisms/LayoutGenre";
 import CardBook from "../../components/global/card/book";
 import appStore from "../../store/app";
 import { useState, useEffect } from "react";
@@ -11,7 +11,7 @@ const BookByGenre = ({ navigation }) => {
     const { tomesByGenre, appChange, currentPage } = appStore()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch(`${API_LINK}/categories/${currentPage.id}?populate[0]=tomes&populate[1][tomes]=likes&fields[0]=name`, { headers }).then(async res => {
+        fetch(`${API_LINK}/categories/${currentPage?.id}?populate[0]=tomes&fields[0]=name`, { headers }).then(async res => {
             const status = res.status
             const data = await res.json()
             return ({ ...data, status })
@@ -35,7 +35,7 @@ const BookByGenre = ({ navigation }) => {
             {loading ?
                 <ActivityIndicator color={theme.colors.brand.secondary} /> :
                 <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-                    {tomesByGenre.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
+                    {tomesByGenre.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
                 </View>
             }
 

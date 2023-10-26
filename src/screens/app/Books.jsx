@@ -1,7 +1,7 @@
 import { StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import Layout from "../../componenents/organisms/Layout";
+import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
 import { API_LINK, headers } from "../../constants";
@@ -32,7 +32,7 @@ const Books = ({ navigation }) => {
       progress={100}
       bookScreen={false}>
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
       </View>
     </Layout>
   );

@@ -1,7 +1,7 @@
 import { StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import LayoutSearch from "../../componenents/organisms/LayoutSearch";
+import LayoutSearch from "../../layouts/organisms/LayoutSearch";
 import CardBook from "../../components/global/card/book";
 
 const Search = ({ navigation }) => {

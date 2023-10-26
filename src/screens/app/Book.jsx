@@ -1,13 +1,29 @@
 import { Text, View } from "native-base";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
-import { BORDERRADIUS, getDate } from "../../constants";
+import { API_LINK, BORDERRADIUS, getDate, headers } from "../../constants";
+import { useEffect, useState } from "react";
 
 const Book = ({ navigation }) => {
-  const { currentBook } = appStore()
+  const [loading, setLoading] = useState(true)
+  const { currentBook, appChange } = appStore()
+  useEffect(() => {
+    fetch(`${API_LINK}/tomes/${currentBook.id}?populate=*`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      if (status == 200) {
+        appChange({ currentBook: { ...data.attributes, id: data.id } })
+      }
+      setLoading(false)
+    }).catch(error => {
+      setLoading(false)
+    })
+  }, [])
   return (
     <LayoutBook
       title={""}
@@ -15,7 +31,9 @@ const Book = ({ navigation }) => {
       userExist={true}
       progress={100}
       bookScreen={false}>
-      <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between" }}>
+      {loading ? <>
+        <ActivityIndicator color={theme.colors.brand.secondary} />
+      </> : <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.picture}>
           <ImageBackground source={{ uri: currentBook.picture }} style={{ width: "100%", height: "100%" }} />
         </View>
@@ -27,7 +45,7 @@ const Book = ({ navigation }) => {
             {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
           </View>
         </View>
-      </View>
+      </View>}
     </LayoutBook>
   );
 };

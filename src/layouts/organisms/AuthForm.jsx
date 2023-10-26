@@ -11,7 +11,6 @@ import {
 } from "react-native"
 import { Feather } from "@expo/vector-icons";
 import { height, screenHeight, width } from "../../constants/nativeSizes";
-import theme from "../../constants/theme";
 import { TOUCHABLEOPACITY } from "../../constants";
 
 const AuthForm = ({ navigation, children, title, progress = 20 }) => {

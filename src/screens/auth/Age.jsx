@@ -1,7 +1,7 @@
 import { View, Text } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import AuthForm from "../../componenents/organisms/AuthForm";
+import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
 import { shallow } from "zustand/shallow";
 import { useToast } from "native-base";

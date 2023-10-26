@@ -6,14 +6,14 @@ import { TOUCHABLEOPACITY } from "../../../../constants";
 import goTo from "../../../../utils/goTo";
 import appStore from "../../../../store/app";
 
-export default function CardBook({ horizontal = true, navigation, picture, name, likes, ...rest }) {
-    const { currentBook, appChange } = appStore()
+export default function CardBook({ horizontal = true, navigation, picture, id, name, likes, ...rest }) {
+    const { appChange } = appStore()
     return <>
         <View style={horizontal ? styles.containerHorizontal : styles.containerVertical}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => {
-                    appChange({ currentBook: { picture, name, likes, ...rest } })
+                    appChange({ currentBook: { picture, name, id, likes, } })
                     goTo(navigation, "Book")
                 }}
                 style={{

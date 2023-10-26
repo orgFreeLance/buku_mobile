@@ -14,19 +14,19 @@ const Start = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { appChange } = appStore()
   useEffect(() => {
-    fetch(`${API_LINK}/categories?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
     }).then(({ data, status }) => {
       setLoading(false)
+      console.log(data)
       if (status == 200) {
         appChange({ categories: data.map((item) => ({ ...item, select: false })) })
         goTo(navigation, "Welcome");
       }
     }).catch(error => {
       setLoading(false)
-      console.log(error)
     })
   }, [])
   return (

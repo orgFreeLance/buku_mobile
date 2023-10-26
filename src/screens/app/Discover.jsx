@@ -1,7 +1,7 @@
 import { StatusBar, Text, View } from "native-base";
 import { ActivityIndicator, ScrollView, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import Layout from "../../componenents/organisms/Layout";
+import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
 import { useState, useEffect } from "react";
 import appStore from "../../store/app";

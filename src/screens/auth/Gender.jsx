@@ -1,7 +1,7 @@
 import { Radio, View, Text } from "native-base";
 import React from "react";
 import { StyleSheet } from "react-native";
-import AuthForm from "../../componenents/organisms/AuthForm";
+import AuthForm from "../../layouts/organisms/AuthForm";
 import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";

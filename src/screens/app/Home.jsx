@@ -2,7 +2,7 @@ import { Text, View } from "native-base";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import theme from "../../constants/theme";
-import Layout from "../../componenents/organisms/Layout";
+import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
 import CardGender from "../../components/global/card/genre";
 import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
@@ -28,19 +28,20 @@ const Home = ({ navigation }) => {
       console.log(error)
     })
     if (categories.length == 0)
-      fetch(`${API_LINK}/categories?populate=*`, { headers }).then(async res => {
+      fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
         const status = res.status
         const data = await res.json()
         return ({ ...data, status })
       }).then(({ data, status }) => {
         setLoading(false)
+        console.log(data)
         if (status == 200) {
           appChange({ categories: data.map((item) => ({ ...item, select: false })) })
         }
       }).catch(error => {
         setLoading(false)
-        console.log(error)
       })
+    console.log(categories)
   }, [])
   return (
     <Layout
@@ -51,7 +52,7 @@ const Home = ({ navigation }) => {
       homeScreen={false}>
       <ScrollView horizontal={true} style={{}}>
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>
@@ -74,7 +75,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
@@ -86,7 +87,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
     </Layout>
   );
