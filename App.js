@@ -35,7 +35,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <MainNavigation />
       </NavigationContainer>
     </NativeBaseProvider>

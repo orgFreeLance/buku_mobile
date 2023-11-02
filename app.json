@@ -16,6 +16,9 @@
       "supportsTablet": true
     },
     "android": {
+      "compileSdkVersion": 33,
+      "targetSdkVersion": 33,
+      "buildToolsVersion": "33.0.0",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#fff"
@@ -26,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "517e4468-4db2-4ccc-acf6-638a340f6a3b"
+        "projectId": "69255461-1b51-4c98-bdfd-23251d1f35c1"
       }
     },
     "owner": "jeereq minganda",

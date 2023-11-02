@@ -5,10 +5,16 @@ import { ActivityIndicator, ImageBackground } from "react-native";
 import { height, width } from "../../constants/nativeSizes";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+<<<<<<< HEAD
 import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
 const backgroundImage = require("../../../assets/white.jpeg");
 const logo = require("../../../assets/logo.png");
+=======
+import { SvgXml } from "react-native-svg";
+import { logo } from "../../constants/svgs";
+const backgroundImage = require("../../../assets/mainImage.png");
+>>>>>>> fbf37147b99988978f7f318dfed95a706aa0183b
 
 const Start = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -40,7 +46,11 @@ const Start = ({ navigation }) => {
   }, [])
   return (
     <View style={{ flex: 1 }}>
+<<<<<<< HEAD
       <StatusBar backgroundColor={theme.colors.brand.secondary} />
+=======
+      <StatusBar backgroundColor={theme.colors.brand.main} />
+>>>>>>> fbf37147b99988978f7f318dfed95a706aa0183b
       <ImageBackground
         style={{
           flex: 1,
@@ -50,6 +60,7 @@ const Start = ({ navigation }) => {
           paddingBottom: height(5),
           paddingHorizontal: width(5),
         }}
+<<<<<<< HEAD
         resizeMode="cover"
         source={backgroundImage}
       >
@@ -63,6 +74,13 @@ const Start = ({ navigation }) => {
             transition={1000}
           />
           {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
+=======
+        resizeMode='cover'
+        source={backgroundImage}
+      >
+        <Box>
+          <SvgXml xml={logo} />
+>>>>>>> fbf37147b99988978f7f318dfed95a706aa0183b
         </Box>
       </ImageBackground>
     </View>

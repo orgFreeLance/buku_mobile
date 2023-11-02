@@ -1,7 +1,7 @@
 export const TOUCHABLEOPACITY = .35
 export const BORDERRADIUS = 10
 export const OPACITY = .85
-export const token = `0ed181159c782a4e496b2f31bc18cf41ae50e0b5cbee7bcaee23b129d3a3233065a9c4bf4c5fa8de6f73e56279fb624af66cd73c9c5ec6b08522ec19cf5270780df8a5ad58b0291f01fa2ce791dc7603070a3a87c872c2ad1bd9e291506b773b641635d030ddce0fa18eab16dd08f8c9cdba2a0e8c4d7c316cd245130964bf2e`
+export const token = `af6764bd7b967558abf4727846a28efbf56a36247d42a15572e1419d968f7ed6bb9172368f7fb22bd5641e1af88a33884b7f6904987d6594623365009c7461be6fd57b8165749f85b038e32154407b6bf9b236a7dc09867c0f803d60ff26cfeff69ec3b9cc2953144db73d98f5735cd07e86ae40c91cec7c7614b619d25b2742`
 export const headers = {
     "authorization": `Bearer ${token}`,
     "content-type": "application/json"
