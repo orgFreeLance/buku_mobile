@@ -25,6 +25,7 @@
     "expo-sms": "~11.2.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "file-url": "^4.0.0",
     "formik": "^2.4.2",
     "gl-react-expo": "^5.2.1",
     "mobx": "^6.10.0",

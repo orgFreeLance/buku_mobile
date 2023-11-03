@@ -14,11 +14,16 @@ import ButtonMain from "../../components/global/button/main";
 import { useForm, Controller } from "react-hook-form";
 import ModalContainer from "../../components/global/modal/notification";
 const signup_bg = require("../../../assets/notifications/signup.png");
+const signup_bg_success = require("../../../assets/notifications/signupSuccess.png");
+const signup_bg_error = require("../../../assets/notifications/signupError.png");
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
+import goTo from "../../utils/goTo";
 const Signup = ({ navigation }) => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState("")
   const {
     pseudo,
     password,
@@ -28,6 +33,8 @@ const Signup = ({ navigation }) => {
     gender,
     ageRange,
     confirmPassword,
+    picture,
+    userCoins,
     userChange
   } = userStore();
 
@@ -49,22 +56,35 @@ const Signup = ({ navigation }) => {
     const data = {
       pseudo,
       username,
+      picture,
+      userCoins,
       password,
       confirmPassword,
       phoneNumber,
+      paymentPhoneNumber: phoneNumber,
       email,
       gender,
       ageRange,
     }
     setLoading(true)
-    fetch(`${API_LINK}/authentification/register`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(res => {
-      return res.json()
-    }).then(data => {
+    fetch(`${API_LINK}/authentification/register`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status, message }) => {
       setLoading(false)
-      console.log(data)
-    }).catch(err => {
+      if (+status !== 200) {
+        setMessage(message)
+        setError(true)
+      } else {
+        userChange({ ...data })
+        goTo(navigation, "Login");
+      }
+
+    }).catch(({ message }) => {
       setLoading(false)
-      console.log(err)
+      setMessage(message)
+      setError(true)
     })
   }
   return (
@@ -205,40 +225,64 @@ const Signup = ({ navigation }) => {
                     flexWrap: "wrap",
                   }}
                 >
-                  <ImageViewer selectedImage={signup_bg} />
                   {!loading ? <>
-                    <Text
-                      style={{
-                        fontSize: 32,
-                        fontWeight: "600",
-                        paddingVertical: 10,
-                        color: theme.colors.brand.secondary,
-                      }}
-                    >
-                      Inscription réussie
-                    </Text>
-                    <Text
-                      style={{ width: "80%", textAlign: "center", fontSize: 14 }}
-                    >
-                      votre compte a été créé. veuillez patienter un instant. nous
-                      nous préparons à vous accueillir.
-                    </Text>
+                    {!error ? <>
+
+                      <ImageViewer selectedImage={signup_bg_success} />
+                      <Text
+                        style={{
+                          fontSize: 32,
+                          fontWeight: "600",
+                          paddingVertical: 10,
+                          color: theme.colors.brand.secondary,
+                        }}
+                      >
+                        Inscription réussie
+                      </Text>
+                      <Text
+                        style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                      >
+                        votre compte a été créé. veuillez patienter un instant. nous
+                        nous préparons à vous accueillir.
+                      </Text>
+                    </> : <>
+
+                      <ImageViewer selectedImage={signup_bg_error} />
+                      <Text
+                        style={{
+                          fontSize: 32,
+                          fontWeight: "600",
+                          paddingVertical: 10,
+                          color: "red",
+                        }}
+                      >
+                        Echec !
+                      </Text>
+                      <Text
+                        style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                      >
+                        {message}
+                      </Text>
+                    </>}
                   </> :
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignContent: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        flexWrap: "wrap",
-                        marginTop: 15,
-                      }}
-                    >
-                      <ActivityIndicator
-                        size="large"
-                        color={theme.colors.brand.secondary}
-                      />
-                    </View>}
+                    <>
+                      <ImageViewer selectedImage={signup_bg} />
+                      < View
+                        style={{
+                          flexDirection: "row",
+                          alignContent: "center",
+                          justifyContent: "center",
+                          width: "100%",
+                          flexWrap: "wrap",
+                          marginTop: 15,
+                        }}
+                      >
+                        <ActivityIndicator
+                          size="large"
+                          color={theme.colors.brand.secondary}
+                        />
+                      </View>
+                    </>}
                 </View>
               </>
             }

@@ -12,6 +12,7 @@ const userStore = create((set) => ({
     password: "",
     confirmPassword: "",
     confirmed: true,
+    userCoins: 0,
     blocked: false,
     userChange: (user) => {
         return set((state) => ({ ...state, ...user }))

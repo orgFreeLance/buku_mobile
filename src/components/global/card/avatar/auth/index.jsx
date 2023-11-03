@@ -3,12 +3,11 @@ import * as ImagePicker from "expo-image-picker";
 import { View, Text } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, Pressable } from "react-native";
-import avatar from "../../../../../../assets/avatar.jpeg";
 import theme from "../../../../../constants/theme";
 import userStore from "../../../../../store/user";
 
 export default function CardAvatarAuth() {
-  const { picture } = userStore()
+  const { picture, userChange } = userStore()
   const [selectedImage, setSelectedImage] = useState(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -17,6 +16,8 @@ export default function CardAvatarAuth() {
     });
 
     if (!result.canceled) {
+      const { uri } = result.assets[0]
+      userChange({ picture: uri })
       setSelectedImage(result.assets[0]);
     } else {
       alert("You did not select any image.");
