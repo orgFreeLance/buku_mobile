@@ -17,6 +17,7 @@ export default function CardAuthCategory({
       <>
         <TouchableOpacity
           activeOpacity={TOUCHABLEOPACITY}
+          onPress={onClick}
           style={{
             color: "#fff",
             textAlign: "center",
@@ -29,7 +30,6 @@ export default function CardAuthCategory({
           }}
         >
           <Text
-            onPress={onClick}
             style={{
               color: "white",
               textAlign: "center",
@@ -44,6 +44,7 @@ export default function CardAuthCategory({
     <>
       <TouchableOpacity
         activeOpacity={TOUCHABLEOPACITY}
+        onPress={onClick}
         style={{
           textAlign: "center",
           fontWeight: "500",

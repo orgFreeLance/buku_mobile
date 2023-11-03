@@ -16,18 +16,14 @@ import ButtonMain from "../../components/global/button/main";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useForm, Controller } from "react-hook-form";
 import goTo from "../../utils/goTo";
-import theme from "../../constants/theme";
 import CardAvatarAuth from "../../components/global/card/avatar/auth";
 
 const Profile = ({ navigation }) => {
-  const toast = useToast();
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
 
   const {
     username,
-    phone_number
+    phoneNumber,
+    userChange
   } = userStore();
 
   const {
@@ -37,25 +33,11 @@ const Profile = ({ navigation }) => {
   } = useForm({
     defaultValues: {
       username,
-      phone_number,
-      birth_date: date
+      phoneNumber
     },
   });
-  
-  const onChangeDate = (selectedDate, onChange) => {
-    const currentDate = selectedDate;
-    setShow(false);
-    setDate(currentDate);
-  };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
 
 
   return (
@@ -158,7 +140,7 @@ const Profile = ({ navigation }) => {
                         value={value}
                       />
 
-                      {errors.phone_number ? (
+                      {errors.phoneNumber ? (
                         <Text style={{ color: "red", fontSize: 10 }}>
                           9 caractères sont requis.
                         </Text>
@@ -167,61 +149,15 @@ const Profile = ({ navigation }) => {
                       )}
                     </Stack>
                   )}
-                  name="phone_number"
+                  name="phoneNumber"
                 />
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({ field: { value, ...rest1 }, ...rest }) => (
-                    <Stack style={{ marginBottom: 10 }}>
-                      {console.log(rest1)}
-                      <Pressable onPress={showDatepicker}>
-                        <FormControl.Label>Date de naissance</FormControl.Label>
-                        <Input
-                          placeholder="Date de naissance"
-                          value={date.toDateString()}
-                          InputRightElement={
-                            <>
-                              <FontAwesome
-                                name="calendar"
-                                size={16}
-                                style={{ margin: 5 }}
-                                color={theme.colors.brand.secondary}
-                                onPress={showDatepicker}
-                              />
-                            </>
-                          }
-                        />
-                      </Pressable>
-                      {show && (
-                        <DateTimePicker
-                          testID="dateTimePicker"
-                          value={date}
-                          mode={mode}
-                          is24Hour={true}
-                          onChange={(event, selectedDate) => { onChangeDate(event, selectedDate, setValue) }}
-                        />
-                      )}
-                      {errors.birth_date ? (
-                        <Text style={{ color: "red", fontSize: 10 }}>
-                          la date est requis
-                        </Text>
-                      ) : (
-                        <></>
-                      )}
-                    </Stack>
-                  )}
-                  name="birth_date"
-                />
-
               </FormControl>
             </View>
           </View>
           <ButtonMain
             content="continue"
-            onPress={handleSubmit(() => {
+            onPress={handleSubmit((data) => {
+              userChange(data)
               goTo(navigation, "Signup");
             })}
           />

@@ -1,28 +1,30 @@
 import { View, Text } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
-import { shallow } from "zustand/shallow";
-import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import CardAge from "../../components/global/card/age";
 import appStore from "../../store/app";
 
 const Age = ({ navigation }) => {
-  const toast = useToast();
 
-  const { age_ranges, appChange } = appStore()
+  const { ageRanges, appChange } = appStore()
+  const { userChange } = userStore()
 
   const onPress = (current) => {
     const setAges = ((state) => {
       return state.map((item, index) => {
-        if (current == index) return { ...item, select: true };
+        if (current == index) {
+          console.log(item)
+          userChange({ ageRange: item.name })
+          return { ...item, select: true };
+        }
         return { ...item, select: false };
       });
     });
-    appChange({ age_ranges: setAges(age_ranges) })
+    appChange({ ageRanges: setAges(ageRanges) })
   };
 
   return (
@@ -58,7 +60,7 @@ const Age = ({ navigation }) => {
                   justifyContent: "space-between",
                 }}
               >
-                {age_ranges.map(({ name, select }, index) => (
+                {ageRanges.map(({ name, select }, index) => (
                   <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden", width: "48%" }}
                     key={index}>
                     <CardAge

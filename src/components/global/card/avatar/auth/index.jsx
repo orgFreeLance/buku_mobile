@@ -5,8 +5,10 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image, Pressable } from "react-native";
 import avatar from "../../../../../../assets/avatar.jpeg";
 import theme from "../../../../../constants/theme";
+import userStore from "../../../../../store/user";
 
 export default function CardAvatarAuth() {
+  const { picture } = userStore()
   const [selectedImage, setSelectedImage] = useState(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -64,7 +66,7 @@ export default function CardAvatarAuth() {
             >
               <FontAwesome name="edit" size={16} color="white" />
             </View>
-            <ImageViewer selectedImage={avatar} />
+            <ImageViewer selectedImage={{ uri: picture }} />
           </View>
         )}
       </View>

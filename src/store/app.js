@@ -5,12 +5,13 @@ const appStore = create((set) => ({
         name: "",
     },
     gender: "M",
+    ageRange: "0 - 10",
     currentBook: {},
     currentCategory: {},
     categories: [],
     tomes: [],
     tomesByGenre: [],
-    age_ranges: [
+    ageRanges: [
         { name: "0 - 10", select: true },
         { name: "11 - 13", select: false },
         { name: "14 - 17", select: false },

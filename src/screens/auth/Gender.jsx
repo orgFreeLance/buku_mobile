@@ -6,10 +6,10 @@ import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
+import userStore from "../../store/user";
 
 const Gender = ({ navigation }) => {
-  const { gender, appChange } = appStore()
-
+  const { gender, userChange } = userStore()
   return (
     <View style={styles.container}>
       <AuthForm
@@ -39,7 +39,7 @@ const Gender = ({ navigation }) => {
                 name="Gender"
                 space={4}
                 onChange={(gender) => {
-                  appChange({ gender })
+                  userChange({ gender })
                 }}
                 accessibilityLabel="Choisi ton genre"
               >
