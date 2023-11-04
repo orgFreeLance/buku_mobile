@@ -6,17 +6,19 @@ import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
 import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
+import { tomesURl } from "../../constants/url";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { tomes, appChange } = appStore()
   useEffect(() => {
-    fetch(`${API_LINK}/tomes?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
     }).then(({ data, status }) => {
       setLoading(false)
+      console.log(data)
       if (status == 200) {
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
       }

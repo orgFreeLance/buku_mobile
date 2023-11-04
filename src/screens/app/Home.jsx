@@ -9,12 +9,13 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
+import { tomeURl, tomesURl } from "../../constants/url";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[]=id&populate[0]=likes`, { headers }).then(async res => {
+    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })

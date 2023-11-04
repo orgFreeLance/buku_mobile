@@ -60,8 +60,8 @@ const Signup = ({ navigation }) => {
       userCoins,
       password,
       confirmPassword,
-      phoneNumber,
-      paymentPhoneNumber: phoneNumber,
+      phoneNumber: `+243${phoneNumber}`,
+      paymentPhoneNumber: `+243${phoneNumber}`,
       email,
       gender,
       ageRange,
@@ -78,7 +78,10 @@ const Signup = ({ navigation }) => {
         setError(true)
       } else {
         userChange({ ...data })
-        goTo(navigation, "Login");
+        setError(false)
+        setTimeout(() => {
+          goTo(navigation, "Login");
+        }, 4000)
       }
 
     }).catch(({ message }) => {
@@ -190,7 +193,7 @@ const Signup = ({ navigation }) => {
                       <Input
 
                         style={{ paddingHorizontal: 10 }}
-                        type="confirmPassword"
+                        type="password"
                         keyboardType="text"
                         placeholder="Mot de passe"
                         onBlur={onBlur}
@@ -245,25 +248,25 @@ const Signup = ({ navigation }) => {
                         votre compte a été créé. veuillez patienter un instant. nous
                         nous préparons à vous accueillir.
                       </Text>
-                    </> : <>
-
-                      <ImageViewer selectedImage={signup_bg_error} />
-                      <Text
-                        style={{
-                          fontSize: 32,
-                          fontWeight: "600",
-                          paddingVertical: 10,
-                          color: "red",
-                        }}
-                      >
-                        Echec !
-                      </Text>
-                      <Text
-                        style={{ width: "80%", textAlign: "center", fontSize: 14 }}
-                      >
-                        {message}
-                      </Text>
-                    </>}
+                    </> :
+                      <>
+                        <ImageViewer selectedImage={signup_bg_error} />
+                        <Text
+                          style={{
+                            fontSize: 32,
+                            fontWeight: "600",
+                            paddingVertical: 10,
+                            color: "red",
+                          }}
+                        >
+                          Echec !
+                        </Text>
+                        <Text
+                          style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                        >
+                          {message}
+                        </Text>
+                      </>}
                   </> :
                     <>
                       <ImageViewer selectedImage={signup_bg} />

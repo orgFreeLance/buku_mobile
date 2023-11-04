@@ -12,5 +12,5 @@ export const getDate = (date) => {
     const year = new Date(date).getFullYear()
     return `${MONTHS[month]} ${year}`
 }
-
+export const setToBase64 = (base64) => `data:image/png;base64,${base64}`
 export const MONTHS = ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"]

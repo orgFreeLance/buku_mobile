@@ -7,6 +7,7 @@ import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
+import { categoriesURl, tomesURl } from "../../constants/url";
 const backgroundImage = require("../../../assets/white.jpeg");
 const logo = require("../../../assets/logo.png");
 
@@ -14,12 +15,12 @@ const Start = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { appChange } = appStore()
   const promises = [
-    fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
+    fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
     }),
-    fetch(`${API_LINK}/tomes?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
+    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })

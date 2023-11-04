@@ -8,30 +8,36 @@ import CardCategoryBook from "../../components/global/card/categoryBook";
 import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { categoryOfTomeURl, tomeURl } from "../../constants/url";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const { currentBook, appChange } = appStore()
   useEffect(() => {
-    fetch(`${API_LINK}/tomes/${currentBook?.id}?populate=*`, { headers }).then(async res => {
+    fetch(`${API_LINK}${tomeURl(currentBook?.id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
 
       return ({ ...data, status })
     }).then(({ data, status }) => {
-      console.log(data)
       if (status == 200) {
-        const readersNumber = +data.attributes.readersNumber || 0
-        const body = JSON.stringify({ data: { readersNumber: `${readersNumber + 1}` } })
         appChange({ currentBook: { ...data.attributes, id: data.id } })
-        fetch(`${API_LINK}/tomes/${currentBook?.id}`, { headers, method: "PUT", body }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        }).then(() => {
-          appChange({ currentBook: { ...data.attributes, id: data.id, readersNumber: `${readersNumber + 1}` } })
-        }).catch(error => { console.log(error) })
       }
+      setLoading(false)
+    }).catch(error => {
+      setError(true)
+      setLoading(false)
+    })
+    fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+
+      return ({ ...data, status })
+    }).then(({ data, status }) => {
+      console.log(data, "populate")
+      // if (status == 200) {
+      //   appChange({ currentBook: { ...data.attributes, id: data.id } })
+      // }
       setLoading(false)
     }).catch(error => {
       setError(true)
@@ -55,29 +61,29 @@ const Book = ({ navigation }) => {
             </View>
             <View style={styles.containerRight}>
               <Text adjustsFontSizeToFit={true} style={styles.title}>{currentBook.name}</Text>
-              <Text style={styles.author}>{currentBook.author.data.attributes.username}</Text>
+              <Text style={styles.author}>{currentBook.author}</Text>
               <Text style={styles.createdAt}>publié en {getDate(currentBook.createdAt)}</Text>
-              <View style={styles.containerCategory}>
+              {/* <View style={styles.containerCategory}>
                 {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
-              </View>
+              </View> */}
             </View>
 
           </View>
           <View style={{ width: "100%", marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700" }}>
-                {currentBook.likes.data.length}<AntDesign name="staro" size={16} color="black" />
+                {currentBook.likesNumber}<AntDesign name="staro" size={16} color="black" />
               </Text>
               <Text style={styles.titleCard}>Likes</Text>
             </View>
             <View style={styles.card}>
-              <Text style={{ fontWeight: "700" }}>{currentBook.pages}</Text>
+              <Text style={{ fontWeight: "700" }}>{currentBook.pagesNumber}</Text>
               <Text style={styles.titleCard}>Pages</Text>
             </View>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
                 <AntDesign name="eye" style={{ marginRight: 2 }} size={16} color="black" />
-                {currentBook.visitUser}
+                {currentBook.userViews}
               </Text>
               <Text style={styles.titleCard}>visiteurs</Text>
             </View>
@@ -91,13 +97,13 @@ const Book = ({ navigation }) => {
           </View>
           <View style={{ borderRadius: 50, overflow: "hidden" }}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={styles.buy}>
-              <Text style={{ color: "white", textAlign: "center" }}> {currentBook.price} Pc</Text>
+              <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} Pc</Text>
             </TouchableOpacity>
           </View>
         </>
       }
     </LayoutBook>
-  );
+  ); 56
 };
 
 export default Book;

@@ -1,14 +1,19 @@
 import { Text, FormControl, Input, Stack, View } from "native-base";
-import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 import { useForm, Controller } from "react-hook-form";
+import { API_LINK, headers } from "../../constants";
 
 const Login = ({ navigation }) => {
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState("")
   const {
     phoneNumber,
     password,
@@ -24,6 +29,27 @@ const Login = ({ navigation }) => {
       password,
     },
   });
+  const login = (data) => {
+    setLoading(true)
+    fetch(`${API_LINK}/authentification/login`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status, message }) => {
+      setLoading(false)
+      if (+status !== 200) {
+        setMessage(message)
+        setError(true)
+      } else {
+        userChange({ isAuth: true, ...data })
+        goTo(navigation, "Home");
+      }
+    }).catch(({ message }) => {
+      setLoading(false)
+      setMessage(message)
+      setError(true)
+    })
+  }
   return (
     <View style={styles.container}>
       <AuthForm
@@ -154,10 +180,12 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <ButtonMain
-            content="Connecte toi"
-            onPress={handleSubmit(() => {
-              userChange({ isAuth: true })
-              goTo(navigation, "Home");
+            content={!loading ? "Connecte toi" :
+              <ActivityIndicator
+                color={"white"}
+              />}
+            onPress={handleSubmit((data) => {
+              login({ ...data, phoneNumber: `+243${data.phoneNumber}` })
             })}
 
           />

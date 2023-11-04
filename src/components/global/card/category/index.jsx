@@ -10,6 +10,7 @@ export default function CardAuthCategory({
   select = false,
 }) {
   const onClick = () => {
+    console.log("card")
     onPress(index);
   };
   if (select)

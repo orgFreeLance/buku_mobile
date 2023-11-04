@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image, Pressable } from "react-native";
 import theme from "../../../../../constants/theme";
 import userStore from "../../../../../store/user";
+import { setToBase64 } from "../../../../../constants";
 
 export default function CardAvatarAuth() {
   const { picture, userChange } = userStore()
@@ -13,16 +14,20 @@ export default function CardAvatarAuth() {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
+      base64: true
     });
 
     if (!result.canceled) {
-      const { uri } = result.assets[0]
+      const asset = result.assets[0]
+      const { base64 } = asset
+      const uri = setToBase64(base64)
       userChange({ picture: uri })
-      setSelectedImage(result.assets[0]);
+      setSelectedImage({ uri });
     } else {
       alert("You did not select any image.");
     }
   };
+
   return (
     <Pressable onPress={pickImageAsync}>
       <View

@@ -1,29 +1,26 @@
 import { View, Text } from "native-base";
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
-import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import CardAuthCategory from "../../components/global/card/category";
-import { API_LINK, headers } from "../../constants";
 import theme from "../../constants/theme";
 import appStore from "../../store/app";
 
 const Category = ({ navigation }) => {
-  const toast = useToast();
-  const { } = userStore();
   const { categories, appChange } = appStore()
-  const { } = userStore()
 
   const onPress = (current) => {
-    const setCategories = (categories) => {
+    console.log("click")
+    const setCategories = () => {
       return categories.map((item, index) => {
         if (current == index) {
-          return { ...item, select: !item.select };
+          const select = item.select ? false : true
+          return { ...item, select };
         }
-        return { ...item };
+        return item
       });
     }
     appChange({ categories: setCategories(categories) });
