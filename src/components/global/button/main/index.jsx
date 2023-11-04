@@ -25,8 +25,9 @@ export default function ButtonMain({ content = "Commencer", onPress }) {
         paddingHorizontal: 10,
         paddingVertical: 13,
         marginTop: 10,
+        justifyContent: "center"
       }}>
-      <Text style={{ color: "white", textAlign: "center" }}
+      <Text style={{ color: "white", textAlign: "center", alignItems: "center", justifyContent: "center" }}
       >
         {content}
       </Text>
