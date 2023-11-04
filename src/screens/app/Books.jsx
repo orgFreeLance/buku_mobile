@@ -18,7 +18,6 @@ const Books = ({ navigation }) => {
       return ({ ...data, status })
     }).then(({ data, status }) => {
       setLoading(false)
-      console.log(data)
       if (status == 200) {
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
       }
