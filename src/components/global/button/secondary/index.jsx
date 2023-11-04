@@ -1,10 +1,14 @@
-import { Text, Button } from "native-base";
+import { Text } from "native-base";
+import {
+  TouchableOpacity,
+} from "react-native"
 import theme from "../../../../constants/theme";
 
 export default function ButtonSecondary({ content = "Commencer", onPress }) {
   return (
     <>
-      <Button
+      <TouchableOpacity
+        activeOpacity={.7}
         onPress={onPress}
         style={{
           width: "95%",
@@ -23,11 +27,12 @@ export default function ButtonSecondary({ content = "Commencer", onPress }) {
         <Text
           style={{
             color: theme.colors.brand.secondary,
+            textAlign: "center"
           }}
         >
           {content}
         </Text>
-      </Button>
+      </TouchableOpacity>
     </>
   );
 }

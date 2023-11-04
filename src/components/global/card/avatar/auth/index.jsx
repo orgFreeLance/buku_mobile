@@ -3,23 +3,31 @@ import * as ImagePicker from "expo-image-picker";
 import { View, Text } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image, Pressable } from "react-native";
-import avatar from "../../../../../../assets/avatar.jpeg";
 import theme from "../../../../../constants/theme";
+import userStore from "../../../../../store/user";
+import { setToBase64 } from "../../../../../constants";
 
 export default function CardAvatarAuth() {
+  const { picture, userChange } = userStore()
   const [selectedImage, setSelectedImage] = useState(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
+      base64: true
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0]);
+      const asset = result.assets[0]
+      const { base64 } = asset
+      const uri = setToBase64(base64)
+      userChange({ picture: uri })
+      setSelectedImage({ uri });
     } else {
       alert("You did not select any image.");
     }
   };
+
   return (
     <Pressable onPress={pickImageAsync}>
       <View
@@ -64,7 +72,7 @@ export default function CardAvatarAuth() {
             >
               <FontAwesome name="edit" size={16} color="white" />
             </View>
-            <ImageViewer selectedImage={avatar} />
+            <ImageViewer selectedImage={{ uri: picture }} />
           </View>
         )}
       </View>

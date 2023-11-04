@@ -1,28 +1,55 @@
-import { Text, FormControl, Input, Stack, View, useToast } from "native-base";
+import { Text, FormControl, Input, Stack, View } from "native-base";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import AuthForm from "../../componenents/organisms/AuthForm";
-import { shallow } from "zustand/shallow";
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+import { useForm, Controller } from "react-hook-form";
+import { API_LINK, headers } from "../../constants";
 
 const Login = ({ navigation }) => {
-  const toast = useToast();
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsloading] = useState(false);
-  //Add Inputs elements here
-  const [signupUser, isAuth] = userStore(
-    (state) => [state.signupUser, state.isAuth],
-    shallow
-  );
 
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState("")
+  const {
+    phoneNumber,
+    password,
+    userChange
+  } = userStore();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      phoneNumber,
+      password,
+    },
+  });
+  const login = (data) => {
+    setLoading(true)
+    fetch(`${API_LINK}/authentification/login`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ data, status, message }) => {
+      setLoading(false)
+      if (+status !== 200) {
+        setMessage(message)
+        setError(true)
+      } else {
+        userChange({ isAuth: true, ...data })
+        goTo(navigation, "Home");
+      }
+    }).catch(({ message }) => {
+      setLoading(false)
+      setMessage(message)
+      setError(true)
+    })
+  }
   return (
     <View style={styles.container}>
       <AuthForm
@@ -52,32 +79,83 @@ const Login = ({ navigation }) => {
               }}
             >
               <FormControl isRequired>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Numero de téléphone</FormControl.Label>
-                  <Input
-                    style={{ paddingHorizontal: 10 }}
-                    type="text"
-                    placeholder="Numero de téléphone"
-                  />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 10 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 10 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
-                <Stack style={{ marginBottom: 10 }}>
-                  <FormControl.Label>Mot de passe</FormControl.Label>
-                  <Input type="password" placeholder="Mot de passe" />
-                  <FormControl.HelperText>
-                    Doit comporter au moins 7 caractères.
-                  </FormControl.HelperText>
-                  <FormControl.ErrorMessage>
-                    Au moins 7 caractères sont requis.
-                  </FormControl.ErrorMessage>
-                </Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                    minLength: 9,
+                    maxLength: 9,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Stack style={{ marginBottom: 10 }}>
+                      <FormControl.Label>Numero de téléphone</FormControl.Label>
+                      <Input
+                        InputLeftElement={
+                          <Text
+                            style={{
+                              paddingHorizontal: 5,
+                              paddingVertical: 13,
+                              backgroundColor: "white",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            +243
+                          </Text>
+                        }
+                        style={{ paddingHorizontal: 10 }}
+                        type="text"
+                        keyboardType="numeric"
+                        placeholder="Numero de téléphone"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+
+                      {errors.phoneNumber ? (
+                        <Text style={{ color: "red", fontSize: 10 }}>
+                          9 caractères sont requis.
+                        </Text>
+                      ) : (
+                        <Text>Doit comporter 9 caractères.</Text>
+                      )}
+                    </Stack>
+                  )}
+                  name="phoneNumber"
+                />
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                    minLength: 2,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Stack style={{ marginBottom: 10 }}>
+                      <FormControl.Label>Mot de passe</FormControl.Label>
+                      <Input
+
+                        style={{ paddingHorizontal: 10 }}
+                        type="password"
+                        keyboardType="text"
+                        placeholder="Mot de passe"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+
+                      {errors.password ? (
+                        <Text style={{ color: "red", fontSize: 10 }}>
+                          Aux moins 7 caractères sont requis.
+                        </Text>
+                      ) : (
+                        <Text>Doit comporter plus de 6 caractères.</Text>
+                      )}
+                    </Stack>
+                  )}
+                  name="password"
+                />
               </FormControl>
-              <View
+              <TouchableOpacity
                 style={{
                   marginTop: 20,
                   width: "100%",
@@ -98,14 +176,18 @@ const Login = ({ navigation }) => {
                 >
                   Mot de passe oublié
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <ButtonMain
-            content="Connecte toi"
-            onPress={() => {
-              goTo(navigation, "Home");
-            }}
+            content={!loading ? "Connecte toi" :
+              <ActivityIndicator
+                color={"white"}
+              />}
+            onPress={handleSubmit((data) => {
+              login({ ...data, phoneNumber: `+243${data.phoneNumber}` })
+            })}
+
           />
         </View>
       </AuthForm>

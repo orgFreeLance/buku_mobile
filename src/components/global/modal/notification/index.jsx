@@ -3,7 +3,7 @@ import React from "react";
 export default function ModalContainer({
   children,
   modal = false,
-  closeModal = () => {},
+  closeModal = () => { },
 }) {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -15,7 +15,7 @@ export default function ModalContainer({
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
       >
-        <Modal.Content style={{ backgroundColor: "white" }}>
+        <Modal.Content style={{ backgroundColor: "white", borderRadius: 30 }}>
           <Modal.Body style={{ width: "100%", justifyContent: "center" }}>
             {children}
           </Modal.Body>

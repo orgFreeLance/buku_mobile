@@ -1,39 +1,30 @@
 import { View, Text } from "native-base";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
-import AuthForm from "../../componenents/organisms/AuthForm";
+import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
-import { shallow } from "zustand/shallow";
-import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import CardAge from "../../components/global/card/age";
+import appStore from "../../store/app";
 
 const Age = ({ navigation }) => {
-  const toast = useToast();
-  const [logUser, isAuth] = userStore(
-    (state) => [state.logUser, state.isAuth],
-    shallow
-  );
-  const [ages, setAges] = useState([
-    { content: "0 - 10", select: true },
-    { content: "11 - 13", select: false },
-    { content: "14 - 17", select: false },
-    { content: "18 - 24", select: false },
-    { content: "25 - 29", select: false },
-    { content: "30 - 34", select: false },
-    { content: "35 - 39", select: false },
-    { content: "40 - 44", select: false },
-    { content: "45 - 49", select: false },
-    { content: ">= 50", select: false },
-  ]);
+
+  const { ageRanges, appChange } = appStore()
+  const { userChange } = userStore()
+
   const onPress = (current) => {
-    setAges((state) => {
+    const setAges = ((state) => {
       return state.map((item, index) => {
-        if (current == index) return { ...item, select: true };
+        if (current == index) {
+          console.log(item)
+          userChange({ ageRange: item.name })
+          return { ...item, select: true };
+        }
         return { ...item, select: false };
       });
     });
+    appChange({ ageRanges: setAges(ageRanges) })
   };
 
   return (
@@ -69,14 +60,17 @@ const Age = ({ navigation }) => {
                   justifyContent: "space-between",
                 }}
               >
-                {ages.map(({ content, select }, index) => (
-                  <CardAge
-                    content={content}
-                    onPress={onPress}
-                    select={select}
-                    index={index}
-                    key={index}
-                  />
+                {ageRanges.map(({ name, select }, index) => (
+                  <View style={{ marginTop: 5, marginRight: 5, borderRadius: 20, overflow: "hidden", width: "48%" }}
+                    key={index}>
+                    <CardAge
+                      name={name}
+                      onPress={onPress}
+                      select={select}
+                      index={index}
+                      key={index}
+                    />
+                  </View>
                 ))}
               </View>
             </View>
