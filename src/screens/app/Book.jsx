@@ -12,38 +12,34 @@ import { categoryOfTomeURl, tomeURl } from "../../constants/url";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const { currentBook, appChange } = appStore()
-  useEffect(() => {
+  const { currentBook, currentCategories, appChange } = appStore()
+  const promises = [
     fetch(`${API_LINK}${tomeURl(currentBook?.id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
 
       return ({ ...data, status })
-    }).then(({ data, status }) => {
-      if (status == 200) {
-        appChange({ currentBook: { ...data.attributes, id: data.id } })
-      }
-      setLoading(false)
-    }).catch(error => {
-      setError(true)
-      setLoading(false)
-    })
+    }),
     fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
-
       return ({ ...data, status })
-    }).then(({ data, status }) => {
-      console.log(data, "populate")
-      // if (status == 200) {
-      //   appChange({ currentBook: { ...data.attributes, id: data.id } })
-      // }
-      setLoading(false)
-    }).catch(error => {
-      setError(true)
-      setLoading(false)
     })
+  ]
+  useEffect(() => {
+    setLoading(true)
+    Promise.all(promises).then(([tome, category]) => {
+      setLoading(false)
+      if (tome.status == 200) {
+        appChange({ currentBook: tome.data })
+      }
+      if (category.status == 200) {
+        appChange({ currentCategories: category.data })
+      }
+    })
+
   }, [])
+  console.log(currentBook)
   return (
     <LayoutBook
       title={""}
@@ -63,9 +59,9 @@ const Book = ({ navigation }) => {
               <Text adjustsFontSizeToFit={true} style={styles.title}>{currentBook.name}</Text>
               <Text style={styles.author}>{currentBook.author}</Text>
               <Text style={styles.createdAt}>publié en {getDate(currentBook.createdAt)}</Text>
-              {/* <View style={styles.containerCategory}>
-                {currentBook.categories.data.map((item) => <CardCategoryBook name={item.attributes.name} key={item.id} />)}
-              </View> */}
+              <View style={styles.containerCategory}>
+                {currentCategories.map((item) => <CardCategoryBook name={item.name} key={item.id} />)}
+              </View>
             </View>
 
           </View>
@@ -90,7 +86,7 @@ const Book = ({ navigation }) => {
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
                 <Entypo name="open-book" style={{ marginRight: 2 }} size={16} color="black" />
-                {currentBook.readersNumber}
+                {currentBook.userPurchase}
               </Text>
               <Text style={styles.titleCard}>Lecteurs</Text>
             </View>
@@ -126,7 +122,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   picture: {
-    height: 230,
+    minHeight: 230,
+    maxHeight: 300,
     width: "40%",
     borderRadius: BORDERRADIUS,
     overflow: "hidden"
