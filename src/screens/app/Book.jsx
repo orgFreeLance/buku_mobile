@@ -12,12 +12,12 @@ import { categoryOfTomeURl, tomeURl } from "../../constants/url";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const { currentBook, currentCategories, appChange } = appStore()
+  const [favory, setFavory] = useState(false)
+  const { currentBook, tomes, currentCategories, appChange } = appStore()
   const promises = [
     fetch(`${API_LINK}${tomeURl(currentBook?.id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
-
       return ({ ...data, status })
     }),
     fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
@@ -29,24 +29,34 @@ const Book = ({ navigation }) => {
   useEffect(() => {
     setLoading(true)
     Promise.all(promises).then(([tome, category]) => {
-      setLoading(false)
       if (tome.status == 200) {
         appChange({ currentBook: tome.data })
+        const { id, ...attributes } = tome.data
+        appChange({
+          tomes: tomes.map((item) => {
+            if (id == item.id) return { id, attributes }
+            return item
+          })
+        })
+
+      } else {
+        throw new Error(tome.status)
       }
       if (category.status == 200) {
         appChange({ currentCategories: category.data })
+      } else {
+        throw new Error(tome.status)
       }
+      setLoading(false)
     })
-
   }, [])
-  console.log(currentBook)
+
   return (
     <LayoutBook
       title={""}
+      favory={favory}
       navigation={navigation}
-      userExist={true}
-      progress={100}
-      bookScreen={false}>
+    >
       {loading ? <>
         <ActivityIndicator color={theme.colors.brand.secondary} />
       </> :
@@ -99,7 +109,7 @@ const Book = ({ navigation }) => {
         </>
       }
     </LayoutBook>
-  ); 56
+  );
 };
 
 export default Book;

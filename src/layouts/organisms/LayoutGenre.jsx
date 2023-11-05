@@ -6,7 +6,7 @@ import {
   View,
 } from "native-base";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native"; import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5, Foundation, Feather, AntDesign, Ionicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";

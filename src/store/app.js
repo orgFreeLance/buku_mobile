@@ -3,12 +3,16 @@ import { create } from 'zustand';
 const appStore = create((set) => ({
     currentPage: {
         name: "",
+        favory: false
     },
     gender: "M",
     ageRange: "0 - 10",
-    currentBook: {},
+    currentBook: {
+        favory: false
+    },
     currentCategory: {},
     categories: [],
+    currentCategories: [],
     tomes: [],
     tomesByGenre: [],
     ageRanges: [

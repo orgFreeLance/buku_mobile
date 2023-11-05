@@ -6,7 +6,7 @@ import {
 } from "native-base";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons'; import { MaterialIcons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -14,8 +14,9 @@ import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { TOUCHABLEOPACITY } from "../../constants";
 const bg = require("../../../assets/white.jpeg");
+const bg_error = require("../../../assets/error/bg.jpeg");
 
-const LayoutBook = ({ image = bg, navigation, children, title }) => {
+const LayoutBook = ({ image = bg, navigation, children, favory = false }) => {
   const [modal, setModal] = useState(false)
   const { isAuth } = userStore()
 
@@ -25,47 +26,54 @@ const LayoutBook = ({ image = bg, navigation, children, title }) => {
     }
   }, [isAuth])
 
-  return (
-    <View
-      flex={1}
-      style={{
-        flex: 1,
-        flexDirection: "column",
-      }}
-    >
-      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
-      <StatusBar backgroundColor={"white"} />
-      <Flex flex={1} height={screenHeight}>
-        <ImageBackground
-          style={{
-            flex: 1,
-          }}
-          resizeMode="cover"
-          source={image}
-        >
-          <View style={styles.header}>
-            <TouchableOpacity style={styles.icon}
-              activeOpacity={TOUCHABLEOPACITY}
-              onPress={() => { navigation.goBack() }}>
-              <Ionicons name="arrow-back-sharp" size={24} color="black" />
-            </TouchableOpacity>
-            <Text style={styles.title}>
-              {title}
-            </Text>
-          </View>
-          <ScrollView
-            flex={1}
-            w="100%"
-            mx="auto"
-            paddingHorizontal={width(5)}
+  try {
+    return (
+      <View
+        flex={1}
+        style={{
+          flex: 1,
+          flexDirection: "column",
+        }}
+      >
+        <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+        <StatusBar backgroundColor={"white"} />
+        <Flex flex={1} height={screenHeight}>
+          <ImageBackground
+            style={{
+              flex: 1,
+            }}
+            resizeMode="cover"
+            source={image}
           >
-            {children}
-          </ScrollView>
-        </ImageBackground>
+            <View style={styles.header}>
+              <TouchableOpacity style={styles.icon}
+                activeOpacity={TOUCHABLEOPACITY}
+                onPress={() => { navigation.goBack() }}>
+                <Ionicons name="arrow-back-sharp" size={24} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.icon}
+                activeOpacity={TOUCHABLEOPACITY}
+              >
+                <MaterialIcons name="favorite" size={24} color={!favory ? "black" : theme.colors.brand.secondary} />
+              </TouchableOpacity>
 
-      </Flex >
-    </View >
-  );
+            </View>
+            <ScrollView
+              flex={1}
+              w="100%"
+              mx="auto"
+              paddingHorizontal={width(5)}
+            >
+              {children}
+            </ScrollView>
+          </ImageBackground>
+
+        </Flex >
+      </View >
+    );
+  } catch (error) {
+    console.log(error)
+  } 
 };
 
 export default LayoutBook;
@@ -82,7 +90,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     backgroundColor: "white"
   },
   icon: {
