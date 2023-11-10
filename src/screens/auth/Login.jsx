@@ -35,9 +35,8 @@ const Login = ({ navigation }) => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
-    }).then(({ data, status, message }) => {
+    }).then(({ user: data, status, message }) => {
       setLoading(false)
-      console.log(message)
       if (+status !== 200) {
         setMessage(message)
         setError(true)

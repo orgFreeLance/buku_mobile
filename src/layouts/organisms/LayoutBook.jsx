@@ -10,22 +10,12 @@ import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons'; import { Mat
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { TOUCHABLEOPACITY } from "../../constants";
 const bg = require("../../../assets/white.jpeg");
-const bg_error = require("../../../assets/error/bg.jpeg");
 
-const LayoutBook = ({ image = bg, navigation, children, favory = false }) => {
+const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite,favory = false }) => {
   const [modal, setModal] = useState(false)
-  const { isAuth } = userStore()
-
-  useEffect(() => {
-    if (!isAuth) {
-      goTo(navigation, "Welcome")
-    }
-  }, [isAuth])
-
   try {
     return (
       <View
@@ -53,6 +43,9 @@ const LayoutBook = ({ image = bg, navigation, children, favory = false }) => {
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
+                onPress={() => {
+                  createTomeFavorite()
+                }}
               >
                 <MaterialIcons name="favorite" size={24} color={!favory ? "black" : theme.colors.brand.secondary} />
               </TouchableOpacity>
@@ -73,7 +66,7 @@ const LayoutBook = ({ image = bg, navigation, children, favory = false }) => {
     );
   } catch (error) {
     console.log(error)
-  } 
+  }
 };
 
 export default LayoutBook;

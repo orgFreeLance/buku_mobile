@@ -6,7 +6,7 @@ import {
   View,
 } from "native-base";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native"; import { MaterialIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native";
 import { FontAwesome5, Foundation, Feather, AntDesign, Ionicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
@@ -20,14 +20,7 @@ const bg = require("../../../assets/white.jpeg");
 const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
 
   const [modal, setModal] = useState(false)
-  const { isAuth } = userStore()
-
-  useEffect(() => {
-    if (!isAuth) {
-      goTo(navigation, "Welcome")
-    }
-  }, [isAuth])
-
+  
   try {
     return (
       <View

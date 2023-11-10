@@ -1,5 +1,5 @@
-import { Text, View } from "native-base";
-import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
+import { Text } from "native-base";
+import { ActivityIndicator, ImageBackground, StyleSheet, View } from "react-native";
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
@@ -8,14 +8,16 @@ import CardCategoryBook from "../../components/global/card/categoryBook";
 import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { categoryOfTomeURl, tomeURl } from "../../constants/url";
+import { categoryOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
+import userStore from "../../store/user";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [favory, setFavory] = useState(false)
   const { currentBook, tomes, currentCategories, appChange } = appStore()
+  const { id } = userStore()
   const promises = [
-    fetch(`${API_LINK}${tomeURl(currentBook?.id)}`, { headers }).then(async res => {
+    fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
@@ -26,6 +28,18 @@ const Book = ({ navigation }) => {
       return ({ ...data, status })
     })
   ]
+  const createTomeFavorite = () => {
+    fetch(`${createTomeFavoriteURL()}`, { headers, method: "POST", body: JSON.stringify({ data: { userId: id, tomeId: currentBook.id } }) }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }).then(({ status }) => {
+      console.log(status)
+      if (status == 200) {
+        setFavory(true)
+      }
+    })
+  }
   useEffect(() => {
     setLoading(true)
     Promise.all(promises).then(([tome, category]) => {
@@ -38,6 +52,7 @@ const Book = ({ navigation }) => {
             return item
           })
         })
+        setFavory(attributes.favorite)
 
       } else {
         throw new Error(tome.status)
@@ -53,9 +68,9 @@ const Book = ({ navigation }) => {
 
   return (
     <LayoutBook
-      title={""}
       favory={favory}
       navigation={navigation}
+      createTomeFavorite={createTomeFavorite}
     >
       {loading ? <>
         <ActivityIndicator color={theme.colors.brand.secondary} />
@@ -101,13 +116,40 @@ const Book = ({ navigation }) => {
               <Text style={styles.titleCard}>Lecteurs</Text>
             </View>
           </View>
-          <View style={{ borderRadius: 50, overflow: "hidden" }}>
+          <View style={{ borderRadius: 10, overflow: "hidden" }}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={styles.buy}>
               <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} Pc</Text>
             </TouchableOpacity>
           </View>
         </>
       }
+      <View style={{
+        padding: 5,
+        width: "100%"
+      }}>
+        <View style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent:"space-between"
+        }}>
+          <View style={styles.btn}>
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={{
+              width: "100%",
+              height: "100%"
+            }}>
+              <Text style={{ color: "white", textAlign: "center" }}>Détails</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.btn}>
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={{
+              width: "100%",
+              height: "100%"
+            }}>
+              <Text style={{ color: "white", textAlign: "center" }}> Épisodes</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </LayoutBook>
   );
 };
@@ -122,6 +164,12 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     backgroundColor: theme.colors.brand.secondary
+  },
+  btn: {
+    width: "49.5%",
+    backgroundColor: theme.colors.brand.secondary,
+    paddingVertical: 10,
+    borderRadius: 10
   },
   card: {
     borderRightColor: "gray",

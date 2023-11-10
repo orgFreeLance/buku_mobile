@@ -24,15 +24,9 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
   const [discover] = useState(discoverScreen)
   const [book] = useState(bookScreen)
   const [coin] = useState(coinScreen)
-  const { phone_number, picture, } = userStore()
   const [modal, setModal] = useState(false)
-  const { isAuth } = userStore()
 
-  useEffect(() => {
-    if (!isAuth) {
-      goTo(navigation, "Welcome")
-    }
-  }, [isAuth])
+
 
   return (
     <View

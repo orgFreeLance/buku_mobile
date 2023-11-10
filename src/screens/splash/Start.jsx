@@ -28,7 +28,6 @@ const Start = ({ navigation }) => {
   ]
   useEffect(() => {
     Promise.all(promises).then(([category, tome]) => {
-
       if (category.status == 200 && tome.status == 200) {
         appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
         goTo(navigation, "Welcome");
