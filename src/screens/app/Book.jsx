@@ -8,7 +8,7 @@ import CardCategoryBook from "../../components/global/card/categoryBook";
 import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { categoryOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
+import { categoryOfTomeURl, chaptersOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
 import userStore from "../../store/user";
 import BookChapters from "../../components/global/chapters";
 import BookDetails from "../../components/global/details";
@@ -26,6 +26,11 @@ const Book = ({ navigation }) => {
       return ({ ...data, status })
     }),
     fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }),
+    fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
@@ -52,7 +57,7 @@ const Book = ({ navigation }) => {
   }
   useEffect(() => {
     setLoading(true)
-    Promise.all(promises).then(([tome, category]) => {
+    Promise.all(promises).then(([tome, category, chapter]) => {
       if (tome.status == 200) {
         appChange({ currentBook: tome.data })
         const { id, ...attributes } = tome.data
@@ -71,6 +76,11 @@ const Book = ({ navigation }) => {
         appChange({ currentCategories: category.data })
       } else {
         throw new Error(tome.status)
+      }
+      if (chapter.status == 200) {
+        appChange({ chapters: chapter.data })
+      } else {
+        throw new Error(chapter.status)
       }
       setLoading(false)
     })
@@ -140,7 +150,7 @@ const Book = ({ navigation }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               borderBottomColor: theme.colors.brand.secondary,
-              borderBottomWidth: 2
+              borderBottomWidth: 1
             }}>
               <View style={styles.btn}>
                 <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
