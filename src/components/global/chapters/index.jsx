@@ -1,9 +1,13 @@
-import { Text } from "react-native";
+import CardChapter from "../card/chapter";
 
 export default function BookChapters() {
     return <>
-        <Text style={{ color: "red" }}>
-           Book Chapters
-        </Text>
+        <CardChapter />
+        <CardChapter />
+        <CardChapter />
+        <CardChapter />
+        <CardChapter />
+        <CardChapter />
+        <CardChapter />
     </>
 }
