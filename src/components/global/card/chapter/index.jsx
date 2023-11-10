@@ -2,18 +2,31 @@ import { View, Text } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
 import appStore from "../../../../store/app";
 import theme from "../../../../constants/theme";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { TOUCHABLEOPACITY } from "../../../../constants";
+import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function CardChapter({ number, name }) {
+export default function CardChapter({ number, name, coinsPrice }) {
     const { currentBook } = appStore()
     return <>
-        <View style={styles.card}>
-            <View style={{ overflow: "hidden" }}>
-                <ImageBackground source={{ uri: currentBook?.picture }} style={{ width: 100, height: 100 }} />
-            </View>
-            <View style={{ paddingLeft: 10, paddingVertical: 10 }}>
-                <Text style={{ fontWeight: "bold", fontVariant: "smallcaps", fontSize: 20 }}>{name}</Text>
-                <Text style={{ fontWeight: "normal", fontSize: 20, paddingTop: 5 }}>#{number}</Text>
-            </View>
+        <View style={{
+            overflow: "hidden",
+            borderRadius: 5
+        }}>
+            <TouchableOpacity style={styles.card}
+                activeOpacity={TOUCHABLEOPACITY}>
+                <View style={{ overflow: "hidden" }}>
+                    <ImageBackground source={{ uri: currentBook?.picture }} style={{ width: 100, height: 100 }} />
+                </View>
+                <View style={{ paddingLeft: 10, paddingVertical: 10 }}>
+                    <Text style={{ fontWeight: "bold", fontVariant: "smallcaps", fontSize: 20 }}>{name}</Text>
+                    <Text style={{ fontWeight: "400", fontSize: 16, paddingTop: 5 }}>#{number}</Text>
+                    <Text style={{ fontWeight: "400", fontSize: 16, paddingTop: 5 }}>
+                        <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={16} color={theme.colors.brand.secondary} />
+                        {coinsPrice}
+                    </Text>
+                </View>
+            </TouchableOpacity>
         </View>
     </>
 }

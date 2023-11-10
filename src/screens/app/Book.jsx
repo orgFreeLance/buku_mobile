@@ -150,7 +150,8 @@ const Book = ({ navigation }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               borderBottomColor: theme.colors.brand.secondary,
-              borderBottomWidth: 1
+              borderColor: "gray",
+              borderWidth: .3
             }}>
               <View style={styles.btn}>
                 <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
