@@ -9,7 +9,7 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
-import { categoriesURl, tomeURl, tomesURl } from "../../constants/url";
+import { categoriesURl,  tomesURl } from "../../constants/url";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
@@ -30,7 +30,6 @@ const Home = ({ navigation }) => {
     Promise.all(promises).then(([category, tome]) => {
       if (category.status == 200 && tome.status == 200) {
         appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
-        goTo(navigation, "Welcome");
         setLoading(false)
       }
     }).then(error => {

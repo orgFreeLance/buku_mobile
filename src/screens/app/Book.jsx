@@ -1,5 +1,5 @@
-import { Text } from "native-base";
-import { ActivityIndicator, ImageBackground, StyleSheet, View } from "react-native";
+import { Text, View } from "native-base";
+import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
@@ -10,10 +10,13 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { categoryOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
 import userStore from "../../store/user";
+import BookChapters from "../../components/global/chapters";
+import BookDetails from "../../components/global/details";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [favory, setFavory] = useState(false)
+  const [active, setActive] = useState("Details")
   const { currentBook, tomes, currentCategories, appChange } = appStore()
   const { id } = userStore()
   const promises = [
@@ -34,11 +37,18 @@ const Book = ({ navigation }) => {
       const data = await res.json()
       return ({ ...data, status })
     }).then(({ status }) => {
-      console.log(status)
       if (status == 200) {
         setFavory(true)
       }
     })
+  }
+  const getComponent = () => {
+    switch (active) {
+      case "Épisodes":
+        return <BookChapters />
+      case "Details":
+        return <BookDetails />
+    }
   }
   useEffect(() => {
     setLoading(true)
@@ -124,32 +134,44 @@ const Book = ({ navigation }) => {
         </>
       }
       <View style={{
-        padding: 5,
+        paddingVertical: 5,
         width: "100%"
       }}>
         <View style={{
           width: "100%",
           flexDirection: "row",
-          justifyContent:"space-between"
+          justifyContent: "space-between",
         }}>
           <View style={styles.btn}>
-            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={{
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
               width: "100%",
-              height: "100%"
+              height: "100%",
+              backgroundColor: active == "Details" ? theme.colors.brand.secondary : "black",
+              paddingVertical: 10,
+              borderRadius: 10,
+              overflow: "hidden"
             }}>
               <Text style={{ color: "white", textAlign: "center" }}>Détails</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.btn}>
-            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={{
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Épisodes") }} style={{
               width: "100%",
-              height: "100%"
+              height: "100%",
+              backgroundColor: active == "Épisodes" ? theme.colors.brand.secondary : "black",
+              paddingVertical: 10,
+              borderRadius: 10,
+              overflow: "hidden"
             }}>
               <Text style={{ color: "white", textAlign: "center" }}> Épisodes</Text>
             </TouchableOpacity>
           </View>
         </View>
+        <View style={{ width: "100%", backgroundColor: "red" }}>
+          {getComponent()}
+        </View>
       </View>
+
     </LayoutBook>
   );
 };
@@ -167,9 +189,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: "49.5%",
-    backgroundColor: theme.colors.brand.secondary,
-    paddingVertical: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   card: {
     borderRightColor: "gray",
