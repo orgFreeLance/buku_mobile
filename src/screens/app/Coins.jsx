@@ -6,8 +6,7 @@ import Layout from "../../layouts/organisms/Layout";
 import userStore from "../../store/user";
 
 const Coins = ({ navigation }) => {
-  const { userCoins, ...rest } = userStore()
-  console.log(rest)
+  const { userCoins } = userStore()
   return (
     <Layout
       title={"Pieces"}
