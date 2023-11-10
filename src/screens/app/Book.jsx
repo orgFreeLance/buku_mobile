@@ -131,46 +131,49 @@ const Book = ({ navigation }) => {
               <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} Pc</Text>
             </TouchableOpacity>
           </View>
+          <View style={{
+            paddingVertical: 5,
+            width: "100%"
+          }}>
+            <View style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderBottomColor: theme.colors.brand.secondary,
+              borderBottomWidth: 2
+            }}>
+              <View style={styles.btn}>
+                <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
+                  width: "100%",
+                  backgroundColor: active == "Details" ? theme.colors.brand.secondary : "black",
+                  paddingVertical: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  overflow: "hidden"
+                }}>
+                  <Text style={{ color: "white", textAlign: "center" }}>Détails</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.btn}>
+                <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Épisodes") }} style={{
+                  width: "100%",
+                  backgroundColor: active == "Épisodes" ? theme.colors.brand.secondary : "black",
+                  paddingVertical: 10,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  overflow: "hidden"
+                }}>
+                  <Text style={{ color: "white", textAlign: "center" }}> Épisodes</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={{ width: "100%", marginTop: 5 }}>
+              {getComponent()}
+            </View>
+          </View>
         </>
       }
-      <View style={{
-        paddingVertical: 5,
-        width: "100%"
-      }}>
-        <View style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}>
-          <View style={styles.btn}>
-            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: active == "Details" ? theme.colors.brand.secondary : "black",
-              paddingVertical: 10,
-              borderRadius: 10,
-              overflow: "hidden"
-            }}>
-              <Text style={{ color: "white", textAlign: "center" }}>Détails</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.btn}>
-            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Épisodes") }} style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: active == "Épisodes" ? theme.colors.brand.secondary : "black",
-              paddingVertical: 10,
-              borderRadius: 10,
-              overflow: "hidden"
-            }}>
-              <Text style={{ color: "white", textAlign: "center" }}> Épisodes</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ width: "100%", backgroundColor: "red" }}>
-          {getComponent()}
-        </View>
-      </View>
+
 
     </LayoutBook>
   );
@@ -189,6 +192,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: "49.5%",
+    height: "auto",
     borderRadius: 10,
   },
   card: {

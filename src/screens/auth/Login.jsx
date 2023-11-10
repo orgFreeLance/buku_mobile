@@ -105,7 +105,7 @@ const Login = ({ navigation }) => {
                         }
                         style={{ paddingHorizontal: 10 }}
                         type="text"
-                        keyboardType="numeric"
+                        keyboardType={"numeric"}
                         placeholder="Numero de téléphone"
                         onBlur={onBlur}
                         onChangeText={onChange}
