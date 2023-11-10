@@ -1,9 +1,13 @@
-import { StatusBar, Text, View } from "native-base";
-import { StyleSheet } from "react-native";
+import { View } from "native-base";
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Text, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
+import userStore from "../../store/user";
 
 const Coins = ({ navigation }) => {
+  const { userCoins, ...rest } = userStore()
+  console.log(rest)
   return (
     <Layout
       title={"Pieces"}
@@ -11,7 +15,15 @@ const Coins = ({ navigation }) => {
       userExist={true}
       progress={100}
       coinScreen={false}>
+      <View style={{ backgroundColor: theme.colors.brand.secondary, paddingVertical: 15, paddingHorizontal: 5 }}>
+        <Text style={{ fontSize: 26, fontWeight: "700", color: "white" }}>
+          <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={24} color={"white"} />
+          {` ${userCoins}`}
+        </Text>
+      </View>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
 
+      </View>
     </Layout>
   );
 };
