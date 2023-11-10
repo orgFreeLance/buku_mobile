@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
 import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
@@ -138,7 +138,7 @@ const Book = ({ navigation }) => {
           </View>
           <View style={{ borderRadius: 10, overflow: "hidden" }}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={styles.buy}>
-              <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} Pc</Text>
+              <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={16} color={"white"} /></Text>
             </TouchableOpacity>
           </View>
           <View style={{
@@ -150,8 +150,8 @@ const Book = ({ navigation }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               borderBottomColor: theme.colors.brand.secondary,
-              borderColor: "gray",
-              borderWidth: .3
+              borderBottomColor: "gray",
+              borderBottomWidth: .3
             }}>
               <View style={styles.btn}>
                 <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
@@ -174,7 +174,7 @@ const Book = ({ navigation }) => {
                   borderTopRightRadius: 10,
                   overflow: "hidden"
                 }}>
-                  <Text style={{ color: "white", textAlign: "center" }}> Épisodes</Text>
+                  <Text style={{ color: "white", textAlign: "center" }}> Chapitres</Text>
                 </TouchableOpacity>
               </View>
             </View>
