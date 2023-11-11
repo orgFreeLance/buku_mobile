@@ -6,7 +6,7 @@ import Layout from "../../layouts/organisms/Layout";
 import userStore from "../../store/user";
 import CardCoin from "../../components/global/card/coin";
 import { useEffect } from "react";
-import { activesCoin } from "../../constants/url";
+import {  activesCoinURL } from "../../constants/url";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
 
@@ -14,7 +14,7 @@ const Coins = ({ navigation }) => {
   const { userCoins } = userStore()
   const { appChange, coins } = appStore()
   const promises = [
-    fetch(`${activesCoin()}`, { headers }).then(async res => {
+    fetch(`${activesCoinURL()}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })

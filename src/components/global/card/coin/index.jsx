@@ -3,11 +3,25 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { StyleSheet } from "react-native";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { TOUCHABLEOPACITY } from "../../../../constants";
+import { TOUCHABLEOPACITY, headers } from "../../../../constants";
+import userStore from "../../../../store/user";
+import { buyCoinsURL } from "../../../../constants/url";
 
-export default function CardCoin({ coinsNumber, price, currency }) {
+export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
+    const { id: user, userChange } = userStore()
+    const buyCoin = () => {
+        fetch(`${buyCoinsURL(coin, user)}`, { headers, method: "POST" }).then(async res => {
+            const status = res.status
+            const data = await res.json()
+            return ({ ...data, status })
+
+        }).then(({ data: { user, ...rest } }) => {
+            const { userCoins } = user
+            userChange({ userCoins })
+        })
+    }
     return <View style={styles.card}>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY}>
+        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={buyCoin}>
             <View style={styles.header}>
                 <View style={styles.content}>
                     <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
