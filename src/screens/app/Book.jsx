@@ -17,7 +17,7 @@ const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [favory, setFavory] = useState(false)
-  const [active, setActive] = useState("Details")
+  const [active, setActive] = useState("Détails")
   const { currentBook, tomes, currentCategories, appChange } = appStore()
   const { id } = userStore()
   const promises = [
