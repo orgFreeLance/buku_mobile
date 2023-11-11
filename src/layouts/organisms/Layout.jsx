@@ -7,11 +7,10 @@ import {
 } from "native-base";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation, Feather, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, Foundation,  AntDesign } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
 import CardLinkFooter from "../../components/global/card/linkFooter";

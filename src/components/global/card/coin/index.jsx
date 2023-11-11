@@ -1,9 +1,9 @@
-import { View, Text } from "native-base";
+import { View, } from "native-base";
 import { FontAwesome5 } from '@expo/vector-icons';
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import theme from "../../../../constants/theme";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { TOUCHABLEOPACITY, headers } from "../../../../constants";
+import { TouchableOpacity } from "react-native";
+import { BORDERRADIUS, TOUCHABLEOPACITY, headers } from "../../../../constants";
 import userStore from "../../../../store/user";
 import { buyCoinsURL } from "../../../../constants/url";
 import { useState } from "react";
@@ -51,31 +51,41 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
             <View style={styles.footer}>
                 <Text style={{ textAlign: "center", color: "white", fontWeight: "bold" }}>{price} {currency?.symbol}</Text>
             </View>
+
         </TouchableOpacity>
-        <ModalContainer closeModal={closeModal} modal={modal}>
-            <View style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                width: "100%",
-            }}>
-                <ImageViewer selectedImage={shop} />
-            </View>
-            <Loader loading={loading}>
+        <ModalContainer closeModal={closeModal} modal={modal} >
+            <>
                 <View style={{
                     flexDirection: "row",
-                    alignContent: "center",
                     justifyContent: "center",
                     width: "100%",
                 }}>
-
+                    <ImageViewer selectedImage={shop} />
                 </View>
-            </Loader>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <ButtonBuy name={"Annuler"} color="red" onPress={closeModal} />
-                <ButtonBuy name={"Acheter"} color={theme.colors.brand.secondary} onPress={buyCoin} />
-            </View>
+                <Loader loading={loading}>
+                    <View style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}>
+                        <View style={styles.modal}>
+                            <View style={styles.content}>
+                                <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
+                                <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>{coinsNumber}</Text>
+                            </View>
+                            <Text style={{ fontWeight: "bold", fontSize: 24 }}> = </Text>
+                            <View style={styles.content}>
+                                <Text style={{ textAlign: "center", fontSize: 48, color: theme.colors.brand.secondary, fontWeight: "bold" }}>{price}{currency?.symbol}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </Loader>
+                <View style={{ flexDirection: "row" }} >
+                    <ButtonBuy name={"Annuler"} color="red" onPress={closeModal} />
+                    <ButtonBuy name={"Acheter"} color={theme.colors.brand.secondary} onPress={buyCoin} />
+                </View>
+            </>
         </ModalContainer>
-
     </View>
 }
 const styles = StyleSheet.create({
@@ -94,6 +104,12 @@ const styles = StyleSheet.create({
         height: 90,
         justifyContent: "center",
         alignItems: "center"
+    },
+    modal: {
+        height: 90,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row"
     },
     footer: {
         height: 30,

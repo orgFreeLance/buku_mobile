@@ -1,3 +1,4 @@
+import { ActivityIndicator } from "react-native";
 import theme from "../../../constants/theme";
 
 export default function Loader({ loading, children }) {
