@@ -4,6 +4,7 @@ import { Text, StyleSheet } from "react-native";
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 import userStore from "../../store/user";
+import CardCoin from "../../components/global/card/coin";
 
 const Coins = ({ navigation }) => {
   const { userCoins } = userStore()
@@ -20,8 +21,13 @@ const Coins = ({ navigation }) => {
           {` ${userCoins}`}
         </Text>
       </View>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-
+      <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", paddingVertical: 5 }}>
+        <CardCoin />
+        <CardCoin />
+        <CardCoin />
+        <CardCoin />
+        <CardCoin />
+        <CardCoin />
       </View>
     </Layout>
   );

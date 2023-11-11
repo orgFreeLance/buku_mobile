@@ -10,8 +10,9 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { categoryOfTomeURl, chaptersOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
 import userStore from "../../store/user";
-import BookChapters from "../../components/global/chapters";
-import BookDetails from "../../components/global/details";
+import BookChapters from "../../components/global/bookChapters";
+import BookDetails from "../../components/global/bookDetails";
+import CardChoix from "../../components/global/card/choix";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -49,9 +50,9 @@ const Book = ({ navigation }) => {
   }
   const getComponent = () => {
     switch (active) {
-      case "Épisodes":
+      case "Chapitres":
         return <BookChapters />
-      case "Details":
+      case "Détails":
         return <BookDetails />
     }
   }
@@ -153,30 +154,10 @@ const Book = ({ navigation }) => {
               borderBottomColor: "gray",
               borderBottomWidth: .3
             }}>
-              <View style={styles.btn}>
-                <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Details") }} style={{
-                  width: "100%",
-                  backgroundColor: active == "Details" ? theme.colors.brand.secondary : "black",
-                  paddingVertical: 10,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  overflow: "hidden"
-                }}>
-                  <Text style={{ color: "white", textAlign: "center" }}>Détails</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.btn}>
-                <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => { setActive("Épisodes") }} style={{
-                  width: "100%",
-                  backgroundColor: active == "Épisodes" ? theme.colors.brand.secondary : "black",
-                  paddingVertical: 10,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  overflow: "hidden"
-                }}>
-                  <Text style={{ color: "white", textAlign: "center" }}> Chapitres</Text>
-                </TouchableOpacity>
-              </View>
+
+              <CardChoix name={"Détails"} active={active} onPress={() => { setActive("Détails") }} />
+              <CardChoix name={"Chapitres"} active={active} onPress={() => { setActive("Chapitres") }} />
+            
             </View>
             <View style={{ width: "100%", marginTop: 5 }}>
               {getComponent()}

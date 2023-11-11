@@ -136,7 +136,6 @@ const Login = ({ navigation }) => {
 
                         style={{ paddingHorizontal: 10 }}
                         type="password"
-                        keyboardType="text"
                         placeholder="Mot de passe"
                         onBlur={onBlur}
                         onChangeText={onChange}
