@@ -14,6 +14,7 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
         <View style={horizontal ? styles.containerHorizontal : styles.containerVertical}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
+
                 onPress={() => {
                     appChange({ currentBook: { picture, name, id, likesNumber, } })
                     goTo(navigation, "Book")

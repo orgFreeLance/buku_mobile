@@ -3,7 +3,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { StyleSheet, Text } from "react-native";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native";
-import { BORDERRADIUS, TOUCHABLEOPACITY, headers } from "../../../../constants";
+import { TOUCHABLEOPACITY, headers } from "../../../../constants";
 import userStore from "../../../../store/user";
 import { buyCoinsURL } from "../../../../constants/url";
 import { useState } from "react";
@@ -21,11 +21,9 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
         setModal(true)
     }
     const closeModal = () => {
-        console.log("click")
         setModal(false)
     }
     const buyCoin = () => {
-        console.log("click right")
         setLoading(true)
         fetch(`${buyCoinsURL(coin, user)}`, { headers, method: "POST" }).then(async res => {
             const status = res.status

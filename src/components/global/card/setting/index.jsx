@@ -1,13 +1,14 @@
 import { Text, View } from "native-base";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { TOUCHABLEOPACITY } from "../../../../constants";
 
 const CardSetting = ({ Icon, content, onPress = () => { } }) => {
-    return <Pressable onPress={onPress}>
+    return <TouchableOpacity onPress={onPress} activeOpacity={TOUCHABLEOPACITY}>
         <View style={styles.container}>
             {Icon}
             <Text color={"grey"}> {content}</Text>
         </View>
-    </Pressable >
+    </TouchableOpacity >
 }
 export default CardSetting
 const styles = StyleSheet.create({
