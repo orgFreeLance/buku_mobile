@@ -2,6 +2,7 @@ import { Modal } from "native-base";
 import React from "react";
 export default function ModalContainer({
   children,
+  footer = null,
   modal = false,
   closeModal = () => { },
 }) {
@@ -19,6 +20,9 @@ export default function ModalContainer({
           <Modal.Body style={{ width: "100%", justifyContent: "center" }}>
             {children}
           </Modal.Body>
+          {footer && <Modal.Footer>
+            {footer}
+          </Modal.Footer>}
         </Modal.Content>
       </Modal>
     </>

@@ -19,6 +19,7 @@ const signup_bg_error = require("../../../assets/notifications/signupError.png")
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
 import goTo from "../../utils/goTo";
+import ImageViewer from "../../components/global/imageViewer";
 const Signup = ({ navigation }) => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false)
@@ -306,18 +307,8 @@ const Signup = ({ navigation }) => {
 };
 
 export default Signup;
-function ImageViewer({ selectedImage }) {
-  return (
-    <Image
-      source={selectedImage}
-      size={200}
-      style={{
-        width: 200,
-      }}
-      alt="image background"
-    />
-  );
-}
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

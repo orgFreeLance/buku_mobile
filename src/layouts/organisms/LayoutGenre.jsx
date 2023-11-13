@@ -14,79 +14,70 @@ import theme from "../../constants/theme";
 import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
-import CardLinkFooter from "../../components/global/card/linkFooter";
 import goTo from "../../utils/goTo";
 const bg = require("../../../assets/white.jpeg");
 
-const LayoutGenre = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, purchaseScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
-  const [account] = useState(accountScreen)
-  const [home] = useState(homeScreen)
-  const [discover] = useState(discoverScreen)
-  const [purchase] = useState(purchaseScreen)
-  const [coin] = useState(coinScreen)
-  const { phone_number, picture, } = userStore()
+const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
+
   const [modal, setModal] = useState(false)
-  const { isAuth } = userStore()
-
-  useEffect(() => {
-    if (!isAuth) {
-      goTo(navigation, "Welcome")
-    }
-  }, [isAuth])
-
-  return (
-    <View
-      flex={1}
-      style={{
-        flex: 1,
-        flexDirection: "column",
-      }}
-    >
-      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
-      <StatusBar backgroundColor={"white"} />
-      <Flex flex={1} height={screenHeight}>
-        <ImageBackground
-          style={{
-            flex: 1,
-          }}
-          resizeMode="cover"
-          source={image}
-        >
-          <View style={styles.header}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+  
+  try {
+    return (
+      <View
+        flex={1}
+        style={{
+          flex: 1,
+          flexDirection: "column",
+        }}
+      >
+        <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+        <StatusBar backgroundColor={"white"} />
+        <Flex flex={1} height={screenHeight}>
+          <ImageBackground
+            style={{
+              flex: 1,
+            }}
+            resizeMode="cover"
+            source={image}
+          >
+            <View style={styles.header}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity
+                  activeOpacity={TOUCHABLEOPACITY}
+                  onPress={() => {
+                    navigation.goBack()
+                  }}
+                >
+                  <Ionicons name="ios-arrow-back-outline" size={20} color="black" style={{ marginRight: 5 }} />
+                </TouchableOpacity>
+                <Text style={styles.title}>
+                  {title}
+                </Text>
+              </View>
               <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => {
-                navigation.goBack()
+                  goTo(navigation, "Search")
                 }}
               >
-                <Ionicons name="ios-arrow-back-outline" size={20} color="black" style={{ marginRight: 5 }} />
+                <AntDesign name="search1" size={20} color="black" />
               </TouchableOpacity>
-              <Text style={styles.title}>
-                {title}
-              </Text>
             </View>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY}
-              onPress={() => {
-                goTo(navigation, "Search")
-              }}
+            <ScrollView
+              flex={1}
+              w="100%"
+              mx="auto"
+              paddingHorizontal={width(5)}
             >
-              <AntDesign name="search1" size={20} color="black" />
-            </TouchableOpacity>
-          </View>
-          <ScrollView
-            flex={1}
-            w="100%"
-            mx="auto"
-            paddingHorizontal={width(5)}
-          >
-            {children}
-          </ScrollView>
-        </ImageBackground>   
-      </Flex >
-    </View >
-  );
+              {children}
+            </ScrollView>
+          </ImageBackground>
+        </Flex >
+      </View >
+    );
+  } catch (error) {
+    return <></>
+  }
 };
 
 export default LayoutGenre;

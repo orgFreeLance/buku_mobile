@@ -18,13 +18,6 @@ const bg = require("../../../assets/white.jpeg");
 
 const LayoutSearch = ({ image = bg, navigation, children }) => {
   const [modal, setModal] = useState(false)
-  const { isAuth } = userStore()
-
-  useEffect(() => {
-    if (!isAuth) {
-      goTo(navigation, "Welcome")
-    }
-  }, [isAuth])
 
   return (
     <View

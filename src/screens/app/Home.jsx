@@ -9,39 +9,32 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
-import { tomeURl, tomesURl } from "../../constants/url";
+import { categoriesURl,  tomesURl } from "../../constants/url";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
-  useEffect(() => {
+  const promises = [
+    fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
+    }),
     fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
-    }).then(({ data, status }) => {
-      setLoading(false)
-      if (status == 200) {
-        appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
+    })
+  ]
+  useEffect(() => {
+    Promise.all(promises).then(([category, tome]) => {
+      if (category.status == 200 && tome.status == 200) {
+        appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
+        setLoading(false)
       }
-    }).catch(error => {
+    }).then(error => {
       setLoading(false)
     })
-    if (categories.length == 0)
-      fetch(`${API_LINK}/categories?fields[0]=picture&fields[1]=name&fields[2]=id`, { headers }).then(async res => {
-        const status = res.status
-        const data = await res.json()
-        return ({ ...data, status })
-      }).then(({ data, status }) => {
-        setLoading(false)
-        console.log(data)
-        if (status == 200) {
-          appChange({ categories: data.map((item) => ({ ...item, select: false })) })
-        }
-      }).catch(error => {
-        setLoading(false)
-      })
-    console.log(categories)
   }, [])
   return (
     <Layout

@@ -7,7 +7,7 @@ import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
-import { categoriesURl, tomesURl } from "../../constants/url";
+import { activesCoinURL, categoriesURl, tomesURl } from "../../constants/url";
 const backgroundImage = require("../../../assets/white.jpeg");
 const logo = require("../../../assets/logo.png");
 
@@ -24,13 +24,17 @@ const Start = ({ navigation }) => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
+    }),
+    fetch(`${activesCoinURL()}`, { headers }).then(async res => {
+      const status = res.status
+      const data = await res.json()
+      return ({ ...data, status })
     })
   ]
   useEffect(() => {
-    Promise.all(promises).then(([category, tome]) => {
-
-      if (category.status == 200 && tome.status == 200) {
-        appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
+    Promise.all(promises).then(([category, tome, coin]) => {
+      if (category.status == 200 && tome.status == 200 && coin.status == 200) {
+        appChange({ categories: category.data.map((item) => ({ ...item, select: false })), coins: coin.data, tomes: tome.data.map((item) => ({ ...item, select: false })) })
         goTo(navigation, "Welcome");
         setLoading(false)
       }

@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
-    }).then(({ data, status, message }) => {
+    }).then(({ user: data, status, message }) => {
       setLoading(false)
       if (+status !== 200) {
         setMessage(message)
@@ -105,7 +105,7 @@ const Login = ({ navigation }) => {
                         }
                         style={{ paddingHorizontal: 10 }}
                         type="text"
-                        keyboardType="numeric"
+                        keyboardType={"numeric"}
                         placeholder="Numero de téléphone"
                         onBlur={onBlur}
                         onChangeText={onChange}
@@ -136,7 +136,6 @@ const Login = ({ navigation }) => {
 
                         style={{ paddingHorizontal: 10 }}
                         type="password"
-                        keyboardType="text"
                         placeholder="Mot de passe"
                         onBlur={onBlur}
                         onChangeText={onChange}
