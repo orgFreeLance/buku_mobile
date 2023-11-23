@@ -4,7 +4,6 @@ import { TOUCHABLEOPACITY, } from "../../../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import theme from "../../../../constants/theme";
 const CardChoix = ({ active, onPress, name }) => {
-
     return (
         <View style={styles.btn}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={onPress} style={{

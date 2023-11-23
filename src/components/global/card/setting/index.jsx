@@ -11,6 +11,7 @@ const CardSetting = ({ Icon, content, onPress = () => { } }) => {
     </TouchableOpacity >
 }
 export default CardSetting
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",

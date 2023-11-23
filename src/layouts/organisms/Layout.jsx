@@ -5,9 +5,9 @@ import {
   Text,
   View,
 } from "native-base";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation,  AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, Foundation, AntDesign } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
