@@ -9,32 +9,32 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
-import { categoriesURl,  tomesURl } from "../../constants/url";
+import { categoriesURl, tomesURl } from "../../constants/url";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
-  const promises = [
-    fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }),
-    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    })
-  ]
+ 
   useEffect(() => {
-    Promise.all(promises).then(([category, tome]) => {
-      if (category.status == 200 && tome.status == 200) {
+    (async () => {
+      try {
+        const category = await fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        })
+        const tome = await fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        })
         appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
         setLoading(false)
+      } catch (error) {
+        setLoading(false)
       }
-    }).then(error => {
-      setLoading(false)
-    })
+    })()
+   
   }, [])
   return (
     <Layout

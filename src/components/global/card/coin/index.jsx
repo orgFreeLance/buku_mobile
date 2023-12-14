@@ -89,12 +89,12 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
 const styles = StyleSheet.create({
     card: {
         height: 120,
-        width: "32%",
+        width: "49%",
         overflow: "hidden",
         borderColor: theme.colors.brand.secondary,
         borderWidth: .2,
-        marginBottom: 10,
-        borderRadius: 5
+        marginBottom: 5,
+        borderRadius: 3
     },
     content: {
     },

@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 15,
         marginRight: 5,
-        overflow: "hidden"
-        , position: "relative"
+        overflow: "hidden",
+        position: "relative"
     },
     containerFixSize: {
         height: 100,
         width: "48.5%",
         borderRadius: 15,
         marginBottom: 5,
-        overflow: "hidden"
-        , position: "relative"
+        overflow: "hidden",
+        position: "relative"
     },
 })

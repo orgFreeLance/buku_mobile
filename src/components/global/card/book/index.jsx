@@ -55,22 +55,26 @@ const styles = StyleSheet.create({
     containerHorizontal: {
         height: 320,
         width: 175,
-        borderRadius: 15,
+        borderRadius: 10,
         marginRight: 5,
-        marginTop: 5, overflow: "hidden"
+        marginTop: 5,
+        overflow: "hidden",
+        backgroundColor: "gray.100"
     },
     avatar: {
         height: 250,
         width: "100%",
-        borderRadius: 16,
+        borderRadius: 10,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         overflow: "hidden"
     },
     containerVertical: {
         height: 320,
-        width: "48.5%",
-        borderRadius: 15,
-        marginTop: 5, overflow: "hidden"
+        width: "49%",
+        borderRadius: 10,
+        marginTop: 5,
+        overflow: "hidden",
+        backgroundColor: "gray.500"
     }
 })
