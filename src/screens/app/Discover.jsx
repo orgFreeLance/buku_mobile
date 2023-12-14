@@ -21,7 +21,7 @@ const Discover = ({ navigation }) => {
       if (status == 200) {
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
       }
-    }).catch(error => {
+    }).catch((error) => {
       setLoading(false)
     })
   }, [])

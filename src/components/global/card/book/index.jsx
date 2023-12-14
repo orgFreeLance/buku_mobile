@@ -14,7 +14,6 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
         <View style={horizontal ? styles.containerHorizontal : styles.containerVertical}>
             <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
-
                 onPress={() => {
                     appChange({ currentBook: { picture, name, id, likesNumber, } })
                     goTo(navigation, "Book")
@@ -55,26 +54,26 @@ const styles = StyleSheet.create({
     containerHorizontal: {
         height: 320,
         width: 175,
-        borderRadius: 10,
+        borderRadius: 5,
         marginRight: 5,
         marginTop: 5,
         overflow: "hidden",
         backgroundColor: "gray.100"
     },
     avatar: {
-        height: 250,
+        height: 200,
         width: "100%",
-        borderRadius: 10,
+        borderRadius: 5,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         overflow: "hidden"
     },
     containerVertical: {
-        height: 320,
+        height: 265,
         width: "49%",
-        borderRadius: 10,
+        borderRadius: 5,
         marginTop: 5,
         overflow: "hidden",
-        backgroundColor: "gray.500"
+        backgroundColor: "gray"
     }
 })
