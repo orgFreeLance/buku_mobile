@@ -20,23 +20,7 @@ const Book = ({ navigation }) => {
   const [active, setActive] = useState("Détails")
   const { currentBook, tomes, currentCategories, appChange } = appStore()
   const { id } = userStore()
-  const promises = [
-    fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }),
-    fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }),
-    fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    })
-  ]
+
   const createTomeFavorite = () => {
     fetch(`${createTomeFavoriteURL()}`, { headers, method: "POST", body: JSON.stringify({ data: { userId: id, tomeId: currentBook.id } }) }).then(async res => {
       const status = res.status
@@ -57,34 +41,54 @@ const Book = ({ navigation }) => {
     }
   }
   useEffect(() => {
-    setLoading(true)
-    Promise.all(promises).then(([tome, category, chapter]) => {
-      if (tome.status == 200) {
-        appChange({ currentBook: tome.data })
-        const { id, ...attributes } = tome.data
-        appChange({
-          tomes: tomes.map((item) => {
-            if (id == item.id) return { id, attributes }
-            return item
-          })
+    (async () => {
+      try {
+        setLoading(true)
+        const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        });
+        const category = await fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        });
+        const chapter = await fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
         })
-        setFavory(attributes.favorite)
+        if (tome.status == 200) {
+          appChange({ currentBook: tome.data })
+          const { id, ...attributes } = tome.data
+          appChange({
+            tomes: tomes.map((item) => {
+              if (id == item.id) return { id, attributes }
+              return item
+            })
+          })
+          setFavory(attributes.favorite)
 
-      } else {
-        throw new Error(tome.status)
+        } else {
+          throw new Error(tome.status)
+        }
+        if (category.status == 200) {
+          appChange({ currentCategories: category.data })
+        } else {
+          throw new Error(tome.status)
+        }
+        if (chapter.status == 200) {
+          appChange({ chapters: chapter.data })
+        } else {
+          throw new Error(chapter.status)
+        }
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
       }
-      if (category.status == 200) {
-        appChange({ currentCategories: category.data })
-      } else {
-        throw new Error(tome.status)
-      }
-      if (chapter.status == 200) {
-        appChange({ chapters: chapter.data })
-      } else {
-        throw new Error(chapter.status)
-      }
-      setLoading(false)
-    })
+    })()
+
   }, [])
 
   return (
@@ -157,7 +161,7 @@ const Book = ({ navigation }) => {
 
               <CardChoix name={"Détails"} active={active} onPress={() => { setActive("Détails") }} />
               <CardChoix name={"Chapitres"} active={active} onPress={() => { setActive("Chapitres") }} />
-            
+
             </View>
             <View style={{ width: "100%", marginTop: 5 }}>
               {getComponent()}

@@ -43,7 +43,6 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
                             {coinsPrice}
                             <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={16} color={theme.colors.brand.secondary} />
                         </Text>
-
                     </View>
                 </View>
             </TouchableOpacity>
@@ -52,13 +51,13 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
 }
 const styles = StyleSheet.create({
     containerHorizontal: {
-        height: 320,
+        height: 265,
         width: 175,
         borderRadius: 5,
         marginRight: 5,
         marginTop: 5,
         overflow: "hidden",
-        backgroundColor: "gray.100"
+        backgroundColor: "gainsboro"
     },
     avatar: {
         height: 200,
@@ -74,6 +73,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 5,
         overflow: "hidden",
-        backgroundColor: "gray"
+        backgroundColor: "gainsboro"
     }
 })

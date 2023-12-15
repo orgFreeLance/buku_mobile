@@ -16,6 +16,10 @@ const appStore = create((set) => ({
     tomes: [],
     chapters: [],
     coins: [],
+    currencies: [],
+    currencyOfCoins: {
+        id: "Tout"
+    },
     tomesByGenre: [],
     ageRanges: [
         { name: "0 - 10", select: true },

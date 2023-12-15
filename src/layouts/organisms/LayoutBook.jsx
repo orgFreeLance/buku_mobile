@@ -1,12 +1,13 @@
 import {
-  Flex, Text,
+  Flex,
   ScrollView,
   StatusBar,
   View,
 } from "native-base";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons'; import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -14,7 +15,7 @@ import ModalMenu from "../../components/global/modal/menu";
 import { TOUCHABLEOPACITY } from "../../constants";
 const bg = require("../../../assets/white.jpeg");
 
-const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite,favory = false }) => {
+const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favory = false }) => {
   const [modal, setModal] = useState(false)
   try {
     return (
@@ -39,7 +40,7 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite,favor
               <TouchableOpacity style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => { navigation.goBack() }}>
-                <Ionicons name="arrow-back-sharp" size={24} color="black" />
+                <Ionicons name="arrow-back-sharp" size={28} color="black" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}

@@ -8,4 +8,5 @@ export const chaptersOfTomeURl = (id) => `/tome-infos/chapters-of-tome/${id}`
 export const bookByGenreURL = (id) => `/tome-infos/tomes-of-category/${id}`
 export const createTomeFavoriteURL = () => `${API_LINK}/tome-infos/create-favorite`
 export const activesCoinURL = () => `${API_LINK}/coin-infos/actives-coin?populate=currency&limit=100`
-export const buyCoinsURL = (coinId, userId) => `${API_LINK}/coin-infos/buy-coin/${coinId}/${userId}` 
+export const buyCoinsURL = (coinId, userId) => `${API_LINK}/coin-infos/buy-coin/${coinId}/${userId}`
+export const getCurrencies = () => `${API_LINK}/currencies`

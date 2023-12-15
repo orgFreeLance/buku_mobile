@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 
 export default function ButtonBuy({ color = "red", name, onPress }) {
     return <>
-        <View style={{ width: "50%", backgroundColor: color, borderRadius: BORDERRADIUS, overflow: "hidden" }}>
+        <View style={{ width: "50%", backgroundColor: color, overflow: "hidden" }}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
                 console.log("click z")
                 onPress()

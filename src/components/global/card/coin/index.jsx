@@ -91,10 +91,9 @@ const styles = StyleSheet.create({
         height: 120,
         width: "49%",
         overflow: "hidden",
-        borderColor: theme.colors.brand.secondary,
-        borderWidth: .2,
         marginBottom: 5,
-        borderRadius: 3
+        borderRadius: 3,
+        backgroundColor: "gainsboro"
     },
     content: {
     },
