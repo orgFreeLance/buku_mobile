@@ -35,7 +35,9 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
   useEffect(() => {
     (async () => {
       setActive("Tout")
-      appChange({ currencies: [all] })
+      if (currencies.length === 0) {
+        appChange({ currencies: [all] })
+      }
       try {
         const currencies = await fetch(`${getCurrencies()}`, { headers }).then(async res => {
           const status = res.status

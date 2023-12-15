@@ -43,6 +43,7 @@ const Book = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       try {
+        console.log(currentBook?.id, id)
         setLoading(true)
         const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
           const status = res.status

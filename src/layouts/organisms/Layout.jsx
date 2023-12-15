@@ -2,13 +2,15 @@ import {
   Flex,
   ScrollView,
   StatusBar,
-  Text,
-  View,
 } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { FontAwesome5, Foundation, AntDesign } from '@expo/vector-icons';
-import { ImageBackground, StyleSheet } from "react-native";
+import {
+  ImageBackground, StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import ModalMenu from "../../components/global/modal/menu";
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "700",
     color: "black"
   },

@@ -12,16 +12,24 @@ import ImageViewer from "../../imageViewer";
 import Loader from "../../Loader";
 import ButtonBuy from "../../button/buy";
 const shop = require("../../../../../assets/coin/shop.png");
+const success = require("../../../../../assets/notifications/signupSuccess.png");
 
 export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
     const { id: user, userChange } = userStore()
     const [modal, setModal] = useState(false)
+    const [modalSuccess, setModalSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
     const openModal = () => {
         setModal(true)
     }
     const closeModal = () => {
         setModal(false)
+    }
+    const openModalSuccess = () => {
+        setModalSuccess(true)
+    }
+    const closeModalSuccess = () => {
+        setModalSuccess(false)
     }
     const buyCoin = () => {
         setLoading(true)
@@ -34,6 +42,7 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
             if (status == 200) {
                 const { userCoins } = user
                 userChange({ userCoins })
+                openModalSuccess()
             }
             setLoading(false)
         })
@@ -81,6 +90,36 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
                 <View style={{ flexDirection: "row" }} >
                     <ButtonBuy name={"Annuler"} color="red" onPress={closeModal} />
                     <ButtonBuy name={"Acheter"} color={theme.colors.brand.secondary} onPress={buyCoin} />
+                </View>
+            </>
+        </ModalContainer>
+        <ModalContainer closeModal={closeModalSuccess} modal={modalSuccess} >
+            <>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    width: "100%",
+                }}>
+                    <ImageViewer selectedImage={success} />
+                </View>
+                <Loader loading={loading}>
+                    <View style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}>
+                        <View style={styles.modal}>
+                            <Text style={{ fontWeight: "400", fontSize: 16, textAlign: "center" }}>
+                                Félicitation pour votre achat de(s) <Text style={{ fontWeight: "bold" }}>{coinsNumber}</Text> piece(s) !
+                            </Text>
+                        </View>
+                    </View>
+                </Loader>
+                <View style={{ flexDirection: "row" }} >
+                    <ButtonBuy width="100%" name={"Fermer"} color={theme.colors.brand.secondary} onPress={() => {
+                        closeModal()
+                        closeModalSuccess()
+                    }} />
                 </View>
             </>
         </ModalContainer>
