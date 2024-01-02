@@ -8,6 +8,7 @@ import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
 import { tomesURl } from "../../constants/url";
 import CardChoix from "../../components/global/card/choix";
+import LayoutBooks from "../../layouts/organisms/LayoutBooks";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -28,37 +29,17 @@ const Books = ({ navigation }) => {
     })
   }, [])
   return (
-    <Layout
+    <LayoutBooks
       title={"Mes Livres"}
       navigation={navigation}
       userExist={true}
       progress={100}
       bookScreen={false}>
-      <View style={{
-        paddingVertical: 5,
-        width: "100%"
-      }}>
-        <View style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: theme.colors.brand.secondary,
-          borderBottomColor: "gray",
-          borderBottomWidth: .3
-        }}>
-
-          <CardChoix name={"Achetés"} active={active} onPress={() => { setActive("Achetés") }} />
-          <CardChoix name={"Favoris"} active={active} onPress={() => { setActive("Favoris") }} />
-
-        </View>
-        <View style={{ width: "100%", marginTop: 5 }}>
-          {/* {getComponent()} */}
-        </View>
-      </View>
+     
       <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
       </View>
-    </Layout>
+    </LayoutBooks>
   );
 };
 

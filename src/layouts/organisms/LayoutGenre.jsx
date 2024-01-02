@@ -2,25 +2,24 @@ import {
   Flex,
   ScrollView,
   StatusBar,
+} from "native-base";
+import {  useState } from "react";
+import {
+  TouchableOpacity,
   Text,
   View,
-} from "native-base";
-import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation, Feather, AntDesign, Ionicons } from '@expo/vector-icons';
+} from "react-native";
+import {AntDesign, Ionicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
 import ModalMenu from "../../components/global/modal/menu";
 import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
 import goTo from "../../utils/goTo";
 const bg = require("../../../assets/white.jpeg");
 
 const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
-
   const [modal, setModal] = useState(false)
-  
   try {
     return (
       <View
@@ -48,7 +47,7 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
                     navigation.goBack()
                   }}
                 >
-                  <Ionicons name="ios-arrow-back-outline" size={20} color="black" style={{ marginRight: 5 }} />
+                  <Ionicons name="ios-arrow-back-outline" size={24} color="black" style={{ marginRight: 5 }} />
                 </TouchableOpacity>
                 <Text style={styles.title}>
                   {title}
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 60, width: "100%",
-    paddingHorizontal: width(5),
+    paddingHorizontal: width(3),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "700",
     color: "black"
   },

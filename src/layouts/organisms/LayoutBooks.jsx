@@ -3,9 +3,8 @@ import {
   ScrollView,
   StatusBar,
 } from "native-base";
-import { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation, AntDesign } from '@expo/vector-icons';
+import { useEffect, useState } from "react";
+import { FontAwesome5, Foundation } from '@expo/vector-icons';
 import {
   ImageBackground, StyleSheet,
   Text,
@@ -14,19 +13,23 @@ import {
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import ModalMenu from "../../components/global/modal/menu";
-import { OPACITY, TOUCHABLEOPACITY } from "../../constants";
+import { OPACITY, headers } from "../../constants";
 import CardLinkFooter from "../../components/global/card/linkFooter";
-import goTo from "../../utils/goTo";
+import userStore from "../../store/user";
+import CardChoix from "../../components/global/card/choix";
+import appStore from "../../store/app";
 const bg = require("../../../assets/white.jpeg");
 
-const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
+const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
   const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
   const [discover] = useState(discoverScreen)
   const [book] = useState(bookScreen)
   const [coin] = useState(coinScreen)
   const [modal, setModal] = useState(false)
-
+  const [active, setActive] = useState("Achetés")
+  const { userCoins } = userStore()
+  const { bookChoices, appChange } = appStore()
 
 
   return (
@@ -51,14 +54,23 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
             <Text style={styles.title}>
               {title}
             </Text>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY}
-              onPress={() => {
-                goTo(navigation, "Search")
-              }}
-            >
-              <AntDesign name="search1" size={24} color="black" />
-            </TouchableOpacity>
+            <View style={{
+              backgroundColor: theme.colors.brand.secondary,
+              paddingVertical: 15,
+              paddingHorizontal: 5,
+              width: "100%",
+            }}>
+              <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
+                <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={40} color={"white"} />
+                {` ${userCoins}`}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
+              {bookChoices.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} width reverse name={symbol} active={active} onPress={() => {
+                setActive(symbol)
+                appChange({ bookOfChoice: { attributes: { name, symbol }, id } })
+              }} />)}
+            </View>
           </View>
           <ScrollView
             flex={1}
@@ -104,7 +116,7 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
   );
 };
 
-export default Layout;
+export default LayoutBooks;
 
 
 const styles = StyleSheet.create({
@@ -112,13 +124,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 60, 
     width: "100%",
     paddingHorizontal: width(2),
+    paddingTop: 5,
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
   },
   avatar: {
     height: 50,
@@ -129,6 +141,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
+    paddingVertical: 5,
     color: "black"
   },
   link: {

@@ -28,8 +28,8 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
       <Flex
         flex={1}
         style={{
-          paddingHorizontal: width(5),
-          paddingBottom: height(2),
+          paddingHorizontal: width(2),
+          paddingBottom: height(1),
         }}
         height={screenHeight}>
         <View

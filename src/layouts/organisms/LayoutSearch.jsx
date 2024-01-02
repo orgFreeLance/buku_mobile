@@ -64,7 +64,7 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
             flex={1}
             w="100%"
             mx="auto"
-            paddingHorizontal={width(5)}
+            paddingHorizontal={width(3)}
           >
             {children}
           </ScrollView>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     width: "100%",
-    paddingHorizontal: width(5),
+    paddingHorizontal: width(3),
     paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
