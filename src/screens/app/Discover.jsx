@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import appStore from "../../store/app";
 import { API_LINK, headers } from "../../constants";
 import { tomesURl } from "../../constants/url";
+import PageLoading from "../../components/global/loading";
 
 const Discover = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -32,10 +33,11 @@ const Discover = ({ navigation }) => {
       userExist={true}
       progress={100}
       discoverScreen={false}>
-      {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
-      <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
-      </View>
+      <PageLoading loading={loading} horizontal={false} >
+        <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
+          {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
+        </View>
+      </PageLoading>
     </Layout>
   );
 };
