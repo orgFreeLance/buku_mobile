@@ -1,7 +1,7 @@
 import { Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import { TOUCHABLEOPACITY, } from "../../../../constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import theme from "../../../../constants/theme";
 const CardChoix = ({ active, onPress, name, reverse = false, width = false }) => {
     if (reverse) return <>

@@ -2,7 +2,7 @@ import { View, Text } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
 import appStore from "../../../../store/app";
 import theme from "../../../../constants/theme";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 import { FontAwesome5 } from '@expo/vector-icons';
 

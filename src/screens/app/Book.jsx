@@ -7,7 +7,7 @@ import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";
 import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { categoryOfTomeURl, chaptersOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
 import userStore from "../../store/user";
 import BookChapters from "../../components/global/bookChapters";

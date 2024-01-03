@@ -56,7 +56,7 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favo
               flex={1}
               w="100%"
               mx="auto"
-              paddingHorizontal={width(2)}
+              paddingHorizontal={width(5)}
             >
               {children}
             </ScrollView>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     width: "100%",
-    paddingHorizontal: width(2),
+    paddingHorizontal: width(5),
     paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
