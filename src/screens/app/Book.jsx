@@ -49,19 +49,16 @@ const Book = ({ navigation }) => {
           const data = await res.json()
           return ({ ...data, status })
         });
-        // console.log(tome)
         const category = await fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
         });
-        // console.log(category)
         const chapter = await fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
         })
-        console.log(chapter)
         if (tome.status == 200) {
           appChange({ currentBook: tome.data })
           const { id, ...attributes } = tome.data
