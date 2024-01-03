@@ -13,7 +13,6 @@ const Category = ({ navigation }) => {
   const { categories, appChange } = appStore()
 
   const onPress = (current) => {
-    console.log("click")
     const setCategories = () => {
       return categories.map((item, index) => {
         if (current == index) {

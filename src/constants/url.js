@@ -10,3 +10,4 @@ export const createTomeFavoriteURL = () => `${API_LINK}/tome-infos/create-favori
 export const activesCoinURL = () => `${API_LINK}/coin-infos/actives-coin?populate=currency&limit=100`
 export const buyCoinsURL = (coinId, userId) => `${API_LINK}/coin-infos/buy-coin/${coinId}/${userId}`
 export const getCurrencies = () => `${API_LINK}/currencies`
+export const getTomesFavoritesURL=(userId)=>`${API_LINK}/user-tome-favorites?populate=*&filters[user][id][$eq]=${userId}`

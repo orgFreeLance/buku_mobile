@@ -159,10 +159,8 @@ const Book = ({ navigation }) => {
               borderBottomColor: "gray",
               borderBottomWidth: .3
             }}>
-
               <CardChoix name={"Détails"} active={active} onPress={() => { setActive("Détails") }} />
               <CardChoix name={"Chapitres"} active={active} onPress={() => { setActive("Chapitres") }} />
-
             </View>
             <View style={{ width: "100%", marginTop: 5 }}>
               {getComponent()}

@@ -13,7 +13,7 @@ import {
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import ModalMenu from "../../components/global/modal/menu";
-import { OPACITY, headers } from "../../constants";
+import { OPACITY } from "../../constants";
 import CardLinkFooter from "../../components/global/card/linkFooter";
 import userStore from "../../store/user";
 import CardChoix from "../../components/global/card/choix";
@@ -62,7 +62,7 @@ const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, h
             }}>
               <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
                 <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={40} color={"white"} />
-                {` ${userCoins}`}
+                {`${userCoins}`}
               </Text>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
@@ -76,7 +76,7 @@ const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, h
             flex={1}
             w="100%"
             mx="auto"
-            paddingHorizontal={width(2)}
+            paddingHorizontal={width(5)}
           >
             {children}
           </ScrollView>
@@ -94,8 +94,8 @@ const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, h
             elevation={5}
             backgroundColor={"white"}
             style={{
-              paddingHorizontal: width(5),
-              paddingVertical: width(1),
+              paddingHorizontal: width(7),
+              paddingVertical: width(2),
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    paddingHorizontal: width(2),
+    paddingHorizontal: width(5),
     paddingTop: 5,
     flexDirection: "row",
     flexWrap: "wrap",

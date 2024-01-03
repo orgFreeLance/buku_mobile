@@ -2,7 +2,7 @@ import { View, Text } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import theme from "../../../../constants/theme";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 import goTo from "../../../../utils/goTo";

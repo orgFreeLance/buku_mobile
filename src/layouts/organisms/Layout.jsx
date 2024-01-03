@@ -64,7 +64,7 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
             flex={1}
             w="100%"
             mx="auto"
-            paddingHorizontal={width(2)}
+            paddingHorizontal={width(5)}
           >
             {children}
           </ScrollView>
@@ -82,8 +82,8 @@ const Layout = ({ image = bg, navigation, children, accountScreen = true, homeSc
             elevation={5}
             backgroundColor={"white"}
             style={{
-              paddingHorizontal: width(5),
-              paddingVertical: width(1),
+              paddingHorizontal: width(7),
+              paddingVertical: width(2),
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60, 
     width: "100%",
-    paddingHorizontal: width(2),
+    paddingHorizontal: width(5),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

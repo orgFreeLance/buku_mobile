@@ -97,7 +97,7 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
             flex={1}
             w="100%"
             mx="auto"
-            paddingHorizontal={width(3)}
+            paddingHorizontal={width(5)}
           >
             {children}
           </ScrollView>
@@ -115,8 +115,8 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
             elevation={5}
             backgroundColor={"white"}
             style={{
-              paddingHorizontal: width(5),
-              paddingVertical: width(1),
+              paddingHorizontal: width(7),
+              paddingVertical: width(2),
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    paddingHorizontal: width(3),
+    paddingHorizontal: width(5),
     paddingTop: 5,
     flexDirection: "row",
     flexWrap: "wrap",

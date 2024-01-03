@@ -1,6 +1,6 @@
 import { View, Text } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 import goTo from "../../../../utils/goTo";
 import appStore from "../../../../store/app";
