@@ -20,6 +20,9 @@ const appStore = create((set) => ({
     currencyOfCoins: {
         id: "Tout"
     },
+    bookOfChoice: {
+        id: "Achetés"
+    },
     bookChoices: [
         { id: "Achetés", attributes: { name: "Achetés", symbol: "Achetés" } },
         { id: "Favoris", attributes: { name: "Favoris", symbol: "Favoris" } }],
