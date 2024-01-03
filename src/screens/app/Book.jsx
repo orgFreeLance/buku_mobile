@@ -43,23 +43,25 @@ const Book = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       try {
-        console.log(currentBook?.id, id)
         setLoading(true)
         const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
         });
+        // console.log(tome)
         const category = await fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
         });
+        // console.log(category)
         const chapter = await fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
         })
+        console.log(chapter)
         if (tome.status == 200) {
           appChange({ currentBook: tome.data })
           const { id, ...attributes } = tome.data
@@ -70,7 +72,6 @@ const Book = ({ navigation }) => {
             })
           })
           setFavory(attributes.favorite)
-
         } else {
           throw new Error(tome.status)
         }
@@ -84,8 +85,9 @@ const Book = ({ navigation }) => {
         } else {
           throw new Error(chapter.status)
         }
+        setLoading(false)
       } catch (error) {
-        console.log(error)
+        setError(true)
         setLoading(false)
       }
     })()
@@ -168,8 +170,6 @@ const Book = ({ navigation }) => {
           </View>
         </>
       }
-
-
     </LayoutBook>
   );
 };
