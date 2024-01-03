@@ -1,8 +1,8 @@
-import { Modal, Pressable, View } from "native-base";
+import { Modal, Pressable, Box, Slider } from "native-base";
 import React from "react";
 import theme from "../../../../constants/theme";
 import userStore from "../../../../store/user";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import ButtonMain from "../../button/main";
 import appStore from "../../../../store/app";
 import CardAuthCategory from "../../card/category";
@@ -16,6 +16,8 @@ export default function ModalFilter({
     const finalRef = React.useRef(null);
     const { userChange } = userStore()
     const { categories, appChange } = appStore()
+    const [onChangeValue, setOnChangeValue] = React.useState(1);
+
     const onPress = (current) => {
         const setCategories = () => {
             return categories.map((item, index) => {
@@ -78,10 +80,32 @@ export default function ModalFilter({
                                 )
                             })}
                         </View>
+                        <Text style={{ fontWeight: "700", fontSize: 20 }}>Pieces</Text>
+                        <Box alignItems="center" w="100%" style={{
+                            paddingVertical: 10,
+                            width: "100%",
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            justifyname: "flex-start",
+                            marginTop: 5,
+                        }}>
+                            <Slider size="lg" onChange={v => {
+                                setOnChangeValue(Math.floor(v));
+                            }} w="full" defaultValue={onChangeValue} minValue={0} maxValue={1000} accessibilityLabel="piece" step={10}>
+                                <Slider.Track>
+                                    <Slider.FilledTrack />
+                                </Slider.Track>
+                                <Slider.Thumb borderWidth="0" bg={theme.colors.brand.secondary}>
+
+                                </Slider.Thumb>
+                            </Slider>
+                            <Text>0 à {onChangeValue} Pieces</Text>
+
+                        </Box>
                         <ButtonMain content="Recherche" />
                     </Modal.Body>
                 </Modal.Content>
-            </Modal>
+            </Modal >
         </>
     );
 }

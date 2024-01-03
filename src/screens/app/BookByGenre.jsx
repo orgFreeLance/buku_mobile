@@ -7,6 +7,7 @@ import appStore from "../../store/app";
 import { useState, useEffect } from "react";
 import { API_LINK, headers } from "../../constants";
 import { bookByGenreURL } from "../../constants/url";
+import PageLoading from "../../components/global/loading";
 
 const BookByGenre = ({ navigation }) => {
     const { tomesByGenre, appChange, currentPage } = appStore()
@@ -33,12 +34,11 @@ const BookByGenre = ({ navigation }) => {
             userExist={true}
             progress={100}
             accountScreen={false}>
-            {loading ?
-                <ActivityIndicator color={theme.colors.brand.secondary} /> :
+            <PageLoading loading={loading} horizontal={false}>
                 <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
                     {tomesByGenre.map(({ id, ...attributes }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
                 </View>
-            }
+            </PageLoading>
         </LayoutGenre>
     );
 };
