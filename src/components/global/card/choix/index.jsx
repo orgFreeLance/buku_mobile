@@ -8,13 +8,13 @@ const CardChoix = ({ active, onPress, name, reverse = false, width = false }) =>
         <View style={width ? styles.btn : styles.btnFix}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={onPress} style={{
                 width: "100%",
-                backgroundColor: active == name ? theme.colors.brand.secondary : "black",
+                backgroundColor: active == name ? theme.colors.brand.secondary : theme.colors.brand.gray,
                 paddingVertical: 10,
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
                 overflow: "hidden"
             }}>
-                <Text style={{ color: "white", textAlign: "center" }}>{name}</Text>
+                <Text style={{ color: active == name ? "white" : theme.colors.brand.secondary, textAlign: "center", fontWeight: "900", fontSize: 20 }}>{name}</Text>
             </TouchableOpacity>
         </View>
     </>
@@ -22,13 +22,13 @@ const CardChoix = ({ active, onPress, name, reverse = false, width = false }) =>
         <View style={width ? styles.btn : styles.btnFix}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={onPress} style={{
                 width: "100%",
-                backgroundColor: active == name ? theme.colors.brand.secondary : "black",
+                backgroundColor: active == name ? theme.colors.brand.secondary : theme.colors.brand.gray,
                 paddingVertical: 10,
                 borderTopLeftRadius: 10,
                 borderTopRightRadius: 10,
                 overflow: "hidden"
             }}>
-                <Text style={{ color: "white", textAlign: "center" }}>{name}</Text>
+                <Text style={{ color: active == name ? "white" : theme.colors.brand.secondary, textAlign: "center", fontWeight: "900", fontSize: 20 }}>{name}</Text>
             </TouchableOpacity>
         </View>
     );
