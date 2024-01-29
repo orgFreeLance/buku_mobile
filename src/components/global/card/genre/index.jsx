@@ -1,6 +1,6 @@
 import { View, Text } from "native-base";
 import { ImageBackground, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 import goTo from "../../../../utils/goTo";
 import appStore from "../../../../store/app";
@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 15,
         marginRight: 5,
-        overflow: "hidden"
-        , position: "relative"
+        overflow: "hidden",
+        position: "relative"
     },
     containerFixSize: {
         height: 100,
         width: "48.5%",
         borderRadius: 15,
         marginBottom: 5,
-        overflow: "hidden"
-        , position: "relative"
+        overflow: "hidden",
+        position: "relative"
     },
 })

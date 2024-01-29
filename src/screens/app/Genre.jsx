@@ -6,7 +6,7 @@ import appStore from "../../store/app";
 const Genre = ({ navigation }) => {
 
     const { categories } = appStore()
-    
+
 
     return (
         <LayoutGenre

@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
@@ -9,32 +9,33 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
-import { categoriesURl,  tomesURl } from "../../constants/url";
+import { categoriesURl, tomesURl } from "../../constants/url";
+import ProgressBarBook from "../../components/global/progressBar";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
-  const promises = [
-    fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }),
-    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    })
-  ]
+
   useEffect(() => {
-    Promise.all(promises).then(([category, tome]) => {
-      if (category.status == 200 && tome.status == 200) {
+    (async () => {
+      try {
+        const category = await fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        })
+        const tome = await fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        })
         appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
         setLoading(false)
+      } catch (error) {
+        setLoading(false)
       }
-    }).then(error => {
-      setLoading(false)
-    })
+    })()
+
   }, [])
   return (
     <Layout
@@ -43,45 +44,51 @@ const Home = ({ navigation }) => {
       userExist={true}
       progress={100}
       homeScreen={false}>
-      <ScrollView horizontal={true} style={{}}>
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
       <View style={styles.header}>
         <Text style={styles.title}>
           Explorer par genre
         </Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => goTo(navigation, "Genre")}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} onScrollBeginDrag={(e) => {
+        console.log(e)
+        console.log(e.target)
+      }}>
         {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Recommandé pour vous" } })
+          appChange({ currentPage: { name: "Recommandé pour vous", id: -1 } })
           goTo(navigation, "BookByGenre")
         }}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} >
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Meilleurs ventes" } })
+          appChange({ currentPage: { name: "Meilleurs ventes", id: 0 } })
           goTo(navigation, "BookByGenre")
         }}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} >
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
     </Layout>
   );
 };
@@ -99,7 +106,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "700",
-    fontSize: 18,
+    fontSize: 20,
     paddingVertical: 10,
     color: "black"
   },

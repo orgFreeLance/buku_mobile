@@ -1,72 +1,87 @@
-import { StatusBar, Text, View } from "native-base";
-import { StyleSheet } from "react-native";
-import theme from "../../constants/theme";
-import Layout from "../../layouts/organisms/Layout";
+import { View } from "native-base";
 import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
-import { API_LINK, headers } from "../../constants";
+import { headers } from "../../constants";
 import appStore from "../../store/app";
-import { tomesURl } from "../../constants/url";
-import CardChoix from "../../components/global/card/choix";
+import { getTomesBuyedURL, getTomesFavoritesURL } from "../../constants/url";
+import LayoutBooks from "../../layouts/organisms/LayoutBooks";
+import PageLoading from "../../components/global/loading";
+import userStore from "../../store/user";
+import Error from "../../components/global/error";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
-  const { tomes, appChange } = appStore()
-  const [active, setActive] = useState("Achetés")
+  const { tomesFavorites, tomesBuyed, bookOfChoice, appChange } = appStore()
+  const [refresh, setRefresh] = useState(0)
+  const [error, setError] = useState(false)
+  const { id } = userStore()
+  const onRefresh = () => {
+    setRefresh(state => state + 1)
+  }
   useEffect(() => {
-    fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }).then(({ data, status }) => {
-      setLoading(false)
-      if (status == 200) {
-        appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
-      }
-    }).catch(error => {
-      setLoading(false)
-    })
-  }, [])
+    setLoading(true)
+    switch (bookOfChoice?.id) {
+      case "Achetés":
+        fetch(`${getTomesBuyedURL(id)}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        }).then(({ data, status }) => {
+          setLoading(false)
+          if (status == 200) {
+            appChange({ tomesBuyed: data.map((item) => ({ ...item, select: false })) })
+          }
+        }).catch((error) => {
+          setLoading(false)
+          setError(true)
+        })
+        break;
+      case "Favoris":
+        fetch(`${getTomesFavoritesURL(id)}`, { headers }).then(async res => {
+          const status = res.status
+          const data = await res.json()
+          return ({ ...data, status })
+        }).then(({ data, status }) => {
+          setLoading(false)
+          if (status == 200) {
+            appChange({ tomesFavorites: data.map((item) => ({ ...item.attributes.tome.data, select: false })) })
+          }
+        }).catch((error) => {
+          setError(true)
+          setLoading(false)
+        })
+        break;
+    }
+  }, [bookOfChoice, refresh])
+
   return (
-    <Layout
+    <LayoutBooks
       title={"Mes Livres"}
       navigation={navigation}
       userExist={true}
       progress={100}
       bookScreen={false}>
-      <View style={{
-        paddingVertical: 5,
-        width: "100%"
-      }}>
-        <View style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: theme.colors.brand.secondary,
-          borderBottomColor: "gray",
-          borderBottomWidth: .3
-        }}>
-
-          <CardChoix name={"Achetés"} active={active} onPress={() => { setActive("Achetés") }} />
-          <CardChoix name={"Favoris"} active={active} onPress={() => { setActive("Favoris") }} />
-
-        </View>
-        <View style={{ width: "100%", marginTop: 5 }}>
-          {/* {getComponent()} */}
-        </View>
-      </View>
-      <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
-      </View>
-    </Layout>
+      {!error ? <>
+        <PageLoading horizontal={false} loading={loading}>
+          <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
+            {(bookOfChoice.id == "Achetés") ?
+              <>
+                {tomesBuyed.map(({ id, ...attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+              </> :
+              <>
+                {tomesFavorites.map(({ id, attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+              </>
+            }
+          </View>
+        </PageLoading>
+      </> :
+        <>
+          <Error refresh={onRefresh} />
+        </>
+      }
+    </LayoutBooks>
   );
 };
 
 export default Books;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  mainContents: {},
-});

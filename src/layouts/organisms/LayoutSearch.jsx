@@ -5,15 +5,14 @@ import {
   StatusBar,
   View,
 } from "native-base";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
-import userStore from "../../store/user";
-import ModalMenu from "../../components/global/modal/menu";
 import { TOUCHABLEOPACITY } from "../../constants";
+import ModalFilter from "../../components/global/modal/filter";
 const bg = require("../../../assets/white.jpeg");
 
 const LayoutSearch = ({ image = bg, navigation, children }) => {
@@ -27,7 +26,7 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
         flexDirection: "column",
       }}
     >
-      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+      <ModalFilter navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
       <StatusBar backgroundColor={"white"} />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
@@ -64,7 +63,7 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
             flex={1}
             w="100%"
             mx="auto"
-            paddingHorizontal={width(5)}
+            paddingHorizontal={width(3)}
           >
             {children}
           </ScrollView>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     width: "100%",
-    paddingHorizontal: width(5),
+    paddingHorizontal: width(3),
     paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",

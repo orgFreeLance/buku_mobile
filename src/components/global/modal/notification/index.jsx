@@ -16,7 +16,10 @@ export default function ModalContainer({
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
       >
-        <Modal.Content style={{ backgroundColor: "white", borderRadius: 30 }}>
+        <Modal.Content style={{
+          backgroundColor: "white",
+          borderRadius: 15
+        }}>
           <Modal.Body style={{ width: "100%", justifyContent: "center" }}>
             {children}
           </Modal.Body>

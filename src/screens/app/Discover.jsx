@@ -1,12 +1,12 @@
 import { View } from "native-base";
-import { ActivityIndicator, StyleSheet } from "react-native";
-import theme from "../../constants/theme";
+import { StyleSheet } from "react-native";
 import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
 import { useState, useEffect } from "react";
 import appStore from "../../store/app";
 import { API_LINK, headers } from "../../constants";
 import { tomesURl } from "../../constants/url";
+import PageLoading from "../../components/global/loading";
 
 const Discover = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -21,7 +21,7 @@ const Discover = ({ navigation }) => {
       if (status == 200) {
         appChange({ tomes: data.map((item) => ({ ...item, select: false })) })
       }
-    }).catch(error => {
+    }).catch((error) => {
       setLoading(false)
     })
   }, [])
@@ -32,10 +32,11 @@ const Discover = ({ navigation }) => {
       userExist={true}
       progress={100}
       discoverScreen={false}>
-      {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
-      <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
-      </View>
+      <PageLoading loading={loading} horizontal={false} >
+        <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
+          {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
+        </View>
+      </PageLoading>
     </Layout>
   );
 };

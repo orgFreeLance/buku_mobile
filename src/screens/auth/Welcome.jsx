@@ -1,6 +1,6 @@
-import { StatusBar, View, Box, Text } from "native-base";
-import React, { useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { StatusBar, View, } from "native-base";
+import React from "react";
+import { ImageBackground, StyleSheet, Text } from "react-native";
 import theme from "../../constants/theme";
 import { height, width } from "../../constants/nativeSizes";
 import ButtonMain from "../../components/global/button/main";
@@ -10,7 +10,7 @@ import ProgressSmall from "../../components/global/progress/small";
 const bg = require("../../../assets/welcome/bg.png");
 
 const Welecome = ({ navigation }) => {
- 
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={theme.colors.brand.secondary} />
@@ -20,7 +20,7 @@ const Welecome = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
           paddingBottom: height(5),
-          paddingHorizontal: width(5),
+          paddingHorizontal: width(3),
         }}
         resizeMode="cover"
         source={bg}
@@ -59,7 +59,7 @@ const Welecome = ({ navigation }) => {
               style={{
                 textAlign: "center",
                 paddingBottom: 10,
-                paddingHorizontal: width(5),
+                paddingHorizontal: width(3),
                 fontWeight: 400,
               }}
             >

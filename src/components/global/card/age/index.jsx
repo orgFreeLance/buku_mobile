@@ -1,6 +1,6 @@
 import { View, Text } from "native-base";
 import theme from "../../../../constants/theme";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { TOUCHABLEOPACITY } from "../../../../constants";
 
 export default function CardAge({ name, index, onPress, select = false }) {

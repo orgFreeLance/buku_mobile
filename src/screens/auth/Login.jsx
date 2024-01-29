@@ -133,7 +133,6 @@ const Login = ({ navigation }) => {
                     <Stack style={{ marginBottom: 10 }}>
                       <FormControl.Label>Mot de passe</FormControl.Label>
                       <Input
-
                         style={{ paddingHorizontal: 10 }}
                         type="password"
                         placeholder="Mot de passe"
