@@ -15,11 +15,22 @@ import BookDetails from "../../components/global/bookDetails";
 import CardChoix from "../../components/global/card/choix";
 import Loader from "../../components/global/Loader";
 import Error from "../../components/global/error";
+import ModalContainer from "../../components/global/modal/notification";
+import ButtonBuy from "../../components/global/button/buy";
+import ImageViewer from "../../components/global/imageViewer";
+const shop = require("../../../assets/coin/shop.png");
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [favory, setFavory] = useState(false)
   const [refresh, setRefresh] = useState(0)
+  const [modal, setModal] = useState(false)
+  const openModal = () => {
+    setModal(true)
+  }
+  const closeModal = () => {
+    setModal(false)
+  }
   const [active, setActive] = useState("Détails")
   const { currentBook, tomes, currentCategories, appChange } = appStore()
   const { id } = userStore()
@@ -43,6 +54,7 @@ const Book = ({ navigation }) => {
         return <BookDetails />
     }
   }
+  const buyCoin = () => { }
   const onRefresh = () => {
     setRefresh(state => state + 1)
   }
@@ -149,7 +161,7 @@ const Book = ({ navigation }) => {
             </View>
           </View>
           <View style={{ borderRadius: 10, overflow: "hidden" }}>
-            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} style={styles.buy}>
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={openModal} style={styles.buy}>
               <Text style={{ color: "white", textAlign: "center" }}> {currentBook.coinsPrice} <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={16} color={"white"} /></Text>
             </TouchableOpacity>
           </View>
@@ -173,7 +185,41 @@ const Book = ({ navigation }) => {
             </View>
           </View>
         </> : <Error refresh={onRefresh} />
+
       }
+      <ModalContainer closeModal={closeModal} modal={modal} >
+        <>
+          <View style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            width: "100%",
+          }}>
+            <ImageViewer selectedImage={shop} />
+          </View>
+          <Loader loading={loading}>
+            <View style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              width: "100%",
+            }}>
+              <View style={styles.modal}>
+                <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>
+                  Vous etes sur de vouloir achetez ?
+                </Text>
+                <View style={styles.contentP}>
+                  <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
+                  <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>{currentBook.coinsPrice}</Text>
+                </View>
+
+              </View>
+            </View>
+          </Loader>
+          <View style={{ flexDirection: "row" }} >
+            <ButtonBuy name={"Annuler"} color="red" onPress={closeModal} />
+            <ButtonBuy name={"Acheter"} color={theme.colors.brand.secondary} onPress={buyCoin} />
+          </View>
+        </>
+      </ModalContainer>
     </LayoutBook>
   );
 };
@@ -193,6 +239,10 @@ const styles = StyleSheet.create({
     width: "49.5%",
     height: "auto",
     borderRadius: 10,
+  },
+  contentP: {
+    justifyContent: "center",
+    alignItems: "center"
   },
   card: {
     borderRightColor: "gray",
