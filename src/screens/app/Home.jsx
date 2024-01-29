@@ -10,6 +10,7 @@ import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
 import { categoriesURl, tomesURl } from "../../constants/url";
+import ProgressBarBook from "../../components/global/progressBar";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
@@ -69,7 +70,9 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView horizontal={true} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
+
       </ScrollView>
+      <ProgressBarBook />
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
@@ -81,6 +84,7 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView horizontal={true} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
+        <ProgressBarBook />
       </ScrollView>
     </Layout>
   );
