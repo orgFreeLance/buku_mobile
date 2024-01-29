@@ -31,7 +31,8 @@ const Start = ({ navigation }) => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
-    }), fetch(`${getCurrencies()}`, { headers }).then(async res => {
+    }),
+    fetch(`${getCurrencies()}`, { headers }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })

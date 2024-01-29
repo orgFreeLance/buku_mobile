@@ -1,6 +1,4 @@
-import { StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
-import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 
 const Account = ({ navigation }) => {
@@ -10,9 +8,10 @@ const Account = ({ navigation }) => {
       navigation={navigation}
       userExist={true}
       progress={100}
-      accountScreen={false}>
-        
-      </Layout>
+      accountScreen={false}
+    >
+
+    </Layout>
   );
 };
 

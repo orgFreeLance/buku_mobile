@@ -3,7 +3,7 @@ import {
   ScrollView,
   StatusBar,
 } from "native-base";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesome5, Foundation } from '@expo/vector-icons';
 import {
   ImageBackground, StyleSheet,
@@ -30,7 +30,6 @@ const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, h
   const [active, setActive] = useState("Achetés")
   const { userCoins } = userStore()
   const { bookChoices, appChange } = appStore()
-
 
   return (
     <View
@@ -66,7 +65,7 @@ const LayoutBooks = ({ image = bg, navigation, children, accountScreen = true, h
               </Text>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
-              {bookChoices.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} width reverse name={symbol} active={active} onPress={() => {
+              {bookChoices.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} reverse name={symbol} active={active} onPress={() => {
                 setActive(symbol)
                 appChange({ bookOfChoice: { attributes: { name, symbol }, id } })
               }} />)}

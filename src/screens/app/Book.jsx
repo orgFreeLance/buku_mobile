@@ -132,7 +132,6 @@ const Book = ({ navigation }) => {
                 {currentCategories.map((item) => <CardCategoryBook name={item.name} key={item.id} />)}
               </View>
             </View>
-
           </View>
           <View style={{ width: "100%", marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <View style={styles.card}>
@@ -178,7 +177,8 @@ const Book = ({ navigation }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               borderBottomColor: theme.colors.brand.gray,
-              borderBottomWidth: .3
+              borderBottomWidth: .3,
+              paddingTop: 10
             }}>
               <CardChoix name={"Détails"} active={active} onPress={() => { setActive("Détails") }} />
               <CardChoix name={"Chapitres"} active={active} onPress={() => { setActive("Chapitres") }} />

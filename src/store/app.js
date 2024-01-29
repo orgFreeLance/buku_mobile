@@ -21,11 +21,13 @@ const appStore = create((set) => ({
         id: "Tout"
     },
     bookOfChoice: {
-        id: "Achetés"
+        id: "Achetés", attributes: { name: "Achetés", symbol: "Achetés" }
     },
     bookChoices: [
         { id: "Achetés", attributes: { name: "Achetés", symbol: "Achetés" } },
         { id: "Favoris", attributes: { name: "Favoris", symbol: "Favoris" } }],
+    tomesFavorites: [],
+    tomesBuyed: [],
     tomesByGenre: [],
     ageRanges: [
         { name: "0 - 10", select: true },
