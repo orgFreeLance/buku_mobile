@@ -9,7 +9,10 @@ const newTheme = {
     500: "#EAEAEA",
     main: "#02448e",
     secondary: "#00a8cb",
-    white: "white"
+    secondary50: "#00A8CB50",
+    white: "white",
+    gray: "#F1F1F1",
+    grayBold: "#E7E5E5"
   },
 };
 

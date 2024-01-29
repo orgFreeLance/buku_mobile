@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     containerHorizontal: {
         height: 265,
         width: 175,
-        borderRadius: 5,
-        marginRight: 5,
+        borderRadius: 10,
+        marginRight: 10,
         marginTop: 5,
         overflow: "hidden",
-        backgroundColor: "gainsboro"
+        backgroundColor: theme.colors.brand.gray
     },
     avatar: {
         height: 200,
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     containerVertical: {
         height: 265,
         width: "49%",
-        borderRadius: 5,
+        borderRadius: 10,
         marginTop: 5,
         overflow: "hidden",
-        backgroundColor: "gainsboro"
+        backgroundColor: theme.colors.brand.gray
     }
 })

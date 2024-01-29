@@ -44,10 +44,11 @@ const Home = ({ navigation }) => {
       userExist={true}
       progress={100}
       homeScreen={false}>
-      <ScrollView horizontal={true} style={{}}>
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
       <View style={styles.header}>
         <Text style={styles.title}>
           Explorer par genre
@@ -56,7 +57,7 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} onScrollBeginDrag={(e) => { console.log(e) }}>
         {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
@@ -68,9 +69,8 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} >
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
-
       </ScrollView>
       <ProgressBarBook items={tomes} />
       <View style={styles.header}>
@@ -82,7 +82,7 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} >
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />

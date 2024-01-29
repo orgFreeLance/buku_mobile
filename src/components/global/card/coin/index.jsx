@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         marginBottom: 5,
         borderRadius: 3,
-        backgroundColor: "gainsboro"
+        backgroundColor: theme.colors.brand.gray
     },
     content: {
     },
