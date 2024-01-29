@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Buku",
-    "slug": "Buku",
+    "slug": "buku",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
@@ -24,17 +24,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#fff"
-      }
+      },
+      "package": "buku.com"
     },
     "web": {
       "favicon": "./assets/logo.png"
     },
     "extra": {
       "eas": {
-        "projectId": "69255461-1b51-4c98-bdfd-23251d1f35c1"
+        "projectId": "7b656683-f435-4ba5-b60b-b7ed06df962e"
       }
     },
-    "owner": "jeereq minganda",
+    "owner": "jeereq",
     "plugins": [
       "expo-document-picker",
       "expo-font",

@@ -1,7 +1,6 @@
 import { Modal, Pressable, Box, Slider } from "native-base";
 import React from "react";
 import theme from "../../../../constants/theme";
-import userStore from "../../../../store/user";
 import { Text, StyleSheet, View } from "react-native";
 import ButtonMain from "../../button/main";
 import appStore from "../../../../store/app";
@@ -9,12 +8,10 @@ import CardAuthCategory from "../../card/category";
 
 export default function ModalFilter({
     modal = false,
-    navigation,
     closeModal = () => { },
 }) {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
-    const { userChange } = userStore()
     const { categories, appChange } = appStore()
     const [onChangeValue, setOnChangeValue] = React.useState(1);
 

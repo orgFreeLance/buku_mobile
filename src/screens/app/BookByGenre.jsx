@@ -1,6 +1,4 @@
 import { View } from "native-base";
-import { ActivityIndicator } from "react-native";
-import theme from "../../constants/theme";
 import LayoutGenre from "../../layouts/organisms/LayoutGenre";
 import CardBook from "../../components/global/card/book";
 import appStore from "../../store/app";
