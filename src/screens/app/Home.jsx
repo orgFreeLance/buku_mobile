@@ -57,7 +57,10 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} onScrollBeginDrag={(e) => { console.log(e) }}>
+      <ScrollView horizontal={true} onScrollBeginDrag={(e) => {
+        console.log(e)
+        console.log(e.target)
+      }}>
         {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>

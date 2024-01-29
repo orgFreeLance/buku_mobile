@@ -14,10 +14,12 @@ import BookChapters from "../../components/global/bookChapters";
 import BookDetails from "../../components/global/bookDetails";
 import CardChoix from "../../components/global/card/choix";
 import Loader from "../../components/global/Loader";
+import Error from "../../components/global/error";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [favory, setFavory] = useState(false)
+  const [refresh, setRefresh] = useState(0)
   const [active, setActive] = useState("Détails")
   const { currentBook, tomes, currentCategories, appChange } = appStore()
   const { id } = userStore()
@@ -40,6 +42,9 @@ const Book = ({ navigation }) => {
       case "Détails":
         return <BookDetails />
     }
+  }
+  const onRefresh = () => {
+    setRefresh(state => state + 1)
   }
   useEffect(() => {
     (async () => {
@@ -91,7 +96,7 @@ const Book = ({ navigation }) => {
       }
     })()
 
-  }, [])
+  }, [refresh])
 
   return (
     <LayoutBook
@@ -102,7 +107,7 @@ const Book = ({ navigation }) => {
       {loading ? <>
         <Loader loading={loading} />
       </> :
-        !error && <>
+        !error ? <>
           <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between" }}>
             <View style={styles.picture}>
               <ImageBackground source={{ uri: currentBook?.picture }} style={{ width: "100%", height: "100%" }} />
@@ -120,7 +125,7 @@ const Book = ({ navigation }) => {
           <View style={{ width: "100%", marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700" }}>
-                {currentBook.likesNumber}<AntDesign name="staro" size={16} color="black" />
+                {currentBook.likesNumber} <AntDesign name="star" style={{ marginLeft: 5 }} size={16} color="black" />
               </Text>
               <Text style={styles.titleCard}>Likes</Text>
             </View>
@@ -130,14 +135,14 @@ const Book = ({ navigation }) => {
             </View>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
-                <AntDesign name="eye" style={{ marginRight: 2 }} size={16} color="black" />
+                <AntDesign name="eye" style={{ marginRight: 5 }} size={16} color="black" />
                 {currentBook.userViews}
               </Text>
               <Text style={styles.titleCard}>visiteurs</Text>
             </View>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
-                <Entypo name="open-book" style={{ marginRight: 2 }} size={16} color="black" />
+                <Entypo name="open-book" style={{ marginRight: 5 }} size={16} color="black" />
                 {currentBook.userPurchase}
               </Text>
               <Text style={styles.titleCard}>Lecteurs</Text>
@@ -167,7 +172,7 @@ const Book = ({ navigation }) => {
               {getComponent()}
             </View>
           </View>
-        </>
+        </> : <Error refresh={onRefresh} />
       }
     </LayoutBook>
   );
