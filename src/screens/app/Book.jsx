@@ -13,6 +13,7 @@ import userStore from "../../store/user";
 import BookChapters from "../../components/global/bookChapters";
 import BookDetails from "../../components/global/bookDetails";
 import CardChoix from "../../components/global/card/choix";
+import Loader from "../../components/global/Loader";
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -98,7 +99,7 @@ const Book = ({ navigation }) => {
       createTomeFavorite={createTomeFavorite}
     >
       {loading ? <>
-        <ActivityIndicator color={theme.colors.brand.secondary} />
+        <Loader loading={loading} />
       </> :
         !error && <>
           <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between" }}>

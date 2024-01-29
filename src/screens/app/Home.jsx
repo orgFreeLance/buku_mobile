@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
@@ -14,7 +14,7 @@ import { categoriesURl, tomesURl } from "../../constants/url";
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
   const [loading, setLoading] = useState(true)
- 
+
   useEffect(() => {
     (async () => {
       try {
@@ -34,7 +34,7 @@ const Home = ({ navigation }) => {
         setLoading(false)
       }
     })()
-   
+
   }, [])
   return (
     <Layout
@@ -52,7 +52,7 @@ const Home = ({ navigation }) => {
           Explorer par genre
         </Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => goTo(navigation, "Genre")}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true}>
@@ -64,7 +64,7 @@ const Home = ({ navigation }) => {
           appChange({ currentPage: { name: "Recommandé pour vous" } })
           goTo(navigation, "BookByGenre")
         }}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >
@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
           appChange({ currentPage: { name: "Meilleurs ventes" } })
           goTo(navigation, "BookByGenre")
         }}>
-          <Ionicons name="ios-arrow-forward-outline" size={20} color={theme.colors.brand.secondary} />
+          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} >

@@ -47,7 +47,7 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
                     navigation.goBack()
                   }}
                 >
-                  <Ionicons name="ios-arrow-back-outline" size={24} color="black" style={{ marginRight: 5 }} />
+                  <Ionicons name="arrow-back-sharp" size={24} color="black" style={{ marginRight: 5 }} />
                 </TouchableOpacity>
                 <Text style={styles.title}>
                   {title}
@@ -59,7 +59,7 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
                   goTo(navigation, "Search")
                 }}
               >
-                <AntDesign name="search1" size={20} color="black" />
+                <AntDesign name="search1" size={24} color="black" />
               </TouchableOpacity>
             </View>
             <ScrollView
