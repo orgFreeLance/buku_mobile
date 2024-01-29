@@ -2,9 +2,9 @@ import { View } from "native-base";
 import { StyleSheet } from "react-native";
 import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
-import { API_LINK, headers } from "../../constants";
+import { headers } from "../../constants";
 import appStore from "../../store/app";
-import { getTomesFavoritesURL, tomesURl } from "../../constants/url";
+import { getTomesBuyedURL, getTomesFavoritesURL, tomesURl } from "../../constants/url";
 import LayoutBooks from "../../layouts/organisms/LayoutBooks";
 import PageLoading from "../../components/global/loading";
 import userStore from "../../store/user";
@@ -17,7 +17,7 @@ const Books = ({ navigation }) => {
     setLoading(true)
     switch (bookOfChoice?.id) {
       case "Achetés":
-        fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
+        fetch(`${getTomesBuyedURL(id)}`, { headers }).then(async res => {
           const status = res.status
           const data = await res.json()
           return ({ ...data, status })
@@ -27,6 +27,7 @@ const Books = ({ navigation }) => {
             appChange({ tomesBuyed: data.map((item) => ({ ...item, select: false })) })
           }
         }).catch((error) => {
+          console.log(error)
           setLoading(false)
         })
         break;
@@ -58,11 +59,14 @@ const Books = ({ navigation }) => {
       bookScreen={false}>
       <PageLoading horizontal={false} loading={loading}>
         <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-          {(bookOfChoice.id == "Favoris") ? <>
-            {tomesFavorites.map(({ attributes, id }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
-          </> : <>
-            {tomesBuyed.map(({ attributes, id }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
-          </>}
+          {(bookOfChoice.id == "Favoris") ?
+            <>
+              {tomesFavorites.map(({ id, attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+            </> :
+            <>
+              {tomesBuyed.map(({ id, ...attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+            </>
+          }
         </View>
       </PageLoading>
 

@@ -17,10 +17,6 @@ export default function PageLoading({ loading, children, horizontal }) {
                 <CardBook horizontal={horizontal} />
                 <CardBook horizontal={horizontal} />
                 <CardBook horizontal={horizontal} />
-                <CardBook horizontal={horizontal} />
-                <CardBook horizontal={horizontal} />
-                <CardBook horizontal={horizontal} />
-                <CardBook horizontal={horizontal} />
             </View>
         </>
     return <>
