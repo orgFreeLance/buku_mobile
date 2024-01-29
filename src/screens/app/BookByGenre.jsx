@@ -29,8 +29,6 @@ const BookByGenre = ({ navigation }) => {
             })
         } else {
             setLoading(false)
-        }
-        return () => {
             appChange({ tomesByGenre: [] })
         }
     }, [])

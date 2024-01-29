@@ -74,9 +74,11 @@ const Books = ({ navigation }) => {
             }
           </View>
         </PageLoading>
-      </> : <>
-        <Error refresh={onRefresh} />
-      </>}
+      </> :
+        <>
+          <Error refresh={onRefresh} />
+        </>
+      }
     </LayoutBooks>
   );
 };
