@@ -8,24 +8,31 @@ import { useState, useEffect } from "react";
 import { API_LINK, headers } from "../../constants";
 import { bookByGenreURL } from "../../constants/url";
 import PageLoading from "../../components/global/loading";
+import NoData from "../../components/global/noData";
 
 const BookByGenre = ({ navigation }) => {
     const { tomesByGenre, appChange, currentPage } = appStore()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch(`${API_LINK}${bookByGenreURL(currentPage.id)}`, { headers }).then(async res => {
-            const status = res.status
-            const data = await res.json()
-            return ({ ...data, status })
-        }).then(({ data, status }) => {
-            if (status == 200) {
+        if (currentPage.id != -1 && currentPage.id != 0) {
+            fetch(`${API_LINK}${bookByGenreURL(currentPage.id)}`, { headers }).then(async res => {
+                const status = res.status
+                const data = await res.json()
+                return ({ ...data, status })
+            }).then(({ data, status }) => {
+                if (status == 200) {
+                    setLoading(false)
+                    appChange({ tomesByGenre: data.map((item) => ({ ...item, select: false })) })
+                }
+            }).catch(error => {
                 setLoading(false)
-                appChange({ tomesByGenre: data.map((item) => ({ ...item, select: false })) })
-            }
-        }).catch(error => {
+            })
+        } else {
             setLoading(false)
-        })
-
+        }
+        return () => {
+            appChange({ tomesByGenre: [] })
+        }
     }, [])
     return (
         <LayoutGenre
@@ -35,6 +42,7 @@ const BookByGenre = ({ navigation }) => {
             progress={100}
             accountScreen={false}>
             <PageLoading loading={loading} horizontal={false}>
+                <NoData items={tomesByGenre} />
                 <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
                     {tomesByGenre.map(({ id, ...attributes }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
                 </View>

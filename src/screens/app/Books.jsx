@@ -1,18 +1,23 @@
 import { View } from "native-base";
-import { StyleSheet } from "react-native";
 import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
-import { getTomesBuyedURL, getTomesFavoritesURL, tomesURl } from "../../constants/url";
+import { getTomesBuyedURL, getTomesFavoritesURL } from "../../constants/url";
 import LayoutBooks from "../../layouts/organisms/LayoutBooks";
 import PageLoading from "../../components/global/loading";
 import userStore from "../../store/user";
+import Error from "../../components/global/error";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const { tomesFavorites, tomesBuyed, bookOfChoice, appChange } = appStore()
+  const [refresh, setRefresh] = useState(0)
+  const [error, setError] = useState(false)
   const { id } = userStore()
+  const onRefresh = () => {
+    setRefresh(state => state + 1)
+  }
   useEffect(() => {
     setLoading(true)
     switch (bookOfChoice?.id) {
@@ -27,8 +32,8 @@ const Books = ({ navigation }) => {
             appChange({ tomesBuyed: data.map((item) => ({ ...item, select: false })) })
           }
         }).catch((error) => {
-          console.log(error)
           setLoading(false)
+          setError(true)
         })
         break;
       case "Favoris":
@@ -42,13 +47,12 @@ const Books = ({ navigation }) => {
             appChange({ tomesFavorites: data.map((item) => ({ ...item.attributes.tome.data, select: false })) })
           }
         }).catch((error) => {
+          setError(true)
           setLoading(false)
         })
         break;
     }
-
-
-  }, [bookOfChoice])
+  }, [bookOfChoice, refresh])
 
   return (
     <LayoutBooks
@@ -57,28 +61,25 @@ const Books = ({ navigation }) => {
       userExist={true}
       progress={100}
       bookScreen={false}>
-      <PageLoading horizontal={false} loading={loading}>
-        <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-          {(bookOfChoice.id == "Favoris") ?
-            <>
-              {tomesFavorites.map(({ id, attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
-            </> :
-            <>
-              {tomesBuyed.map(({ id, ...attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
-            </>
-          }
-        </View>
-      </PageLoading>
-
+      {!error ? <>
+        <PageLoading horizontal={false} loading={loading}>
+          <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
+            {(bookOfChoice.id == "Achetés") ?
+              <>
+                {tomesBuyed.map(({ id, ...attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+              </> :
+              <>
+                {tomesFavorites.map(({ id, attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
+              </>
+            }
+          </View>
+        </PageLoading>
+      </> : <>
+        <Error refresh={onRefresh} />
+      </>}
     </LayoutBooks>
   );
 };
 
 export default Books;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  mainContents: {},
-});

@@ -5,7 +5,7 @@ const bg = require("../../../../assets/error/Nodata.png")
 
 export default function Error({ refresh }) {
     return <>
-        <View >
+        <View style={{ paddingVertical: 10 }}>
             <Text onPress={refresh} style={{ textAlign: "center", fontWeight: "bold" }}>
                 <FontAwesome name="refresh" size={24} color="black" />
                 Actualiser

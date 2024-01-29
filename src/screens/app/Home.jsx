@@ -66,7 +66,7 @@ const Home = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Recommandé pour vous" } })
+          appChange({ currentPage: { name: "Recommandé pour vous", id: -1 } })
           goTo(navigation, "BookByGenre")
         }}>
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Meilleurs ventes" } })
+          appChange({ currentPage: { name: "Meilleurs ventes", id: 0 } })
           goTo(navigation, "BookByGenre")
         }}>
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />

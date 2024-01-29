@@ -96,7 +96,6 @@ export default function ModalFilter({
                                     <Slider.FilledTrack />
                                 </Slider.Track>
                                 <Slider.Thumb borderWidth="0" bg={theme.colors.brand.secondary}>
-
                                 </Slider.Thumb>
                             </Slider>
                             <Text>0 à {onChangeValue} Pieces</Text>
