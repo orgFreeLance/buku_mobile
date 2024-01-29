@@ -84,13 +84,12 @@ const styles = StyleSheet.create({
     card: {
         width: "100%",
         height: 100,
-        marginBottom: 2,
+        marginBottom: 5,
         borderRadius: 5,
         overflow: "hidden",
         flexDirection: "row",
         justifyContent: "flex-start",
-        borderColor: "gray",
-        borderWidth: .3
+        backgroundColor: theme.colors.brand.gray,
     },
     modal: {
         paddingBottom: 10

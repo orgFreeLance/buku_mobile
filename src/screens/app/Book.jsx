@@ -85,6 +85,7 @@ const Book = ({ navigation }) => {
         }
         setLoading(false)
       } catch (error) {
+        console.log(error)
         setError(true)
         setLoading(false)
       }
