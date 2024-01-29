@@ -1,13 +1,14 @@
 import { Image } from "expo-image";
 import { View, Box, StatusBar } from "native-base";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ImageBackground } from "react-native";
+import { ImageBackground } from "react-native";
 import { height, width } from "../../constants/nativeSizes";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
 import appStore from "../../store/app";
 import { activesCoinURL, categoriesURl, tomesURl, getCurrencies } from "../../constants/url";
+import Loader from "../../components/global/Loader";
 const backgroundImage = require("../../../assets/white.jpeg");
 const logo = require("../../../assets/logo.png");
 
@@ -37,7 +38,6 @@ const Start = ({ navigation }) => {
     })
   ]
   useEffect(() => {
-
     Promise.all(promises).then(([category, tome, coin, currencies]) => {
       if (category.status == 200 && tome.status == 200 && coin.status == 200 && currencies.status == 200) {
         appChange({ categories: category.data.map((item) => ({ ...item, select: false })), coins: coin.data, tomes: tome.data.map((item) => ({ ...item, select: false })), currencies: [all, ...currencies.data] })
@@ -73,7 +73,7 @@ const Start = ({ navigation }) => {
             contentFit="contain"
             transition={1000}
           />
-          {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
+          <Loader loading={loading} />
         </Box>
       </ImageBackground>
     </View>

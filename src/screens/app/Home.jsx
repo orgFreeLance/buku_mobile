@@ -72,7 +72,7 @@ const Home = ({ navigation }) => {
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
 
       </ScrollView>
-      <ProgressBarBook />
+      <ProgressBarBook items={tomes} />
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
@@ -84,8 +84,8 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView horizontal={true} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
-        <ProgressBarBook />
       </ScrollView>
+      <ProgressBarBook items={tomes} />
     </Layout>
   );
 };
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "700",
-    fontSize: 18,
+    fontSize: 20,
     paddingVertical: 10,
     color: "black"
   },
