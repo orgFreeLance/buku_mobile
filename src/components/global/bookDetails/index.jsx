@@ -17,7 +17,7 @@ export default function BookDetails() {
                 <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
                     Notes et commentaires
                 </Text>
-                <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
+                <Text onPress={() => { }} style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
                     <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
                 </Text>
             </View>
@@ -32,7 +32,7 @@ export default function BookDetails() {
                         <AntDesign name="star" style={{ marginLeft: 5 }} size={20} color={theme.colors.brand.secondary} />
                         <AntDesign name="star" style={{ marginLeft: 5 }} size={20} color={theme.colors.brand.secondary} />
                         <AntDesign name="star" style={{ marginLeft: 5 }} size={20} color={theme.colors.brand.secondary} />
-                        <AntDesign name="star" style={{ marginLeft: 5 }} size={20} color="black" />
+                        <AntDesign name="star" style={{ marginLeft: 5 }} size={20} color={theme.colors.brand.grayBold} />
                     </View>
                     <Text style={{ fontWeight: "400", fontSize: 16, textAlign: "center" }}>6000 vote(s)</Text>
                 </View>

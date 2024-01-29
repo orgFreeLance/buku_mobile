@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
-import { ActivityIndicator, ImageBackground, StyleSheet } from "react-native";
-import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { ImageBackground, StyleSheet } from "react-native";
+import { AntDesign, Entypo, FontAwesome5, Foundation } from '@expo/vector-icons';
 import LayoutBook from "../../layouts/organisms/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
@@ -137,24 +137,28 @@ const Book = ({ navigation }) => {
           <View style={{ width: "100%", marginVertical: 10, flexDirection: "row", justifyContent: "space-between" }}>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700" }}>
-                {currentBook.likesNumber} <AntDesign name="star" style={{ marginLeft: 5 }} size={16} color="black" />
+                <AntDesign name="star" style={{ marginRight: 10 }} size={16} color="black" />
+                {currentBook.likesNumber}
               </Text>
               <Text style={styles.titleCard}>Likes</Text>
             </View>
             <View style={styles.card}>
-              <Text style={{ fontWeight: "700" }}>{currentBook.pagesNumber}</Text>
+              <Text style={{ fontWeight: "700" }}>
+                <Foundation name="page-multiple" style={{ marginRight: 10 }} size={16} color="black" />
+                {currentBook.pagesNumber}
+              </Text>
               <Text style={styles.titleCard}>Pages</Text>
             </View>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
-                <AntDesign name="eye" style={{ marginRight: 5 }} size={16} color="black" />
+                <AntDesign name="eye" style={{ marginRight: 10 }} size={16} color="black" />
                 {currentBook.userViews}
               </Text>
               <Text style={styles.titleCard}>visiteurs</Text>
             </View>
             <View style={styles.card}>
               <Text style={{ fontWeight: "700", alignItems: "center" }}>
-                <Entypo name="open-book" style={{ marginRight: 5 }} size={16} color="black" />
+                <Entypo name="open-book" style={{ marginRight: 10 }} size={16} color="black" />
                 {currentBook.userPurchase}
               </Text>
               <Text style={styles.titleCard}>Lecteurs</Text>
@@ -173,8 +177,7 @@ const Book = ({ navigation }) => {
               width: "100%",
               flexDirection: "row",
               justifyContent: "space-between",
-              borderBottomColor: theme.colors.brand.secondary,
-              borderBottomColor: "gray",
+              borderBottomColor: theme.colors.brand.gray,
               borderBottomWidth: .3
             }}>
               <CardChoix name={"Détails"} active={active} onPress={() => { setActive("Détails") }} />
@@ -210,7 +213,6 @@ const Book = ({ navigation }) => {
                   <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
                   <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>{currentBook.coinsPrice}</Text>
                 </View>
-
               </View>
             </View>
           </Loader>

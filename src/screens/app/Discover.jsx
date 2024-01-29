@@ -34,7 +34,7 @@ const Discover = ({ navigation }) => {
       discoverScreen={false}>
       <PageLoading loading={loading} horizontal={false} >
         <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
-          {tomes.map(({ attributes, id }) => <CardBook {...attributes} key={id} horizontal={false} navigation={navigation} />)}
+          {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
         </View>
       </PageLoading>
     </Layout>

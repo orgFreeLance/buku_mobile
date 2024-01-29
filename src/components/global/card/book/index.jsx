@@ -29,19 +29,19 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
                 <View style={{
                     paddingHorizontal: 5,
                 }}>
-                    <Text style={{ fontWeight: "bold", fontSize: 16, fontVariant: "smallcapse", paddingTop: 3 }}>{name}</Text>
+                    <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: 16, fontVariant: "smallcapse", paddingTop: 3 }}>{name}</Text>
                     <View style={{ flexDirection: "row", alignItems: "center", paddingTop: 5 }}>
-                        <Text style={{ paddingRight: 5 }}>
+                        <Text style={{}}>
                             {likesNumber}
-                            <AntDesign name="star" size={16} style={{ paddingRight: 5 }} color={theme.colors.brand.secondary} />
+                            <AntDesign name="star" size={16} style={{ marginLeft: 5 }} color={theme.colors.brand.secondary} />
                         </Text>
-                        <Text style={{ paddingRight: 5 }}>
+                        <Text style={{ marginLeft: 5 }}>
                             {userViews}
-                            <AntDesign name="eye" size={16} style={{ paddingRight: 5 }} color={theme.colors.brand.secondary} />
+                            <AntDesign name="eye" size={16} style={{ marginLeft: 5 }} color={theme.colors.brand.secondary} />
                         </Text>
-                        <Text style={{ paddingRight: 5 }}>
+                        <Text style={{ marginLeft: 5 }}>
                             {coinsPrice}
-                            <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={16} color={theme.colors.brand.secondary} />
+                            <FontAwesome5 name="coins" style={{ marginLeft: 5 }} size={16} color={theme.colors.brand.secondary} />
                         </Text>
                     </View>
                 </View>
@@ -51,11 +51,11 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
 }
 const styles = StyleSheet.create({
     containerHorizontal: {
-        height: 265,
+        height: 250,
         width: 175,
         borderRadius: 10,
         marginRight: 10,
-        marginTop: 5,
+        marginTop: 10,
         overflow: "hidden",
         backgroundColor: theme.colors.brand.gray
     },
@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
         overflow: "hidden"
     },
     containerVertical: {
-        height: 265,
+        height: 250,
         width: "49%",
         borderRadius: 10,
-        marginTop: 5,
+        marginTop: 10,
         overflow: "hidden",
         backgroundColor: theme.colors.brand.gray
     }
