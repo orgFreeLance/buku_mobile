@@ -1,17 +1,22 @@
 import { StyleSheet } from "react-native";
-import Layout from "../../layouts/organisms/Layout";
+import LayoutSettings from "../../layouts/organisms/LayoutSettings";
+import ProfileAccount from "../../components/global/profileAccount";
+import CardLogout from "../../components/global/card/logout";
+import CardDetailsApp from "../../components/global/card/detailsApp";
 
 const Account = ({ navigation }) => {
   return (
-    <Layout
+    <LayoutSettings
       title={"Paramètres"}
       navigation={navigation}
       userExist={true}
       progress={100}
       accountScreen={false}
     >
-
-    </Layout>
+      <ProfileAccount />
+      <CardDetailsApp />
+      <CardLogout />
+    </LayoutSettings>
   );
 };
 
