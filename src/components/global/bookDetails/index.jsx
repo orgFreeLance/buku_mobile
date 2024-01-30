@@ -2,6 +2,7 @@ import { Text, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import appStore from "../../../store/app";
 import theme from "../../../constants/theme";
+import CardRatingProgress from "../card/ratingProgress";
 
 export default function BookDetails() {
     const { currentBook, } = appStore()
@@ -23,7 +24,7 @@ export default function BookDetails() {
             </View>
             <View style={{ width: "100%", height: 150, flexDirection: "row" }}>
                 <View style={{
-                    width: "50%", height: "100%", backgroundColor: "white", justifyContent: "center",
+                    width: "42.5%", height: "100%", backgroundColor: "white", justifyContent: "center",
                     alignContent: "center"
                 }}>
                     <Text style={{ fontWeight: "900", fontSize: 36, textAlign: "center" }}>4.9</Text>
@@ -37,9 +38,17 @@ export default function BookDetails() {
                     <Text style={{ fontWeight: "400", fontSize: 16, textAlign: "center" }}>6000 vote(s)</Text>
                 </View>
                 <View style={{
-                    width: "50%", height: "100%", backgroundColor: "red", justifyContent: "center",
-                    alignContent: "center"
+                    width: "50%",
+                    height: "100%",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    paddingLeft: 5
                 }}>
+                    <CardRatingProgress pourcentage={40} total={6000} number={5} />
+                    <CardRatingProgress pourcentage={10} total={6000} number={4} />
+                    <CardRatingProgress pourcentage={20} total={6000} number={3} />
+                    <CardRatingProgress pourcentage={25} total={6000} number={2} />
+                    <CardRatingProgress pourcentage={5} total={6000} number={1} />
                 </View>
             </View>
         </View>

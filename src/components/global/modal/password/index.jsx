@@ -17,7 +17,7 @@ export default function ModalPassword({
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
-    const { confirmPassword, password,
+    const {
         userChange
     } = userStore();
 
@@ -27,8 +27,9 @@ export default function ModalPassword({
         formState: { errors },
     } = useForm({
         defaultValues: {
-            password,
-            confirmPassword,
+            password: "",
+            newPassword: "",
+            confirmPassword: "",
         },
     });
 
@@ -47,7 +48,7 @@ export default function ModalPassword({
                     <Modal.Header style={{ justifyContent: "space-between", flexDirection: "row" }}>
                         <View style={{ justifyContent: "flex-start", alignItems: "center", flexDirection: "row" }}>
                             <Pressable onPress={closeModal}>
-                                <Text style={{ fontWeight: "700", fontSize: 24 }}>Profil</Text>
+                                <Text style={{ fontWeight: "700", fontSize: 24 }}>Configuration Mot de passe</Text>
                             </Pressable>
                             <View style={{ marginLeft: 10 }}>
                             </View>
@@ -60,17 +61,17 @@ export default function ModalPassword({
                                 control={control}
                                 rules={{
                                     required: true,
-                                    minLength: 2,
+                                    minLength: 6,
                                 }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <Stack style={{ marginBottom: 10 }}>
-                                        <FormControl.Label>Mot de passe</FormControl.Label>
+                                        <FormControl.Label>Ancien Mot de passe</FormControl.Label>
                                         <Input
 
                                             style={{ paddingHorizontal: 10 }}
                                             type="password"
                                             keyboardType="text"
-                                            placeholder="Mot de passe"
+                                            placeholder="Ancien Mot de passe"
                                             onBlur={onBlur}
                                             onChangeText={onChange}
                                             value={value}
@@ -91,7 +92,38 @@ export default function ModalPassword({
                                 control={control}
                                 rules={{
                                     required: true,
-                                    minLength: 2,
+                                    minLength: 6,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <Stack style={{ marginBottom: 10 }}>
+                                        <FormControl.Label>Nouveau Mot de passe</FormControl.Label>
+                                        <Input
+
+                                            style={{ paddingHorizontal: 10 }}
+                                            type="password"
+                                            keyboardType="text"
+                                            placeholder="Nouveau Mot de passe"
+                                            onBlur={onBlur}
+                                            onChangeText={onChange}
+                                            value={value}
+                                        />
+
+                                        {errors.newPassword ? (
+                                            <Text style={{ color: "red", fontSize: 10 }}>
+                                                Aux moins 6 caractères sont requis.
+                                            </Text>
+                                        ) : (
+                                            <Text>Doit comporter plus de 5 caractères.</Text>
+                                        )}
+                                    </Stack>
+                                )}
+                                name="newPassword"
+                            />
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                    minLength: 6,
                                 }}
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <Stack style={{ marginBottom: 10 }}>

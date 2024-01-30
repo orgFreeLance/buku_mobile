@@ -16,7 +16,7 @@ export default function ProfileAccount() {
             height: "auto",
             width: "100%",
             flexDirection: "row",
-            justifyContent: "space-start",
+            justifyContent: "space-between",
             alignContent: "center",
             alignItems: "center",
             padding: 20,
@@ -25,22 +25,21 @@ export default function ProfileAccount() {
             borderBottomColor: theme.colors.brand.grayBold,
             borderBottomWidth: .8
         }}>
-            <CardAvatarSettings />
-            <View style={{ width: "70%", paddingLeft: 10, position: "relative" }}>
-                <Text style={{ fontWeight: 500, fontSize: 24, color: "white" }}>{username}</Text>
-                <Text style={{ fontWeight: 400, fontSize: 16, color: "white" }}>{phoneNumber}</Text>
-                <View style={{
-                    position: "absolute",
-                    zIndex: 50,
-                    top: 8,
-                    right: 8,
-                    padding: 3,
-                    alignContent: "center",
-                    justifyContent: "center",
-                    borderRadius: 5,
-                }}>
-                    <FontAwesome name="edit" size={14} color="white" />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <CardAvatarSettings />
+                <View style={{ width: "auto", paddingLeft: 10 }}>
+                    <Text style={{ fontWeight: 500, fontSize: 24, color: "white" }}>{username}</Text>
+                    <Text style={{ fontWeight: 400, fontSize: 16, color: "white" }}>{phoneNumber}</Text>
+
                 </View>
+            </View>
+            <View style={{
+                padding: 3,
+                alignContent: "center",
+                justifyContent: "center",
+                borderRadius: 5,
+            }}>
+                <FontAwesome name="edit" size={14} color="white" />
             </View>
         </TouchableOpacity >
         <ModalAccount modal={modal} closeModal={closeModal} />

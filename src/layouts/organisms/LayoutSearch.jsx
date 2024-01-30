@@ -64,6 +64,7 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
             w="100%"
             mx="auto"
             paddingHorizontal={width(3)}
+          
           >
             {children}
           </ScrollView>

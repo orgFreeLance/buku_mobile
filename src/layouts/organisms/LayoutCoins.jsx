@@ -76,14 +76,21 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
               {title}
             </Text>
             <View style={{
+              flexDirection: "row",
+              alignItems: "center",
               backgroundColor: theme.colors.brand.secondary,
               paddingVertical: 15,
               paddingHorizontal: 5,
               width: "100%",
             }}>
-              <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
+              <Text style={{ fontSize: 48, fontWeight: "700", color: "white", marginHorizontal: 10 }}>
                 <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={40} color={"white"} />
-                {` ${userCoins}`}
+              </Text>
+              <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
+                {`${userCoins}`}
+              </Text>
+              <Text style={{ fontSize: 48, marginLeft: 10, fontWeight: "700", color: "white" }}>
+                Piece(s)
               </Text>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>

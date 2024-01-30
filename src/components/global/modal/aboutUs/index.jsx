@@ -49,8 +49,7 @@ export default function ModalAboutUs({
                         </View>
                     </Modal.Header>
                     <Modal.Body style={{ width: "100%", justifyContent: "center" }}>
-                      
-                        <ButtonMain content="Recherche" />
+
                     </Modal.Body>
                 </Modal.Content>
             </Modal >
