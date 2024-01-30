@@ -15,7 +15,7 @@ const Account = ({ navigation }) => {
     >
       <ProfileAccount />
       <CardDetailsApp />
-      <CardLogout />
+      <CardLogout navigation={navigation} />
     </LayoutSettings>
   );
 };

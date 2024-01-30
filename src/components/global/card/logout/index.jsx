@@ -7,7 +7,7 @@ import goTo from "../../../../utils/goTo";
 export default function CardLogout({ navigation }) {
     const { userChange } = userStore()
     const logout = () => {
-        goTo(navigation, "start")
+        goTo(navigation, "Start")
         userChange({ isAuth: false })
     }
     return <>
