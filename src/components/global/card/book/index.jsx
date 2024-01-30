@@ -57,16 +57,16 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
 }
 const styles = StyleSheet.create({
     containerHorizontal: {
-        height: 250,
+        height: 200,
         width: 175,
         borderRadius: 10,
         marginRight: 10,
         marginTop: 10,
         overflow: "hidden",
-        backgroundColor: theme.colors.brand.gray
+        backgroundColor: theme.colors.brand.grayBold
     },
     avatar: {
-        height: 200,
+        height: 150,
         width: "100%",
         borderRadius: 5,
         borderBottomLeftRadius: 0,
@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
         overflow: "hidden"
     },
     containerVertical: {
-        height: 250,
+        height: 200,
         width: "49%",
         borderRadius: 10,
         marginTop: 10,
         overflow: "hidden",
-        backgroundColor: theme.colors.brand.gray
+        backgroundColor: theme.colors.brand.grayBold
     }
 })

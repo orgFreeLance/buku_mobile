@@ -5,18 +5,20 @@ import {
   View,
 } from "native-base";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; 
+import { TouchableOpacity, Text } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
 import ModalMenu from "../../components/global/modal/menu";
 import { TOUCHABLEOPACITY } from "../../constants";
+import appStore from "../../store/app";
 const bg = require("../../../assets/white.jpeg");
 
 const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, favory = false }) => {
   const [modal, setModal] = useState(false)
+  const { currentBook, } = appStore()
   try {
     return (
       <View
@@ -42,16 +44,16 @@ const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, f
                 onPress={() => { navigation.goBack() }}>
                 <Ionicons name="arrow-back-sharp" size={28} color="black" />
               </TouchableOpacity>
+              <Text style={{ fontWeight: "900", fontSize: 26 }}>
+                {currentBook.name}
+              </Text>
               <TouchableOpacity style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
-                onPress={() => {
-                  createTomeFavorite()
-                }}
+
               >
-                <MaterialIcons name="favorite" size={24} color={!favory ? "black" : theme.colors.brand.secondary} />
               </TouchableOpacity>
             </View>
-            
+
             <ScrollView
               flex={1}
               w="100%"

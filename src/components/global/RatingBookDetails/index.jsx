@@ -18,7 +18,10 @@ export default function RatingBookDetails({ navigation }) {
             </View>
             <View style={{ width: "100%", height: 150, flexDirection: "row" }}>
                 <View style={{
-                    width: "42.5%", height: "100%", backgroundColor: "white", justifyContent: "center",
+                    width: "42.5%",
+                    height: "100%",
+                    backgroundColor: "white",
+                    justifyContent: "center",
                     alignContent: "center"
                 }}>
                     <Text style={{ fontWeight: "900", fontSize: 36, textAlign: "center" }}>4.9</Text>

@@ -22,7 +22,7 @@ const CardChoix = ({ active, onPress, name, reverse = false, width = false }) =>
         <View style={width ? styles.btn : styles.btnFix}>
             <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={onPress} style={{
                 width: "100%",
-                backgroundColor: active == name ? theme.colors.brand.secondary : theme.colors.brand.gray,
+                backgroundColor: active == name ? theme.colors.brand.secondary : theme.colors.brand.grayBold,
                 paddingVertical: 10,
                 borderTopLeftRadius: 10,
                 borderTopRightRadius: 10,
