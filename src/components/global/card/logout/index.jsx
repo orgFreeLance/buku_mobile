@@ -16,7 +16,7 @@ export default function CardLogout() {
             borderBottomColor: theme.colors.brand.grayBold,
             borderBottomWidth: .8
         }}>
-            <Text style={{ lineHeight: 30, flexDirection: "row", alignItems: "center", }}>
+            <Text style={{ lineHeight: 30, fontWeight: "500", flexDirection: "row", alignItems: "center", }}>
                 <AntDesign name="logout" size={24} style={{ paddingRight: 10 }} color="black" />  Logout
             </Text>
         </TouchableOpacity>

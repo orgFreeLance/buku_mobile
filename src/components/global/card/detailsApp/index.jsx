@@ -16,7 +16,7 @@ export default function CardDetailsApp() {
             borderBottomColor: theme.colors.brand.grayBold,
             borderBottomWidth: .8
         }}>
-            <Text style={{ textAlignVertical: "center" }}>
+            <Text style={{ textAlignVertical: "center", fontWeight: "500", }}>
                 <Foundation name="info" size={24} style={{ paddingRight: 10 }} color="black" />  À propos de Buku
             </Text>
         </TouchableOpacity>

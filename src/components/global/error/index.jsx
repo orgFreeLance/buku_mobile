@@ -10,7 +10,6 @@ export default function Error({ refresh }) {
                 <FontAwesome name="refresh" size={24} color="black" />
                 Actualiser
             </Text>
-
             <ImageBackground source={bg} style={{ width: "100%", height: 250 }} />
             <Text style={{ paddingVertical: 10, textAlign: "center" }}>Nous avons rencontré une erreur !</Text>
         </View>

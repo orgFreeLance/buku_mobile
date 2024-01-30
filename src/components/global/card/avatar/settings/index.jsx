@@ -72,7 +72,7 @@ export default function CardAvatarSettings() {
             >
               <FontAwesome name="edit" size={16} color="white" />
             </View>
-            <ImageViewer selectedImage={{ uri: picture }} />
+            <ImageViewer selectedImage={{ uri: picture }}  />
           </View>
         )}
       </View>

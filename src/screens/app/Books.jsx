@@ -8,6 +8,7 @@ import LayoutBooks from "../../layouts/organisms/LayoutBooks";
 import PageLoading from "../../components/global/loading";
 import userStore from "../../store/user";
 import Error from "../../components/global/error";
+import NoData from "../../components/global/noData";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -61,14 +62,17 @@ const Books = ({ navigation }) => {
       userExist={true}
       progress={100}
       bookScreen={false}>
+
       {!error ? <>
         <PageLoading horizontal={false} loading={loading}>
           <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
             {(bookOfChoice.id == "Achetés") ?
               <>
+                <NoData items={tomesBuyed} />
                 {tomesBuyed.map(({ id, ...attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
               </> :
               <>
+                <NoData items={tomesFavorites} />
                 {tomesFavorites.map(({ id, attributes }, index) => <CardBook {...attributes} id={id} key={`${id}${index}`} horizontal={false} navigation={navigation} />)}
               </>
             }
