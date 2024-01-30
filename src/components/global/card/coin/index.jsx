@@ -1,5 +1,5 @@
 import { View, } from "native-base";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, Text } from "react-native";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native";
@@ -33,18 +33,26 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
     }
     const buyCoin = () => {
         setLoading(true)
+        console.log(user)
         fetch(`${buyCoinsURL(coin, user)}`, { headers, method: "POST" }).then(async res => {
             const status = res.status
             const data = await res.json()
             return ({ ...data, status })
 
-        }).then(({ data: { user, ...rest }, status }) => {
-            if (status == 200) {
-                const { userCoins } = user
-                userChange({ userCoins })
-                openModalSuccess()
+        }).then(({ data, status }) => {
+            if (data) {
+                const { user } = data
+                if (status == 200) {
+                    const { userCoins } = user
+                    userChange({ userCoins })
+                    openModalSuccess()
+                }
             }
+
             setLoading(false)
+        }).catch(error => {
+            setLoading(false)
+            console.log(error)
         })
     }
     return <View style={styles.card}>
@@ -80,7 +88,9 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
                                 <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
                                 <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>{coinsNumber}</Text>
                             </View>
-                            <Text style={{ fontWeight: "bold", fontSize: 24 }}> = </Text>
+                            <Text style={{ fontWeight: "bold", fontSize: 24, marginHorizontal: 5 }}>
+                                <MaterialCommunityIcons name="approximately-equal" size={24} color="black" />
+                            </Text>
                             <View style={styles.content}>
                                 <Text style={{ textAlign: "center", fontSize: 48, color: theme.colors.brand.secondary, fontWeight: "bold" }}>{price}{currency?.symbol}</Text>
                             </View>

@@ -10,5 +10,4 @@ export default function NoData({ items }) {
             <ImageBackground source={bg} style={{ width: "100%", flex: 1, height: 250 }} />
         </View>
     </>
-
 }
