@@ -43,9 +43,12 @@ const Home = ({ navigation }) => {
       navigation={navigation}
       userExist={true}
       progress={100}
-      homeScreen={false}>
-      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
+      homeScreen={false}
+    >
+      <View style={{ width: "100%", height: 200, backgroundColor: "red" }}>
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
+      </View>
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />

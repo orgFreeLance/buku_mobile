@@ -1,5 +1,5 @@
-import { Text, TouchableOpacity } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
+import { Text, TouchableOpacity, View } from "react-native";
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import theme from "../../../../constants/theme";
 import { useState } from "react";
 import ModalPassword from "../../modal/password";
@@ -13,19 +13,23 @@ export default function CardPassword() {
             height: "auto",
             width: "100%",
             flexDirection: "row",
-            justifyContent: "space-start",
+            justifyContent: "space-between",
             alignContent: "center",
             alignItems: "center",
             padding: 20,
-            paddingHorizontal: 0,
             borderBottomColor: theme.colors.brand.grayBold,
             borderBottomWidth: .8
         }}>
-            <Text style={{ textAlignVertical: "center", marginRight: 5 }}>
-                <MaterialIcons name="lock" size={24} style={{ paddingRight: 10 }} color="black" />
-            </Text>
-            <Text style={{ textAlignVertical: "center", fontWeight: "500", }}>
-                Mot de passe
+            <View style={{ flexDirection: "row" }}>
+                <Text style={{ textAlignVertical: "center", marginRight: 5 }}>
+                    <MaterialIcons name="lock" size={24} style={{ paddingRight: 10 }} color="black" />
+                </Text>
+                <Text style={{ textAlignVertical: "center", fontWeight: "500", }}>
+                    Mot de passe
+                </Text>
+            </View>
+            <Text style={{ fontWeight: "500" }}>
+                <Ionicons name="chevron-forward" size={24} color="black" />
             </Text>
         </TouchableOpacity>
         <ModalPassword modal={modal} closeModal={closeModal} />

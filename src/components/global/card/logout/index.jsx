@@ -20,7 +20,6 @@ export default function CardLogout({ navigation }) {
                 alignContent: "center",
                 alignItems: "center",
                 padding: 20,
-                paddingHorizontal: 0,
                 borderBottomColor: theme.colors.brand.grayBold,
                 borderBottomWidth: .8
             }}>

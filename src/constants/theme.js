@@ -12,7 +12,8 @@ const newTheme = {
     secondary50: "#00A8CB50",
     white: "white",
     gray: "#F1F1F1",
-    grayBold: "#E7E5E5"
+    grayBold: "#E7E5E5",
+    red: "#F0000030"
   },
 };
 

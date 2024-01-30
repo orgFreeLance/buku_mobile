@@ -48,7 +48,8 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
                     openModalSuccess()
                 }
             }
-
+            console.log(data, status)
+            console.log("test")
             setLoading(false)
         }).catch(error => {
             setLoading(false)
