@@ -9,11 +9,11 @@ export default function CardRatingProgress({ pourcentage = 80, number = 5 }) {
                 position: "relative",
                 borderRadius: 5,
                 height: 7.5,
-                width: `${pourcentage}%`,
+                width: `${pourcentage * 2}%`,
                 backgroundColor: theme.colors.brand.secondary
             }}>
 
-                <View style={{ position: "absolute",height:20, borderRadius: 10, padding: 2, top: 0, right: 0, transform: [{ translateX: 10 }, { translateY: -5 }] }}>
+                <View style={{ position: "absolute", borderRadius: 10, right: 0, transform: [{ translateX: 25 }, { translateY: -4 }] }}>
                     <Text >{pourcentage}%</Text>
                 </View>
             </View>

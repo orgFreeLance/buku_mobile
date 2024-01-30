@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
       progress={100}
       homeScreen={false}
     >
-      <View style={{ width: "100%", height: 200, backgroundColor: "red" }}>
+      <View style={{ width: "100%" }}>
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
       </View>
       <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
