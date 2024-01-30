@@ -5,22 +5,15 @@ import theme from "../../../constants/theme";
 import CardRatingProgress from "../card/ratingProgress";
 import goTo from "../../../utils/goTo";
 
-export default function BookDetails({ navigation }) {
+export default function RatingBookDetails({ navigation }) {
     const { currentBook, } = appStore()
     return <>
-        <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
-            Apropos de ce livre
-        </Text>
-        <Text style={{ color: "black", fontSize: 16, marginTop: 5 }}>
-            {currentBook.resume}
-        </Text>
-        <View style={{ paddingTop: 15 }}>
+        <View style={{ paddingTop: 0 }}>
             <View style={{ flexDirection: "row", paddingBottom: 5, justifyContent: "space-between" }}>
-                <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
+                <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingBottom: 5 }}>
                     Notes et commentaires
                 </Text>
                 <TouchableOpacity onPress={() => { goTo(navigation, "Ratings") }} style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
-                    <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
                 </TouchableOpacity>
             </View>
             <View style={{ width: "100%", height: 150, flexDirection: "row" }}>

@@ -22,6 +22,7 @@ import Genre from "../screens/app/Genre";
 import BookByGenre from "../screens/app/BookByGenre";
 import Books from "../screens/app/Books";
 import Book from "../screens/app/Book";
+import Ratings from "../screens/app/ratings";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -88,8 +89,10 @@ const MainNavigation = () => {
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Discover" component={Discover}
             options={{ cardStyleInterpolator: forFade }} />
-            <Stack.Screen name="Welcome" component={Welecome}
-              options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Welcome" component={Welecome}
+            options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Ratings" component={Ratings}
+            options={{ cardStyleInterpolator: forFade }} />
         </Stack.Group>
       )}
     </Stack.Navigator>
