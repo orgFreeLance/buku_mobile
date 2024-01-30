@@ -6,6 +6,7 @@ import { Image, Pressable } from "react-native";
 import theme from "../../../../../constants/theme";
 import userStore from "../../../../../store/user";
 import { setToBase64 } from "../../../../../constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function CardAvatarSettings() {
   const { picture, userChange } = userStore()
@@ -29,54 +30,18 @@ export default function CardAvatarSettings() {
   };
 
   return (
-    <Pressable onPress={pickImageAsync}>
-      <View
-        style={{
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        {selectedImage ? (
-          <View style={{ position: "relative" }}>
-            <View
-              style={{
-                position: "absolute",
-                zIndex: 50,
-                bottom: 8,
-                right: 8,
-                padding: 3,
-                alignContent: "center",
-                justifyContent: "center",
-                backgroundColor: theme.colors.brand.secondary,
-                borderRadius: 5,
-              }}
-            >
-              <FontAwesome name="edit" size={14} color="white" />
-            </View>
-            <ImageViewer selectedImage={selectedImage} />
-          </View>
-        ) : (
-          <View style={{ position: "relative" }}>
-            <View
-              style={{
-                position: "absolute",
-                zIndex: 50,
-                bottom: 10,
-                right: 10,
-                padding: 4,
-                alignContent: "center",
-                justifyContent: "center",
-                backgroundColor: theme.colors.brand.secondary,
-                borderRadius: 5,
-              }}
-            >
-              <FontAwesome name="edit" size={16} color="white" />
-            </View>
-            <ImageViewer selectedImage={{ uri: picture }}  />
-          </View>
-        )}
-      </View>
-    </Pressable>
+    <View
+      style={{
+        justifyContent: "center",
+        flexDirection: "row",
+      }}
+    >
+      {(
+        <View style={{ position: "relative" }}>
+          <ImageViewer selectedImage={{ uri: picture }} />
+        </View>
+      )}
+    </View>
   );
 }
 

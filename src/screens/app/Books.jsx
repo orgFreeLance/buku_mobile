@@ -62,7 +62,6 @@ const Books = ({ navigation }) => {
       userExist={true}
       progress={100}
       bookScreen={false}>
-
       {!error ? <>
         <PageLoading horizontal={false} loading={loading}>
           <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
