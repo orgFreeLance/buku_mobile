@@ -1,10 +1,15 @@
 import { Text, TouchableOpacity } from "react-native";
 import { Foundation } from '@expo/vector-icons';
 import theme from "../../../../constants/theme";
+import { useState } from "react";
+import ModalAboutUs from "../../modal/aboutUs";
 
 export default function CardDetailsApp() {
+    const [modal, setModal] = useState(false)
+    const openModal = () => setModal(true)
+    const closeModal = () => setModal(false)
     return <>
-        <TouchableOpacity style={{
+        <TouchableOpacity onPress={openModal} style={{
             height: "auto",
             width: "100%",
             flexDirection: "row",
@@ -20,5 +25,6 @@ export default function CardDetailsApp() {
                 <Foundation name="info" size={24} style={{ paddingRight: 10 }} color="black" />  À propos de Buku
             </Text>
         </TouchableOpacity>
+        <ModalAboutUs modal={modal} closeModal={closeModal} />
     </>
 }

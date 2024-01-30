@@ -88,6 +88,8 @@ const MainNavigation = () => {
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Discover" component={Discover}
             options={{ cardStyleInterpolator: forFade }} />
+          <Stack.Screen name="Start" component={Start}
+            options={{ cardStyleInterpolator: forFade }} />
         </Stack.Group>
       )}
     </Stack.Navigator>
