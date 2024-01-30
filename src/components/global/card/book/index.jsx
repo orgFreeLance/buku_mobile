@@ -31,16 +31,22 @@ export default function CardBook({ horizontal = true, navigation, picture, id, n
                 }}>
                     <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: 16, fontVariant: "smallcapse", paddingTop: 3 }}>{name}</Text>
                     <View style={{ flexDirection: "row", alignItems: "center", paddingTop: 5 }}>
-                        <Text style={{}}>
+                        <Text style={{ marginRight: 3 }}>
                             {likesNumber}
-                            <AntDesign name="star" size={16} style={{ marginLeft: 5 }} color={theme.colors.brand.secondary} />
                         </Text>
-                        <Text style={{ marginLeft: 5 }}>
+                        <Text style={{ marginRight: 5 }}>
+                            <AntDesign name="star" size={16} style={{}} color={theme.colors.brand.secondary} />
+                        </Text>
+                        <Text style={{ marginRight: 3 }}>
                             {userViews}
+                        </Text>
+                        <Text style={{ marginRight: 5 }}>
                             <AntDesign name="eye" size={16} style={{ marginLeft: 5 }} color={theme.colors.brand.secondary} />
                         </Text>
-                        <Text style={{ marginLeft: 5 }}>
+                        <Text style={{ marginRight: 3 }}>
                             {coinsPrice}
+                        </Text>
+                        <Text style={{ marginRight: 5 }}>
                             <FontAwesome5 name="coins" style={{ marginLeft: 5 }} size={16} color={theme.colors.brand.secondary} />
                         </Text>
                     </View>
