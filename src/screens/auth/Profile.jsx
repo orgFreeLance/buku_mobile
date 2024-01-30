@@ -4,16 +4,12 @@ import {
   FormControl,
   Input,
   Stack,
-  Pressable,
 } from "native-base";
-import { FontAwesome } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../layouts/organisms/AuthForm";
 import userStore from "../../store/user";
-import { useToast } from "native-base";
 import ButtonMain from "../../components/global/button/main";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { useForm, Controller } from "react-hook-form";
 import goTo from "../../utils/goTo";
 import CardAvatarAuth from "../../components/global/card/avatar/auth";

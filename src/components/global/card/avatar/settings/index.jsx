@@ -54,7 +54,7 @@ function ImageViewer({ selectedImage }) {
         width: 90,
         height: 90,
         borderRadius: 100,
-        borderColor: theme.colors.brand.secondary,
+        borderColor: "white",
         borderWidth: 2,
       }}
     />

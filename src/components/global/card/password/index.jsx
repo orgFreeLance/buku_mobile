@@ -1,10 +1,10 @@
 import { Text, TouchableOpacity } from "react-native";
-import { Foundation } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import theme from "../../../../constants/theme";
 import { useState } from "react";
-import ModalAboutUs from "../../modal/aboutUs";
+import ModalPassword from "../../modal/password";
 
-export default function CardDetailsApp() {
+export default function CardPassword() {
     const [modal, setModal] = useState(false)
     const openModal = () => setModal(true)
     const closeModal = () => setModal(false)
@@ -21,13 +21,13 @@ export default function CardDetailsApp() {
             borderBottomColor: theme.colors.brand.grayBold,
             borderBottomWidth: .8
         }}>
-            <Text style={{ textAlignVertical: "center", marginRight: 5, fontWeight: "500", }}>
-                <Foundation name="info" size={24} style={{ paddingRight: 10 }} color="black" />
+            <Text style={{ textAlignVertical: "center", marginRight: 5 }}>
+                <MaterialIcons name="lock" size={24} style={{ paddingRight: 10 }} color="black" />
             </Text>
             <Text style={{ textAlignVertical: "center", fontWeight: "500", }}>
-                À propos de Buku
+                Mot de passe
             </Text>
         </TouchableOpacity>
-        <ModalAboutUs modal={modal} closeModal={closeModal} />
+        <ModalPassword modal={modal} closeModal={closeModal} />
     </>
 }
