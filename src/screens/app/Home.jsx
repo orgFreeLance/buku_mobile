@@ -1,6 +1,6 @@
 import { Text, View } from "native-base";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
@@ -75,7 +75,7 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
+      <ScrollView horizontal={true} style={{}} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />
@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
+      <ScrollView horizontal={true} style={{}} >
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />
@@ -99,7 +99,6 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
-
   header: {
     width: "100%",
     flexDirection: "row",

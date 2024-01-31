@@ -7,7 +7,6 @@ import {
 import { useState } from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -39,21 +38,22 @@ const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, f
             source={image}
           >
             <View style={styles.header}>
-              <TouchableOpacity style={styles.icon}
-                activeOpacity={TOUCHABLEOPACITY}
-                onPress={() => { navigation.goBack() }}>
-                <Ionicons name="arrow-back-sharp" size={28} color="black" />
-              </TouchableOpacity>
-              <Text style={{ fontWeight: "900", fontSize: 26 }}>
-                {currentBook.name}
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity style={styles.icon}
+                  activeOpacity={TOUCHABLEOPACITY}
+                  onPress={() => { navigation.goBack() }}>
+                  <Ionicons name="arrow-back-sharp" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={{ fontWeight: "600", fontSize: 26, marginLeft: 5 }}>
+                  Notes et commentaires 
+                </Text>
+              </View>
               <TouchableOpacity style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
 
               >
               </TouchableOpacity>
             </View>
-
             <ScrollView
               flex={1}
               w="100%"
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   icon: {
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: 16,
+    fontWeight: "500",
     color: "black"
   },
   title: {

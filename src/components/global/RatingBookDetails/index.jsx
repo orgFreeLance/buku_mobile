@@ -1,22 +1,15 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import appStore from "../../../store/app";
 import theme from "../../../constants/theme";
 import CardRatingProgress from "../card/ratingProgress";
-import goTo from "../../../utils/goTo";
 
 export default function RatingBookDetails({ navigation }) {
     const { currentBook, } = appStore()
     return <>
         <View style={{ paddingTop: 0 }}>
-            <View style={{ flexDirection: "row", paddingBottom: 5, justifyContent: "space-between" }}>
-                <Text style={{ color: "black", fontSize: 20, fontWeight: "700", paddingBottom: 5 }}>
-                    Notes et commentaires
-                </Text>
-                <TouchableOpacity onPress={() => { goTo(navigation, "Ratings") }} style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
-                </TouchableOpacity>
-            </View>
-            <View style={{ width: "100%", height: 150, flexDirection: "row" }}>
+
+            <View style={{ width: "100%", flexDirection: "row" }}>
                 <View style={{
                     width: "42.5%",
                     height: "100%",
