@@ -3,13 +3,13 @@ import {
   ScrollView,
   StatusBar,
 } from "native-base";
-import {  useState } from "react";
+import { useState } from "react";
 import {
   TouchableOpacity,
   Text,
   View,
 } from "react-native";
-import {AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
