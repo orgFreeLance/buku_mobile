@@ -60,7 +60,6 @@ export default function CardAuthCategory({
         }}
       >
         <Text
-          onPress={onClick}
           style={{
             color: theme.colors.brand.secondary,
           }}

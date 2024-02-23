@@ -4,7 +4,6 @@ import {
   Input,
   Stack,
   View,
-  Image,
 } from "native-base";
 import React, { useState } from "react";
 import { StyleSheet, ActivityIndicator } from "react-native";
@@ -13,13 +12,15 @@ import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import { useForm, Controller } from "react-hook-form";
 import ModalContainer from "../../components/global/modal/notification";
-const signup_bg = require("../../../assets/notifications/signup.png");
-const signup_bg_success = require("../../../assets/notifications/signupSuccess.png");
-const signup_bg_error = require("../../../assets/notifications/signupError.png");
 import theme from "../../constants/theme";
 import { API_LINK, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import ImageViewer from "../../components/global/imageViewer";
+
+const signup_bg = require("../../../assets/notifications/signup.png");
+const signup_bg_success = require("../../../assets/notifications/signupSuccess.png");
+const signup_bg_error = require("../../../assets/notifications/signupError.png");
+
 const Signup = ({ navigation }) => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false)
@@ -50,9 +51,6 @@ const Signup = ({ navigation }) => {
       confirmPassword
     },
   });
-  const closeModal = () => {
-    setModal(false);
-  };
   const signup = () => {
     const data = {
       pseudo,
@@ -68,18 +66,20 @@ const Signup = ({ navigation }) => {
       ageRange,
     }
     setLoading(true)
+    setError(false)
     fetch(`${API_LINK}/authentification/register`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
       const status = res.status
       const data = await res.json()
       return ({ ...data, status })
     }).then(({ data, status, message }) => {
-      setLoading(false)
       if (+status !== 200) {
         setMessage(message)
         setError(true)
+        setLoading(false)
       } else {
         userChange({ ...data })
         setError(false)
+        setLoading(false)
         setTimeout(() => {
           goTo(navigation, "Login");
         }, 4000)
@@ -230,26 +230,27 @@ const Signup = ({ navigation }) => {
                   }}
                 >
                   {!loading ? <>
-                    {!error ? <>
+                    {!error ?
+                      <>
 
-                      <ImageViewer selectedImage={signup_bg_success} />
-                      <Text
-                        style={{
-                          fontSize: 32,
-                          fontWeight: "600",
-                          paddingVertical: 10,
-                          color: theme.colors.brand.secondary,
-                        }}
-                      >
-                        Inscription réussie
-                      </Text>
-                      <Text
-                        style={{ width: "80%", textAlign: "center", fontSize: 14 }}
-                      >
-                        votre compte a été créé. veuillez patienter un instant. nous
-                        nous préparons à vous accueillir.
-                      </Text>
-                    </> :
+                        <ImageViewer selectedImage={signup_bg_success} />
+                        <Text
+                          style={{
+                            fontSize: 32,
+                            fontWeight: "600",
+                            paddingVertical: 10,
+                            color: theme.colors.brand.secondary,
+                          }}
+                        >
+                          Inscription réussie
+                        </Text>
+                        <Text
+                          style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                        >
+                          votre compte a été créé. veuillez patienter un instant. nous
+                          nous préparons à vous accueillir.
+                        </Text>
+                      </> :
                       <>
                         <ImageViewer selectedImage={signup_bg_error} />
                         <Text
@@ -267,7 +268,8 @@ const Signup = ({ navigation }) => {
                         >
                           {message}
                         </Text>
-                      </>}
+                      </>
+                    }
                   </> :
                     <>
                       <ImageViewer selectedImage={signup_bg} />

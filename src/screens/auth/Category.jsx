@@ -13,16 +13,16 @@ const Category = ({ navigation }) => {
   const { categories, appChange } = appStore()
 
   const onPress = (current) => {
-    const setCategories = () => {
-      return categories.map((item, index) => {
+    console.log(current)
+    appChange({
+      categories: categories.map((item, index) => {
         if (current == index) {
           const select = item.select ? false : true
           return { ...item, select };
         }
         return item
-      });
-    }
-    appChange({ categories: setCategories(categories) });
+      })
+    });
   };
   return (
     <View style={styles.container}>
