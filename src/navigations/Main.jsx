@@ -23,7 +23,6 @@ import BookByGenre from "../screens/app/BookByGenre";
 import Books from "../screens/app/Books";
 import Book from "../screens/app/Book";
 import Ratings from "../screens/app/ratings";
-import ScreenPdf from "../screens/app/pdf";
 
 const forFade = ({ current }) => ({
   cardStyle: {
@@ -43,8 +42,6 @@ const MainNavigation = () => {
     >
       {!userIsAuth ? (
         <Stack.Group>
-          <Stack.Screen name="Pdf" component={ScreenPdf}
-            options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Start" component={Start}
             options={{ cardStyleInterpolator: forFade }} />
           <Stack.Screen name="Login" component={Login}
