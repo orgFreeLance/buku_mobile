@@ -11,6 +11,7 @@ import appStore from "../../store/app";
 import { useEffect, useState } from "react";
 import { categoriesURl, tomesURl } from "../../constants/url";
 import ProgressBarBook from "../../components/global/progressBar";
+import NoData from "../../components/global/noData";
 
 const Home = ({ navigation }) => {
   const { categories, tomes, appChange } = appStore()
@@ -49,6 +50,7 @@ const Home = ({ navigation }) => {
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
       </View>
       <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
+        <NoData horizontal items={tomes} />
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />
@@ -60,10 +62,7 @@ const Home = ({ navigation }) => {
           <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} onScrollBeginDrag={(e) => {
-        console.log(e)
-        console.log(e.target)
-      }}>
+      <ScrollView horizontal={true} >
         {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <View style={styles.header}>
@@ -76,6 +75,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} style={{}} >
+        <NoData horizontal items={tomes} />
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />
@@ -89,6 +89,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} style={{}} >
+        <NoData horizontal items={tomes} />
         {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
       </ScrollView>
       <ProgressBarBook items={tomes} />
