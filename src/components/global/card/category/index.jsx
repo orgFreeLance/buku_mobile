@@ -1,4 +1,4 @@
-import { View, Text } from "native-base";
+import { Text } from "native-base";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TOUCHABLEOPACITY } from "../../../../constants";

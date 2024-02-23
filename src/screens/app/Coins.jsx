@@ -5,6 +5,7 @@ import { activesCoinURL } from "../../constants/url";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
 import LayoutCoins from "../../layouts/organisms/LayoutCoins";
+import NoData from "../../components/global/noData";
 
 const Coins = ({ navigation }) => {
   const { appChange, coins, currencyOfCoins } = appStore()
@@ -33,6 +34,11 @@ const Coins = ({ navigation }) => {
       coinScreen={false}
     >
       <View flex={1}>
+        <NoData items={coins.filter(({ ...attributes }) => {
+          const { id } = currencyOfCoins
+          if (id == "Tout") return true
+          else if (attributes?.currency?.id == id) return true
+        })} />
         <View style={{ flexDirection: "row", flex: 1, justifyContent: "space-between", flexWrap: "wrap", paddingVertical: 10 }}>
           {coins.filter(({ ...attributes }) => {
             const { id } = currencyOfCoins

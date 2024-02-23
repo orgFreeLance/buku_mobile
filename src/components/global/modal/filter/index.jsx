@@ -16,16 +16,16 @@ export default function ModalFilter({
     const [onChangeValue, setOnChangeValue] = React.useState(1);
 
     const onPress = (current) => {
-        const setCategories = () => {
-            return categories.map((item, index) => {
+
+        appChange({
+            categories: categories.map((item, index) => {
                 if (current == index) {
                     const select = item.select ? false : true
                     return { ...item, select };
                 }
                 return item
-            });
-        }
-        appChange({ categories: setCategories(categories) });
+            })
+        });
     };
     return (
         <>
