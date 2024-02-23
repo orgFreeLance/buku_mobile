@@ -11,7 +11,7 @@ const Search = ({ navigation }) => {
       userExist={true}
       progress={100}
       accountScreen={false}>
-      <PageLoading loading={true} />
+      <PageLoading loading={true} horizontal={false} />
     </LayoutSearch>
   );
 };

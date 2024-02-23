@@ -7,6 +7,7 @@ import appStore from "../../store/app";
 import { API_LINK, headers } from "../../constants";
 import { tomesURl } from "../../constants/url";
 import PageLoading from "../../components/global/loading";
+import NoData from "../../components/global/noData";
 
 const Discover = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -33,6 +34,7 @@ const Discover = ({ navigation }) => {
       progress={100}
       discoverScreen={false}>
       <PageLoading loading={loading} horizontal={false} >
+        <NoData items={tomes} />
         <View style={{ width: "100%", flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between" }}>
           {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} horizontal={false} navigation={navigation} />)}
         </View>
