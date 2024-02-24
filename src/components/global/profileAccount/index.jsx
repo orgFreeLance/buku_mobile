@@ -30,7 +30,6 @@ export default function ProfileAccount() {
                 <View style={{ width: "auto", paddingLeft: 10 }}>
                     <Text style={{ fontWeight: 500, fontSize: 24, color: "white" }}>{username}</Text>
                     <Text style={{ fontWeight: 400, fontSize: 16, color: "white" }}>{phoneNumber}</Text>
-
                 </View>
             </View>
             <View style={{
