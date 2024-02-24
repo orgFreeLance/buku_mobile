@@ -33,7 +33,6 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
     }
     const buyCoin = () => {
         setLoading(true)
-        console.log(user)
         fetch(`${buyCoinsURL(coin, user)}`, { headers, method: "POST" }).then(async res => {
             const status = res.status
             const data = await res.json()
@@ -48,12 +47,9 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
                     openModalSuccess()
                 }
             }
-            console.log(data, status)
-            console.log("test")
             setLoading(false)
         }).catch(error => {
             setLoading(false)
-            console.log(error)
         })
     }
     return <View style={styles.card}>
