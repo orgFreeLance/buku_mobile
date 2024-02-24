@@ -11,6 +11,7 @@ export default function CardAge({ name, index, onPress, select = false }) {
     return (
       <>
         <TouchableOpacity
+          onPress={onClick}
           activeOpacity={TOUCHABLEOPACITY}
           style={{
             width: "100%",
@@ -25,7 +26,6 @@ export default function CardAge({ name, index, onPress, select = false }) {
           }}
         >
           <Text
-            onPress={onClick}
             style={{
               color: "white",
               textAlign: "center",

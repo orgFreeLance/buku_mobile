@@ -1,5 +1,5 @@
-import { Text, View } from "native-base";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler"
 import { FontAwesome5 } from '@expo/vector-icons';
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
@@ -15,7 +15,9 @@ import ImageViewer from "../../components/global/imageViewer";
 import LayoutRatings from "../../layouts/organisms/LayoutRatings";
 import RatingBookDetails from "../../components/global/RatingBookDetails";
 import CardStar from "../../components/global/card/star";
+
 const shop = require("../../../assets/coin/shop.png");
+
 const Ratings = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -48,7 +50,7 @@ const Ratings = ({ navigation }) => {
     return <>
       <RatingBookDetails navigation={navigation} />
       <ScrollView horizontal={true} style={{ borderTopColor: theme.colors.brand.secondary, borderTopWidth: .5, padding: 10, width: "100%", borderBottomColor: theme.colors.brand.secondary, borderBottomWidth: .5 }}>
-        <CardStar />        <CardStar />        <CardStar />
+        <CardStar /><CardStar /><CardStar />
       </ScrollView>
     </>
 

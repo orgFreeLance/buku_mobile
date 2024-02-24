@@ -1,5 +1,6 @@
 import { Text, View } from "native-base";
-import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";

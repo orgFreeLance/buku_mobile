@@ -257,8 +257,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   picture: {
-    minHeight: 230,
-    maxHeight: 300,
+    height: 230,
     width: "40%",
     borderRadius: BORDERRADIUS,
     overflow: "hidden"
