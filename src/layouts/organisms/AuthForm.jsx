@@ -1,15 +1,15 @@
 import {
   Flex,
   Stack,
-  Text,
-  StatusBar,
-  View,
   Progress,
 } from "native-base";
 import {
-  TouchableOpacity
+  TouchableOpacity,
+  Text,
+  StatusBar,
+  View,
 } from "react-native"
-import { Feather } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { height, screenHeight, width } from "../../constants/nativeSizes";
 import { TOUCHABLEOPACITY } from "../../constants";
 
@@ -42,7 +42,7 @@ const AuthForm = ({ navigation, children, title, progress = 20 }) => {
         >
           <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={goBack}>
             <Text style={{ fontWeight: "bold" }}>
-              <Feather name="arrow-left" size={24} color="black" />
+              <Ionicons name="arrow-back-sharp" size={28} color="black" />
             </Text>
           </TouchableOpacity>
           <Progress

@@ -67,29 +67,30 @@ const Signup = ({ navigation }) => {
     }
     setLoading(true)
     setError(false)
-    fetch(`${API_LINK}/authentification/register`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }).then(({ data, status, message }) => {
-      if (+status !== 200) {
+    fetch(`${API_LINK}/authentification/register`, { headers, method: "POST", body: JSON.stringify({ data }) })
+      .then(async res => {
+        const status = res.status
+        const data = await res.json()
+        return ({ ...data, status })
+      }).then(({ data, status, message }) => {
+        if (+status !== 200) {
+          setMessage(message)
+          setError(true)
+          setLoading(false)
+        } else {
+          userChange({ ...data })
+          setError(false)
+          setLoading(false)
+          setTimeout(() => {
+            goTo(navigation, "Login");
+          }, 4000)
+        }
+
+      }).catch(({ message }) => {
+        setLoading(false)
         setMessage(message)
         setError(true)
-        setLoading(false)
-      } else {
-        userChange({ ...data })
-        setError(false)
-        setLoading(false)
-        setTimeout(() => {
-          goTo(navigation, "Login");
-        }, 4000)
-      }
-
-    }).catch(({ message }) => {
-      setLoading(false)
-      setMessage(message)
-      setError(true)
-    })
+      })
   }
   return (
     <View style={styles.container}>

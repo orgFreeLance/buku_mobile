@@ -1,5 +1,5 @@
 import { Radio, View, Text } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import AuthForm from "../../layouts/organisms/AuthForm";
 import ButtonMain from "../../components/global/button/main";
@@ -8,6 +8,9 @@ import userStore from "../../store/user";
 
 const Gender = ({ navigation }) => {
   const { gender, userChange } = userStore()
+  useEffect(() => {
+    userChange({ gender: "M" })
+  }, [])
   return (
     <View style={styles.container}>
       <AuthForm
