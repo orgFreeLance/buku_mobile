@@ -1,17 +1,12 @@
 import { Text, View } from "native-base";
-import { ImageBackground, StyleSheet } from "react-native";
-import { AntDesign, Entypo, FontAwesome5, Foundation } from '@expo/vector-icons';
+import { ScrollView, StyleSheet } from "react-native";
+import { FontAwesome5 } from '@expo/vector-icons';
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
-import CardCategoryBook from "../../components/global/card/categoryBook";
-import { API_LINK, BORDERRADIUS, TOUCHABLEOPACITY, getDate, headers } from "../../constants";
+import { API_LINK, BORDERRADIUS, headers } from "../../constants";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
 import { categoryOfTomeURl, chaptersOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
 import userStore from "../../store/user";
-import BookChapters from "../../components/global/bookChapters";
-import BookDetails from "../../components/global/bookDetails";
-import CardChoix from "../../components/global/card/choix";
 import Loader from "../../components/global/Loader";
 import Error from "../../components/global/error";
 import ModalContainer from "../../components/global/modal/notification";
@@ -19,6 +14,7 @@ import ButtonBuy from "../../components/global/button/buy";
 import ImageViewer from "../../components/global/imageViewer";
 import LayoutRatings from "../../layouts/organisms/LayoutRatings";
 import RatingBookDetails from "../../components/global/RatingBookDetails";
+import CardStar from "../../components/global/card/star";
 const shop = require("../../../assets/coin/shop.png");
 const Ratings = ({ navigation }) => {
   const [loading, setLoading] = useState(true)
@@ -49,7 +45,12 @@ const Ratings = ({ navigation }) => {
   }
   const getComponent = () => {
 
-    return <RatingBookDetails navigation={navigation} />
+    return <>
+      <RatingBookDetails navigation={navigation} />
+      <ScrollView horizontal={true} style={{ borderTopColor: theme.colors.brand.secondary, borderTopWidth: .5, padding: 10, width: "100%", borderBottomColor: theme.colors.brand.secondary, borderBottomWidth: .5 }}>
+        <CardStar />        <CardStar />        <CardStar />
+      </ScrollView>
+    </>
 
   }
   const buyCoin = () => { }
@@ -115,6 +116,9 @@ const Ratings = ({ navigation }) => {
       createTomeFavorite={createTomeFavorite}
     >
       {loading ? <>
+        <View style={{ width: "100%", }}>
+          {getComponent()}
+        </View>
         <Loader loading={loading} />
       </> :
         !error ? <>
@@ -122,7 +126,7 @@ const Ratings = ({ navigation }) => {
             paddingVertical: 5,
             width: "100%"
           }}>
-            <View style={{ width: "100%", marginTop: 5 }}>
+            <View style={{ width: "100%" }}>
               {getComponent()}
             </View>
           </View>
