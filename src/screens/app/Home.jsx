@@ -1,7 +1,12 @@
-import { Text, View } from "native-base";
-import { ScrollView } from "react-native-gesture-handler";
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import theme from "../../constants/theme";
 import Layout from "../../layouts/organisms/Layout";
 import CardBook from "../../components/global/card/book";
@@ -15,30 +20,36 @@ import ProgressBarBook from "../../components/global/progressBar";
 import NoData from "../../components/global/noData";
 
 const Home = ({ navigation }) => {
-  const { categories, tomes, appChange } = appStore()
-  const [loading, setLoading] = useState(true)
+  const { categories, tomes, appChange } = appStore();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        const category = await fetch(`${API_LINK}${categoriesURl}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        })
-        const tome = await fetch(`${API_LINK}${tomesURl}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        })
-        appChange({ categories: category.data.map((item) => ({ ...item, select: false })), tomes: tome.data.map((item) => ({ ...item, select: false })) })
-        setLoading(false)
+        const category = await fetch(`${API_LINK}${categoriesURl}`, {
+          headers,
+        }).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        });
+        const tome = await fetch(`${API_LINK}${tomesURl}`, { headers }).then(
+          async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          }
+        );
+        appChange({
+          categories: category.data.map((item) => ({ ...item, select: false })),
+          tomes: tome.data.map((item) => ({ ...item, select: false })),
+        });
+        setLoading(false);
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
       }
-    })()
-
-  }, [])
+    })();
+  }, []);
   return (
     <Layout
       title={"Buku"}
@@ -50,48 +61,82 @@ const Home = ({ navigation }) => {
       <View style={{ width: "100%" }}>
         {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
       </View>
-      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }} >
+      <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }}>
         <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => (
+          <CardBook {...attributes} id={id} key={id} navigation={navigation} />
+        ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
       <View style={styles.header}>
-        <Text style={styles.title}>
-          Explorer par genre
-        </Text>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => goTo(navigation, "Genre")}>
-          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
+        <Text style={styles.title}>Explorer par genre</Text>
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
+          onPress={() => goTo(navigation, "Genre")}
+        >
+          <AntDesign
+            name="arrowright"
+            size={20}
+            color={theme.colors.brand.secondary}
+          />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} >
-        {categories.map(({ attributes, id }) => <CardGender {...attributes} id={id} key={id} navigation={navigation} />)}
+      <ScrollView horizontal={true}>
+        {categories.map(({ attributes, id }) => (
+          <CardGender
+            {...attributes}
+            id={id}
+            key={id}
+            navigation={navigation}
+          />
+        ))}
       </ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Recommandé pour vous", id: -1 } })
-          goTo(navigation, "BookByGenre")
-        }}>
-          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
+          onPress={() => {
+            appChange({
+              currentPage: { name: "Recommandé pour vous", id: -1 },
+            });
+            goTo(navigation, "BookByGenre");
+          }}
+        >
+          <AntDesign
+            name="arrowright"
+            size={20}
+            color={theme.colors.brand.secondary}
+          />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} style={{}} >
+      <ScrollView horizontal={true} style={{}}>
         <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => (
+          <CardBook {...attributes} id={id} key={id} navigation={navigation} />
+        ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
-        <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={() => {
-          appChange({ currentPage: { name: "Meilleurs ventes", id: 0 } })
-          goTo(navigation, "BookByGenre")
-        }}>
-          <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
+          onPress={() => {
+            appChange({ currentPage: { name: "Meilleurs ventes", id: 0 } });
+            goTo(navigation, "BookByGenre");
+          }}
+        >
+          <AntDesign
+            name="arrowright"
+            size={20}
+            color={theme.colors.brand.secondary}
+          />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} style={{}} >
+      <ScrollView horizontal={true} style={{}}>
         <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => <CardBook {...attributes} id={id} key={id} navigation={navigation} />)}
+        {tomes.map(({ attributes, id }) => (
+          <CardBook {...attributes} id={id} key={id} navigation={navigation} />
+        ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
     </Layout>
@@ -112,7 +157,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 20,
     paddingVertical: 10,
-    color: "black"
+    color: "black",
   },
   mainContents: {},
 });

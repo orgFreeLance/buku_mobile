@@ -1,119 +1,125 @@
-import { StyleSheet, Text, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler"
-import { FontAwesome5 } from '@expo/vector-icons';
+import { StyleSheet, ScrollView, Text, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import appStore from "../../store/app";
-import theme from "../../constants/theme";
 import { API_LINK, BORDERRADIUS, headers } from "../../constants";
 import { useEffect, useState } from "react";
-import { categoryOfTomeURl, chaptersOfTomeURl, createTomeFavoriteURL, tomeURl } from "../../constants/url";
+import {
+  categoryOfTomeURl,
+  chaptersOfTomeURl,
+  createTomeFavoriteURL,
+  tomeURl,
+} from "../../constants/url";
 import userStore from "../../store/user";
 import Loader from "../../components/global/Loader";
 import Error from "../../components/global/error";
 import ModalContainer from "../../components/global/modal/notification";
 import ButtonBuy from "../../components/global/button/buy";
 import ImageViewer from "../../components/global/imageViewer";
-import LayoutRatings from "../../layouts/organisms/LayoutRatings";
 import RatingBookDetails from "../../components/global/RatingBookDetails";
 import CardStar from "../../components/global/card/star";
+import theme from "../../constants/theme";
+import LayoutRatings from "../../layouts/organisms/LayoutRatings";
 
 const shop = require("../../../assets/coin/shop.png");
 
 const Ratings = ({ navigation }) => {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const [favory, setFavory] = useState(false)
-  const [refresh, setRefresh] = useState(0)
-  const [modal, setModal] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [favory, setFavory] = useState(false);
+  const [refresh, setRefresh] = useState(0);
+  const [modal, setModal] = useState(false);
   const openModal = () => {
-    setModal(true)
-  }
+    setModal(true);
+  };
   const closeModal = () => {
-    setModal(false)
-  }
-  const [active, setActive] = useState("Détails")
-  const { currentBook, tomes, appChange } = appStore()
-  const { id } = userStore()
+    setModal(false);
+  };
+  const [active, setActive] = useState("Détails");
+  const { currentBook, tomes, appChange } = appStore();
+  const { id } = userStore();
 
   const createTomeFavorite = () => {
-    fetch(`${createTomeFavoriteURL()}`, { headers, method: "POST", body: JSON.stringify({ data: { userId: id, tomeId: currentBook.id } }) }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }).then(({ status }) => {
-      if (status == 200) {
-        setFavory(true)
-      }
+    fetch(`${createTomeFavoriteURL()}`, {
+      headers,
+      method: "POST",
+      body: JSON.stringify({ data: { userId: id, tomeId: currentBook.id } }),
     })
-  }
+      .then(async (res) => {
+        const status = res.status;
+        const data = await res.json();
+        return { ...data, status };
+      })
+      .then(({ status }) => {
+        if (status == 200) {
+          setFavory(true);
+        }
+      });
+  };
   const getComponent = () => {
-
-    return <>
-      <View style={{ flex: 1, width: "100%" }}>
-        <RatingBookDetails navigation={navigation} />
-        <ScrollView horizontal={true} style={{ backgroundColor: "black", padding: 20, width: "100%" }}>
-          <CardStar />
-        </ScrollView>
-        <View style={{ flex: 1, backgroundColor: "red", padding: 20, width: "100%" }}></View>
-        <RatingBookDetails navigation={navigation} />
-      </View>
-    </>
-
-  }
-  const buyCoin = () => { }
+    return <></>;
+  };
+  const buyCoin = () => {};
   const onRefresh = () => {
-    setRefresh(state => state + 1)
-  }
+    setRefresh((state) => state + 1);
+  };
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true)
-        const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
+        setLoading(true);
+        const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, {
+          headers,
+        }).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
         });
-        const category = await fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
+        const category = await fetch(
+          `${API_LINK}${categoryOfTomeURl(currentBook?.id)}`,
+          { headers }
+        ).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
         });
-        const chapter = await fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        })
+        const chapter = await fetch(
+          `${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`,
+          { headers }
+        ).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        });
         if (tome.status == 200) {
-          appChange({ currentBook: tome.data })
-          const { id, ...attributes } = tome.data
+          appChange({ currentBook: tome.data });
+          const { id, ...attributes } = tome.data;
           appChange({
             tomes: tomes.map((item) => {
-              if (id == item.id) return { id, attributes }
-              return item
-            })
-          })
-          setFavory(attributes.favorite)
+              if (id == item.id) return { id, attributes };
+              return item;
+            }),
+          });
+          setFavory(attributes.favorite);
         } else {
-          throw new Error(tome.status)
+          throw new Error(tome.status);
         }
         if (category.status == 200) {
-          appChange({ currentCategories: category.data })
+          appChange({ currentCategories: category.data });
         } else {
-          throw new Error(tome.status)
+          throw new Error(tome.status);
         }
         if (chapter.status == 200) {
-          appChange({ chapters: chapter.data })
+          appChange({ chapters: chapter.data });
         } else {
-          throw new Error(chapter.status)
+          throw new Error(chapter.status);
         }
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
-        console.log(error)
-        setError(true)
-        setLoading(false)
+        console.log(error);
+        setError(true);
+        setLoading(false);
       }
-    })()
-
-  }, [refresh])
+    })();
+  }, [refresh]);
 
   return (
     <LayoutRatings
@@ -121,51 +127,15 @@ const Ratings = ({ navigation }) => {
       navigation={navigation}
       createTomeFavorite={createTomeFavorite}
     >
-      <View style={{ flex: 1 }}>{
-        !error ? <>
-          <View style={{
-            paddingVertical: 5,
-            width: "100%"
-          }}>
-            <View style={{ width: "100%", height: "auto" }}>
-              {getComponent()}
-            </View>
-          </View>
-        </> : <Error refresh={onRefresh} />
-      }
-      </View>
-      <ModalContainer closeModal={closeModal} modal={modal} >
-        <>
-          <View style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            width: "100%",
-          }}>
-            <ImageViewer selectedImage={shop} />
-          </View>
-          <Loader loading={loading}>
-            <View style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              width: "100%",
-            }}>
-              <View style={styles.modal}>
-                <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>
-                  Vous etes sur de vouloir achetez ?
-                </Text>
-                <View style={styles.contentP}>
-                  <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={36} color={theme.colors.brand.secondary} />
-                  <Text style={{ textAlign: "center", fontWeight: "500", fontSize: 18 }}>{currentBook.coinsPrice}</Text>
-                </View>
-              </View>
-            </View>
-          </Loader>
-          <View style={{ flexDirection: "row" }} >
-            <ButtonBuy name={"Annuler"} color="red" onPress={closeModal} />
-            <ButtonBuy name={"Acheter"} color={theme.colors.brand.secondary} onPress={buyCoin} />
-          </View>
-        </>
-      </ModalContainer>
+      <RatingBookDetails navigation={navigation} />
+      <ScrollView style={{ flex: 1, width: "100%" }}>
+        <ScrollView
+          horizontal={true}
+          style={{ backgroundColor: "black", padding: 10, width: "100%" }}
+        >
+          <CardStar />
+        </ScrollView>
+      </ScrollView>
     </LayoutRatings>
   );
 };
@@ -179,7 +149,7 @@ const styles = StyleSheet.create({
   buy: {
     width: "100%",
     padding: 10,
-    backgroundColor: theme.colors.brand.secondary
+    backgroundColor: theme.colors.brand.secondary,
   },
   btn: {
     width: "49.5%",
@@ -189,7 +159,7 @@ const styles = StyleSheet.create({
   contentP: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10
+    padding: 10,
   },
   card: {
     borderRightColor: "gray",
@@ -197,20 +167,20 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   picture: {
     minHeight: 230,
     maxHeight: 300,
     width: "40%",
     borderRadius: BORDERRADIUS,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   containerRight: {
     width: "70%",
     padding: 10,
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   containerCategory: {
     width: "80%",
@@ -218,7 +188,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     flexWrap: "wrap",
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   title: {
     width: "80%",
@@ -234,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     textTransform: "uppercase",
-    color: theme.colors.brand.secondary
+    color: theme.colors.brand.secondary,
   },
   createdAt: {
     width: "100%",
@@ -247,5 +217,5 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 10,
     textTransform: "uppercase",
-  }
+  },
 });

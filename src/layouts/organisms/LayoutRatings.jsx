@@ -1,12 +1,7 @@
-import {
-  Flex,
-  ScrollView,
-  StatusBar,
-  View,
-} from "native-base";
+import { Flex, ScrollView, StatusBar, View } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../../constants/nativeSizes";
 import theme from "../../constants/theme";
@@ -15,9 +10,15 @@ import { TOUCHABLEOPACITY } from "../../constants";
 import appStore from "../../store/app";
 const bg = require("../../../assets/white.jpeg");
 
-const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, favory = false }) => {
-  const [modal, setModal] = useState(false)
-  const { currentBook, } = appStore()
+const LayoutRatings = ({
+  image = bg,
+  navigation,
+  children,
+  createTomeFavorite,
+  favory = false,
+}) => {
+  const [modal, setModal] = useState(false);
+  const { currentBook } = appStore();
   try {
     return (
       <View
@@ -27,7 +28,6 @@ const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, f
           flexDirection: "column",
         }}
       >
-        <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
         <StatusBar backgroundColor={"white"} />
         <Flex flex={1} height={screenHeight}>
           <ImageBackground
@@ -39,41 +39,45 @@ const LayoutRatings = ({ image = bg, navigation, children, createTomeFavorite, f
           >
             <View style={styles.header}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <TouchableOpacity style={styles.icon}
+                <TouchableOpacity
+                  style={styles.icon}
                   activeOpacity={TOUCHABLEOPACITY}
-                  onPress={() => { navigation.goBack() }}>
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                >
                   <Ionicons name="arrow-back-sharp" size={24} color="black" />
                 </TouchableOpacity>
-                <Text style={{ fontWeight: "600", fontSize: 26, marginLeft: 5 }}>
-                  Notes et commentaires 
+                <Text
+                  style={{ fontWeight: "600", fontSize: 26, marginLeft: 5 }}
+                >
+                  Notes et commentaires
                 </Text>
               </View>
-              <TouchableOpacity style={styles.icon}
+              <TouchableOpacity
+                style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
-
-              >
-              </TouchableOpacity>
+              ></TouchableOpacity>
             </View>
             <ScrollView
               flex={1}
               w="100%"
               mx="auto"
               paddingHorizontal={width(5)}
+              backgroundColor="green"
             >
               {children}
             </ScrollView>
           </ImageBackground>
-
-        </Flex >
-      </View >
+        </Flex>
+      </View>
     );
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
 export default LayoutRatings;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -87,22 +91,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   icon: {
     fontSize: 16,
     fontWeight: "500",
-    color: "black"
+    color: "black",
   },
   title: {
     fontSize: 20,
     fontWeight: "700",
     marginLeft: 10,
-    color: "black"
+    color: "black",
   },
   input: {
     borderRadius: 20,
     width: "85%",
     outLine: "none",
-  }
+  },
 });
