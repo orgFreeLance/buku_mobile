@@ -15,9 +15,9 @@ import { headers } from "../../../../constants";
 import ModalContainer from "../notification";
 import ImageViewer from "../../imageViewer";
 import theme from "../../../../constants/theme";
-import { err } from "react-native-svg";
 
 const signup_bg_success = require("../../../../../assets/notifications/signupSuccess.png");
+const signup_bg_error = require("../../../../../assets/notifications/signupError.png");
 
 export default function ModalAccount({
     modal = false,
@@ -79,10 +79,11 @@ export default function ModalAccount({
             const status = res.status
             const data = await res.json()
             return ({ ...data, status })
-        }).then(({ status }) => {
+        }).then(({ status, ...data }) => {
+            userChange({ ...data })
             setLoading(false)
             openSuccess()
-        }).catch((error) => {
+        }).catch(() => {
             setError(true)
             setLoading(false)
         })
@@ -205,64 +206,18 @@ export default function ModalAccount({
                                 )}
                                 name="email"
                             />
-                            <Controller
-                                control={control}
-                                rules={{
-                                    required: true,
-                                    minLength: 9,
-                                    maxLength: 9,
-                                }}
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <Stack style={{ marginBottom: 10 }}>
-                                        <FormControl.Label>Numero de téléphone</FormControl.Label>
-                                        <Input
-                                            InputLeftElement={
-                                                <Text
-                                                    style={{
-                                                        paddingHorizontal: 5,
-                                                        paddingVertical: 13,
-                                                        backgroundColor: "white",
-                                                        alignItems: "center",
-                                                        justifyContent: "center",
-                                                    }}
-                                                >
-                                                    +243
-                                                </Text>
-                                            }
-                                            style={{ paddingHorizontal: 10 }}
-                                            type="text"
-                                            keyboardType="numeric"
-                                            placeholder="Numéro de téléphone"
-                                            onBlur={onBlur}
-                                            onChangeText={onChange}
-                                            value={value.replaceAll("+243", '')}
-                                        />
-
-                                        {errors?.phoneNumber ? (
-                                            <Text style={{ color: "red", fontSize: 10 }}>
-                                                9 caractères sont requis.
-                                            </Text>
-                                        ) : (
-                                            <Text>
-                                                Doit comporter 9 caractères.
-                                            </Text>
-                                        )}
-                                    </Stack>
-                                )}
-                                name="phoneNumber"
-                            />
                         </FormControl>
                     </Modal.Body>
                     <Modal.Footer style={{ height: "auto" }}>
                         <ButtonMain
-                            loading={loading}
                             borderRadius={10}
                             width="100%"
                             onPress={handleSubmit(async (data) => {
                                 userChange({ ...data, phoneNumber: `+243${data.phoneNumber}` })
                                 submit()
                             })}
-                            content={!loading ? "Enregistrer" :
+                            content={!loading ?
+                                "Enregistrer" :
                                 <ActivityIndicator
                                     color={"white"}
                                 />}
@@ -282,13 +237,13 @@ export default function ModalAccount({
                                             flexWrap: "wrap",
                                         }}
                                     >
-                                        <ImageViewer selectedImage={signup_bg_success} />
+                                        <ImageViewer selectedImage={signup_bg_error} />
                                         <Text
                                             style={{
                                                 fontSize: 32,
                                                 fontWeight: "600",
                                                 paddingVertical: 10,
-                                                color: theme.colors.brand.secondary,
+                                                color: "red",
                                             }}
                                         >
                                             Modification échouée

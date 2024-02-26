@@ -6,19 +6,21 @@ import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import theme from "../../constants/theme";
+import ModalContainer from "../../components/global/modal/notification";
 import { useForm, Controller } from "react-hook-form";
 import { API_LINK, headers } from "../../constants";
+import ImageViewer from "../../components/global/imageViewer";
+
+const signup_bg = require("../../../assets/notifications/signup.png");
+const signup_bg_success = require("../../../assets/notifications/signupSuccess.png");
+const signup_bg_error = require("../../../assets/notifications/signupError.png");
 
 const Login = ({ navigation }) => {
-
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [message, setMessage] = useState("")
-  const {
-    phoneNumber,
-    password,
-    userChange
-  } = userStore();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const { phoneNumber, password, userChange } = userStore();
   const {
     control,
     handleSubmit,
@@ -29,27 +31,37 @@ const Login = ({ navigation }) => {
       password,
     },
   });
+  const closeModal = () => setModal(false);
   const login = (data) => {
-    setLoading(true)
-    fetch(`${API_LINK}/authentification/login`, { headers, method: "POST", body: JSON.stringify({ data }) }).then(async res => {
-      const status = res.status
-      const data = await res.json()
-      return ({ ...data, status })
-    }).then(({ user: data, status, message }) => {
-      setLoading(false)
-      if (+status !== 200) {
-        setMessage(message)
-        setError(true)
-      } else {
-        userChange({ isAuth: true, ...data })
-        goTo(navigation, "Home");
-      }
-    }).catch(({ message }) => {
-      setLoading(false)
-      setMessage(message)
-      setError(true)
+    setLoading(true);
+    fetch(`${API_LINK}/authentification/login`, {
+      headers,
+      method: "POST",
+      body: JSON.stringify({ data }),
     })
-  }
+      .then(async (res) => {
+        const status = res.status;
+        const data = await res.json();
+        return { ...data, status };
+      })
+      .then(({ user: data, status, message }) => {
+        setLoading(false);
+        if (+status !== 200) {
+          setMessage(message);
+          setError(true);
+          setModal(true);
+        } else {
+          userChange({ isAuth: true, ...data });
+          goTo(navigation, "Home");
+        }
+      })
+      .catch(({ message }) => {
+        setLoading(false);
+        setMessage(message);
+        setModal(true);
+        setError(true);
+      });
+  };
   return (
     <View style={styles.container}>
       <AuthForm
@@ -178,16 +190,50 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <ButtonMain
-            content={!loading ? "Connecte toi" :
-              <ActivityIndicator
-                color={"white"}
-              />}
+            content={
+              !loading ? "Connecte toi" : <ActivityIndicator color={"white"} />
+            }
             onPress={handleSubmit((data) => {
-              login({ ...data, phoneNumber: `+243${data.phoneNumber}` })
+              login({ ...data, phoneNumber: `+243${data.phoneNumber}` });
             })}
-
           />
         </View>
+        <ModalContainer
+          modal={modal}
+          children={
+            <>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  flexWrap: "wrap",
+                }}
+              >
+                <>
+                  <ImageViewer selectedImage={signup_bg_error} />
+                  <Text
+                    style={{
+                      fontSize: 32,
+                      fontWeight: "600",
+                      paddingVertical: 10,
+                      color: "red",
+                    }}
+                  >
+                    Echec !
+                  </Text>
+                  <Text
+                    style={{ width: "80%", textAlign: "center", fontSize: 14 }}
+                  >
+                    {message}
+                  </Text>
+                </>
+              </View>
+            </>
+          }
+          closeModal={setModal}
+        />
       </AuthForm>
     </View>
   );

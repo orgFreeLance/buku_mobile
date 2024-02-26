@@ -156,8 +156,9 @@ export default function ModalPassword({
                             borderRadius={10}
                             width="100%"
                             onPress={handleSubmit(async (data) => {
+                                console.log(data)
                                 userChange(data)
-                                closeModal()
+                                // closeModal()
                             })}
                             content="Enregistrer"
                         />

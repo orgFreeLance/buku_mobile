@@ -31,7 +31,7 @@ const Ratings = ({ navigation }) => {
     setModal(false)
   }
   const [active, setActive] = useState("Détails")
-  const { currentBook, tomes, currentCategories, appChange } = appStore()
+  const { currentBook, tomes, appChange } = appStore()
   const { id } = userStore()
 
   const createTomeFavorite = () => {
@@ -48,10 +48,14 @@ const Ratings = ({ navigation }) => {
   const getComponent = () => {
 
     return <>
-      <RatingBookDetails navigation={navigation} />
-      <ScrollView horizontal={true} style={{ borderTopColor: theme.colors.brand.secondary, borderTopWidth: .5, padding: 10, width: "100%", borderBottomColor: theme.colors.brand.secondary, borderBottomWidth: .5 }}>
-        <CardStar /><CardStar /><CardStar />
-      </ScrollView>
+      <View style={{ flex: 1, width: "100%" }}>
+        <RatingBookDetails navigation={navigation} />
+        <ScrollView horizontal={true} style={{ backgroundColor: "black", padding: 20, width: "100%" }}>
+          <CardStar />
+        </ScrollView>
+        <View style={{ flex: 1, backgroundColor: "red", padding: 20, width: "100%" }}></View>
+        <RatingBookDetails navigation={navigation} />
+      </View>
     </>
 
   }
@@ -117,24 +121,19 @@ const Ratings = ({ navigation }) => {
       navigation={navigation}
       createTomeFavorite={createTomeFavorite}
     >
-      {loading ? <>
-        <View style={{ width: "100%", }}>
-          {getComponent()}
-        </View>
-        <Loader loading={loading} />
-      </> :
+      <View style={{ flex: 1 }}>{
         !error ? <>
           <View style={{
             paddingVertical: 5,
             width: "100%"
           }}>
-            <View style={{ width: "100%" }}>
+            <View style={{ width: "100%", height: "auto" }}>
               {getComponent()}
             </View>
           </View>
         </> : <Error refresh={onRefresh} />
-
       }
+      </View>
       <ModalContainer closeModal={closeModal} modal={modal} >
         <>
           <View style={{

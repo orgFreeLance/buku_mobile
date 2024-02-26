@@ -1,15 +1,14 @@
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { View, Text } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
-import { Image, Pressable } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import theme from "../../../../../constants/theme";
 import userStore from "../../../../../store/user";
 import { setToBase64 } from "../../../../../constants";
 
 export default function CardAvatarAuth() {
   const { picture, userChange } = userStore()
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState();
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -24,7 +23,7 @@ export default function CardAvatarAuth() {
       userChange({ picture: uri })
       setSelectedImage({ uri });
     } else {
-      alert("You did not select any image.");
+      alert("Vous n'avez selectionner aucune image.");
     }
   };
 

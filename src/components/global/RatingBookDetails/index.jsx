@@ -8,7 +8,6 @@ export default function RatingBookDetails({ navigation }) {
     const { currentBook, } = appStore()
     return <>
         <View style={{ paddingTop: 0 }}>
-
             <View style={{ width: "100%", flexDirection: "row" }}>
                 <View style={{
                     width: "42.5%",
