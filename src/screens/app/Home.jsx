@@ -151,13 +151,13 @@ const Home = ({ navigation }) => {
           />
         ))}
       </ScrollView>
-      <ProgressBarBook items={tomes} />
+      <ProgressBarBook items={tomesPreferences} />
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity
           activeOpacity={TOUCHABLEOPACITY}
           onPress={() => {
-            appChange({ currentPage: { name: "Meilleurs ventes", id: 0 } });
+            appChange({ currentPage: { name: "Meilleurs ventes", id: -2 } });
             goTo(navigation, "BookByGenre");
           }}
         >
@@ -179,7 +179,35 @@ const Home = ({ navigation }) => {
           />
         ))}
       </ScrollView>
-      <ProgressBarBook items={tomes} />
+      <ProgressBarBook items={tomesPopulars} />
+      <View style={styles.header}>
+        <Text style={styles.title}>Les plus Vues</Text>
+        <TouchableOpacity
+          activeOpacity={TOUCHABLEOPACITY}
+          onPress={() => {
+            appChange({ currentPage: { name: "Les plus Vues", id: 0 } });
+            goTo(navigation, "BookByGenre");
+          }}
+        >
+          <AntDesign
+            name="arrowright"
+            size={20}
+            color={theme.colors.brand.secondary}
+          />
+        </TouchableOpacity>
+      </View>
+      <ScrollView horizontal={true} style={{}}>
+        <NoData horizontal items={tomesPopulars} />
+        {tomesPopulars.map(({ id, ...attributes }, index) => (
+          <CardBook
+            {...attributes}
+            id={id}
+            key={`${id + index}`}
+            navigation={navigation}
+          />
+        ))}
+      </ScrollView>
+      <ProgressBarBook items={tomesPopulars} />
     </Layout>
   );
 };

@@ -4,7 +4,11 @@ import CardBook from "../../components/global/card/book";
 import appStore from "../../store/app";
 import { useState, useEffect } from "react";
 import { API_LINK, headers } from "../../constants";
-import { bookByGenreURL, bookByTomePopulars, bookByUserPreferences } from "../../constants/url";
+import {
+  bookByGenreURL,
+  bookByTomePopulars,
+  bookByUserPreferences,
+} from "../../constants/url";
 import PageLoading from "../../components/global/loading";
 import NoData from "../../components/global/noData";
 import userStore from "../../store/user";
@@ -13,8 +17,9 @@ const BookByGenre = ({ navigation }) => {
   const { tomesByGenre, appChange, currentPage } = appStore();
   const { id } = userStore();
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (currentPage.id != -1 && currentPage.id != 0) {
+    if (currentPage.id != -1 && currentPage.id != 0 && currentPage.id != -2) {
       fetch(`${API_LINK}${bookByGenreURL(currentPage.id)}`, { headers })
         .then(async (res) => {
           const status = res.status;
@@ -53,6 +58,26 @@ const BookByGenre = ({ navigation }) => {
           setLoading(false);
         });
     } else if (currentPage.id == 0) {
+      fetch(bookByTomePopulars(), {
+        headers,
+      })
+        .then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        })
+        .then(({ data, status }) => {
+          if (status == 200) {
+            setLoading(false);
+            appChange({
+              tomesByGenre: data.map((item) => ({ ...item, select: false })),
+            });
+          }
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    } else if (currentPage.id == -2) {
       fetch(bookByTomePopulars(), {
         headers,
       })
