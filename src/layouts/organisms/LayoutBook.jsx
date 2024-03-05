@@ -27,7 +27,7 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favo
         }}
       >
         <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
-        <StatusBar backgroundColor={"white"} />
+        <StatusBar backgroundColor={"white"} hidden />
         <Flex flex={1} height={screenHeight}>
           <ImageBackground
             style={{

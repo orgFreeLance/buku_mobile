@@ -15,13 +15,19 @@ import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";
 import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
-import { categoriesURl, tomesURl } from "../../constants/url";
+import {
+  bookByUserPreferences,
+  categoriesURl,
+  tomesURl,
+} from "../../constants/url";
 import ProgressBarBook from "../../components/global/progressBar";
 import NoData from "../../components/global/noData";
+import userStore from "../../store/user";
 
 const Home = ({ navigation }) => {
-  const { categories, tomes, appChange } = appStore();
+  const { categories, tomes, tomesPreferences, appChange } = appStore();
   const [loading, setLoading] = useState(true);
+  const { id } = userStore();
 
   useEffect(() => {
     (async () => {
@@ -33,19 +39,31 @@ const Home = ({ navigation }) => {
           const data = await res.json();
           return { ...data, status };
         });
-        const tome = await fetch(`${API_LINK}${tomesURl}`, { headers }).then(
-          async (res) => {
-            const status = res.status;
-            const data = await res.json();
-            return { ...data, status };
-          }
-        );
+        const tomesList = await fetch(`${API_LINK}${tomesURl}`, {
+          headers,
+        }).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        });
+        const tomesPreferences = await fetch(bookByUserPreferences(id), {
+          headers,
+        }).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        });
         appChange({
           categories: category.data.map((item) => ({ ...item, select: false })),
-          tomes: tome.data.map((item) => ({ ...item, select: false })),
+          tomes: tomesList.data.map((item) => ({ ...item, select: false })),
+          tomesPreferences: tomesPreferences?.data?.map((item) => ({
+            ...item,
+            select: false,
+          })),
         });
         setLoading(false);
       } catch (error) {
+        console.log(error);
         setLoading(false);
       }
     })();
@@ -110,8 +128,8 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} style={{}}>
-        <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => (
+        <NoData horizontal items={tomesPreferences} />
+        {tomesPreferences?.map(({ id, ...attributes }) => (
           <CardBook {...attributes} id={id} key={id} navigation={navigation} />
         ))}
       </ScrollView>

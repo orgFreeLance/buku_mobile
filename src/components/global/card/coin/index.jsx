@@ -32,9 +32,11 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
     setsetModalError(false);
   };
   const openModalError = () => {
+    closeModal();
     setsetModalError(true);
   };
   const openModalSuccess = () => {
+    closeModal();
     setModalSuccess(true);
   };
   const closeModalSuccess = () => {
@@ -42,7 +44,6 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
   };
   const buyCoin = () => {
     setLoading(true);
-    console.log(coin, user);
     fetch(`${buyCoinsURL(coin, user)}`, { headers, method: "POST" })
       .then(async (res) => {
         const status = res.status;
@@ -51,7 +52,7 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
       })
       .then(({ data, status }) => {
         if (data) {
-          const { user } = data;
+          const user = data;
           if (status == 200) {
             const { userCoins } = user;
             userChange({ userCoins });
@@ -63,7 +64,6 @@ export default function CardCoin({ coinsNumber, price, currency, id: coin }) {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
   };

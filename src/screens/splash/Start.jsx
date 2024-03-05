@@ -52,7 +52,7 @@ const Start = ({ navigation }) => {
   }, [])
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar backgroundColor={theme.colors.brand.secondary} />
+      <StatusBar backgroundColor={theme.colors.brand.secondary} hidden />
       <ImageBackground
         style={{
           flex: 1,
