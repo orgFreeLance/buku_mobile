@@ -16,6 +16,7 @@ import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
 import {
+  bookByTomePopulars,
   bookByUserPreferences,
   categoriesURl,
   tomesURl,
@@ -25,7 +26,8 @@ import NoData from "../../components/global/noData";
 import userStore from "../../store/user";
 
 const Home = ({ navigation }) => {
-  const { categories, tomes, tomesPreferences, appChange } = appStore();
+  const { categories, tomes, tomesPreferences, tomesPopulars, appChange } =
+    appStore();
   const [loading, setLoading] = useState(true);
   const { id } = userStore();
 
@@ -53,10 +55,21 @@ const Home = ({ navigation }) => {
           const data = await res.json();
           return { ...data, status };
         });
+        const tomesPopulars = await fetch(bookByTomePopulars(), {
+          headers,
+        }).then(async (res) => {
+          const status = res.status;
+          const data = await res.json();
+          return { ...data, status };
+        });
         appChange({
           categories: category.data.map((item) => ({ ...item, select: false })),
           tomes: tomesList.data.map((item) => ({ ...item, select: false })),
           tomesPreferences: tomesPreferences?.data?.map((item) => ({
+            ...item,
+            select: false,
+          })),
+          tomesPopulars: tomesPopulars?.data?.map((item) => ({
             ...item,
             select: false,
           })),
@@ -129,8 +142,13 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView horizontal={true} style={{}}>
         <NoData horizontal items={tomesPreferences} />
-        {tomesPreferences?.map(({ id, ...attributes }) => (
-          <CardBook {...attributes} id={id} key={id} navigation={navigation} />
+        {tomesPreferences?.map(({ id, ...attributes }, index) => (
+          <CardBook
+            {...attributes}
+            id={id}
+            key={`${id + index}`}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
@@ -151,9 +169,14 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} style={{}}>
-        <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => (
-          <CardBook {...attributes} id={id} key={id} navigation={navigation} />
+        <NoData horizontal items={tomesPopulars} />
+        {tomesPopulars.map(({ id, ...attributes }, index) => (
+          <CardBook
+            {...attributes}
+            id={id}
+            key={`${id + index}`}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
