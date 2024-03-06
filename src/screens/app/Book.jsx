@@ -247,7 +247,6 @@ const Book = ({ navigation }) => {
               style={styles.buy}
             >
               <Text style={{ color: "white", textAlign: "center" }}>
-                {" "}
                 {currentBook.coinsPrice}{" "}
                 <FontAwesome5
                   name="coins"
@@ -320,8 +319,8 @@ const Book = ({ navigation }) => {
                 <Text
                   style={{
                     textAlign: "center",
-                    fontWeight: "500",
-                    fontSize: 18,
+                    fontWeight: "200",
+                    fontSize: 14,
                   }}
                 >
                   Vous etes sur de vouloir achetez ?
@@ -330,7 +329,7 @@ const Book = ({ navigation }) => {
                   <FontAwesome5
                     name="coins"
                     style={{ paddingRight: 5 }}
-                    size={36}
+                    size={24}
                     color={theme.colors.brand.secondary}
                   />
                   <Text
