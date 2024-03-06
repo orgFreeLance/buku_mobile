@@ -16,6 +16,7 @@ import goTo from "../../utils/goTo";
 import appStore from "../../store/app";
 import { useEffect, useState } from "react";
 import {
+  bookByTomeBuyed,
   bookByTomePopulars,
   bookByUserPreferences,
   categoriesURl,
@@ -26,61 +27,118 @@ import NoData from "../../components/global/noData";
 import userStore from "../../store/user";
 
 const Home = ({ navigation }) => {
-  const { categories, tomes, tomesPreferences, tomesPopulars, appChange } =
-    appStore();
+  const {
+    categories,
+    tomes,
+    tomesPreferences,
+    tomesPopulars,
+    tomesMostBuyed,
+    appChange,
+  } = appStore();
   const [loading, setLoading] = useState(true);
+  const [loadingTomes, setLoadingTomes] = useState(true);
+  const [loadingPopulars, setLoadingPopulars] = useState(true);
+  const [loadingPreferences, setLoadingPreferences] = useState(true);
+  const [loadingBuyed, setLoadingBuyed] = useState(true);
   const { id } = userStore();
 
   useEffect(() => {
     (async () => {
       try {
-        const category = await fetch(`${API_LINK}${categoriesURl}`, {
+        fetch(`${API_LINK}${categoriesURl}`, {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const tomesList = await fetch(`${API_LINK}${tomesURl}`, {
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            appChange({
+              categories: data.map((item) => ({
+                ...item,
+                select: false,
+              })),
+            });
+            setLoading(false);
+          });
+        fetch(`${API_LINK}${tomesURl}`, {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const tomesPreferences = await fetch(bookByUserPreferences(id), {
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            appChange({
+              tomes: data.map((item) => ({ ...item, select: false })),
+            });
+            setLoadingTomes(false);
+          });
+        fetch(bookByUserPreferences(id), {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const tomesPopulars = await fetch(bookByTomePopulars(), {
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            appChange({
+              tomesPreferences: data?.map((item) => ({
+                ...item,
+                select: false,
+              })),
+            });
+            setLoadingPreferences(false);
+          });
+        fetch(bookByTomePopulars(), {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        appChange({
-          categories: category.data.map((item) => ({ ...item, select: false })),
-          tomes: tomesList.data.map((item) => ({ ...item, select: false })),
-          tomesPreferences: tomesPreferences?.data?.map((item) => ({
-            ...item,
-            select: false,
-          })),
-          tomesPopulars: tomesPopulars?.data?.map((item) => ({
-            ...item,
-            select: false,
-          })),
-        });
-        setLoading(false);
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            console.log(data);
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data)
+              appChange({
+                tomesPopulars: data?.map((item) => ({
+                  ...item,
+                  select: false,
+                })),
+              });
+            setLoadingPopulars(false);
+          });
+        fetch(bookByTomeBuyed(), {
+          headers,
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data)
+              appChange({
+                tomesMostBuyed: data?.map((item) => ({
+                  ...item,
+                  select: false,
+                })),
+              });
+            setLoadingBuyed(false);
+          });
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
     })();
   }, []);
+
   return (
     <Layout
       title={"Buku"}
@@ -89,16 +147,27 @@ const Home = ({ navigation }) => {
       progress={100}
       homeScreen={false}
     >
-      <View style={{ width: "100%" }}>
-        {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
+      <View
+        // loader for get tomes
+        style={{ width: "100%" }}
+      >
+        {loadingTomes && (
+          <ActivityIndicator color={theme.colors.brand.secondary} />
+        )}
       </View>
       <ScrollView horizontal={true} style={{ paddingHorizontal: 5 }}>
         <NoData horizontal items={tomes} />
-        {tomes.map(({ attributes, id }) => (
+        {tomes?.map(({ attributes, id }) => (
           <CardBook {...attributes} id={id} key={id} navigation={navigation} />
         ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
+      <View
+        // loader for get categories
+        style={{ width: "100%" }}
+      >
+        {loading && <ActivityIndicator color={theme.colors.brand.secondary} />}
+      </View>
       <View style={styles.header}>
         <Text style={styles.title}>Explorer par genre</Text>
         <TouchableOpacity
@@ -122,6 +191,14 @@ const Home = ({ navigation }) => {
           />
         ))}
       </ScrollView>
+      <View
+        // loader for get tomes preferences
+        style={{ width: "100%" }}
+      >
+        {loadingPreferences && (
+          <ActivityIndicator color={theme.colors.brand.secondary} />
+        )}
+      </View>
       <View style={styles.header}>
         <Text style={styles.title}>Recommandé pour vous</Text>
         <TouchableOpacity
@@ -152,6 +229,14 @@ const Home = ({ navigation }) => {
         ))}
       </ScrollView>
       <ProgressBarBook items={tomesPreferences} />
+      <View
+        // loader for get tomes preferences
+        style={{ width: "100%" }}
+      >
+        {loadingBuyed && (
+          <ActivityIndicator color={theme.colors.brand.secondary} />
+        )}
+      </View>
       <View style={styles.header}>
         <Text style={styles.title}>Meilleurs ventes</Text>
         <TouchableOpacity
@@ -169,8 +254,8 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView horizontal={true} style={{}}>
-        <NoData horizontal items={tomesPopulars} />
-        {tomesPopulars.map(({ id, ...attributes }, index) => (
+        <NoData horizontal items={tomesMostBuyed} />
+        {tomesMostBuyed?.map(({ id, ...attributes }, index) => (
           <CardBook
             {...attributes}
             id={id}
@@ -180,6 +265,15 @@ const Home = ({ navigation }) => {
         ))}
       </ScrollView>
       <ProgressBarBook items={tomesPopulars} />
+
+      <View
+        // loader for get tomes preferences
+        style={{ width: "100%" }}
+      >
+        {loadingPopulars && (
+          <ActivityIndicator color={theme.colors.brand.secondary} />
+        )}
+      </View>
       <View style={styles.header}>
         <Text style={styles.title}>Les plus Vues</Text>
         <TouchableOpacity
@@ -198,7 +292,7 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView horizontal={true} style={{}}>
         <NoData horizontal items={tomesPopulars} />
-        {tomesPopulars.map(({ id, ...attributes }, index) => (
+        {tomesPopulars?.map(({ id, ...attributes }, index) => (
           <CardBook
             {...attributes}
             id={id}

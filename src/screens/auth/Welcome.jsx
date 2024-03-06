@@ -1,4 +1,4 @@
-import { StatusBar, View, } from "native-base";
+import { StatusBar, View } from "native-base";
 import React from "react";
 import { ImageBackground, StyleSheet, Text } from "react-native";
 import theme from "../../constants/theme";
@@ -10,7 +10,6 @@ import ProgressSmall from "../../components/global/progress/small";
 const bg = require("../../../assets/welcome/bg.png");
 
 const Welecome = ({ navigation }) => {
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={theme.colors.brand.secondary} />
@@ -39,22 +38,41 @@ const Welecome = ({ navigation }) => {
             paddingTop: 100,
           }}
         >
-          <View style={{ paddingVertical: 10 }}>
-            <Text
-              style={{ paddingVertical: 15, fontWeight: "bold", fontSize: 40 }}
+          <View
+            style={{
+              paddingVertical: 10,
+
+              width: "100%",
+            }}
+          >
+            <View
+              style={{
+                paddingVertical: 15,
+                justifyContent: "space-center",
+                flexDirection: "row",
+              }}
             >
-              Bienvenue chez
               <Text
                 style={{
                   paddingHorizontal: 10,
-                  paddingLeft: 10,
+                  fontWeight: "bold",
+                  fontSize: 40,
+                }}
+              >
+                Bienvenue chez
+              </Text>
+              <Text
+                style={{
+                  paddingHorizontal: 10,
+                  paddingLeft: 3,
+                  fontWeight: "bold",
+                  fontSize: 40,
                   color: theme.colors.brand.secondary,
                 }}
               >
-                {" "}
                 BUKU
               </Text>
-            </Text>
+            </View>
             <Text
               style={{
                 textAlign: "center",

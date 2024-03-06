@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { API_LINK, headers } from "../../constants";
 import {
   bookByGenreURL,
+  bookByTomeBuyed,
   bookByTomePopulars,
   bookByUserPreferences,
 } from "../../constants/url";
@@ -47,7 +48,7 @@ const BookByGenre = ({ navigation }) => {
           return { ...data, status };
         })
         .then(({ data, status }) => {
-          if (status == 200) {
+          if (status == 200 && data) {
             setLoading(false);
             appChange({
               tomesByGenre: data.map((item) => ({ ...item, select: false })),
@@ -67,7 +68,7 @@ const BookByGenre = ({ navigation }) => {
           return { ...data, status };
         })
         .then(({ data, status }) => {
-          if (status == 200) {
+          if (status == 200 && data) {
             setLoading(false);
             appChange({
               tomesByGenre: data.map((item) => ({ ...item, select: false })),
@@ -78,7 +79,7 @@ const BookByGenre = ({ navigation }) => {
           setLoading(false);
         });
     } else if (currentPage.id == -2) {
-      fetch(bookByTomePopulars(), {
+      fetch(bookByTomeBuyed(), {
         headers,
       })
         .then(async (res) => {
@@ -87,7 +88,7 @@ const BookByGenre = ({ navigation }) => {
           return { ...data, status };
         })
         .then(({ data, status }) => {
-          if (status == 200) {
+          if (status == 200 && data) {
             setLoading(false);
             appChange({
               tomesByGenre: data.map((item) => ({ ...item, select: false })),
