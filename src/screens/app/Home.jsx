@@ -137,7 +137,7 @@ const Home = ({ navigation }) => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [navigation]);
 
   return (
     <Layout
@@ -191,6 +191,7 @@ const Home = ({ navigation }) => {
           />
         ))}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
       <View
         // loader for get tomes preferences
         style={{ width: "100%" }}
@@ -275,11 +276,11 @@ const Home = ({ navigation }) => {
         )}
       </View>
       <View style={styles.header}>
-        <Text style={styles.title}>Les plus Vues</Text>
+        <Text style={styles.title}>Les plus vues</Text>
         <TouchableOpacity
           activeOpacity={TOUCHABLEOPACITY}
           onPress={() => {
-            appChange({ currentPage: { name: "Les plus Vues", id: 0 } });
+            appChange({ currentPage: { name: "Les plus vues", id: 0 } });
             goTo(navigation, "BookByGenre");
           }}
         >
