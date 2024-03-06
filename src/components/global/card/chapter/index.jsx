@@ -83,10 +83,19 @@ export default function CardChapter({ number, name, coinsPrice }) {
           >
             <Text
               style={{
-                fontSize: 48,
+                fontSize: 24,
                 fontWeight: "700",
                 color: "white",
-                marginHorizontal: 10,
+                paddingRight: 5,
+              }}
+            >
+              Vos
+            </Text>
+            <Text
+              style={{
+                fontSize: 48,
+                fontWeight: "700",
+                color: "white"
               }}
             >
               <FontAwesome5
@@ -96,18 +105,24 @@ export default function CardChapter({ number, name, coinsPrice }) {
                 color={"white"}
               />
             </Text>
-            <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
+            <Text
+              style={{
+                fontSize: 48,
+                fontWeight: "700",
+                paddingHorizontal: 5,
+                color: "white",
+              }}
+            >
               {`${userCoins}`}
             </Text>
             <Text
               style={{
                 fontSize: 24,
-                marginLeft: 10,
                 fontWeight: "700",
                 color: "white",
               }}
             >
-              Vos Piece(s)
+              Piece(s)
             </Text>
           </View>
           <View
@@ -136,7 +151,7 @@ export default function CardChapter({ number, name, coinsPrice }) {
                     fontSize: 18,
                   }}
                 >
-                  TITRE : {name}
+                  CHAPITRE ({number}) : " {name} "
                 </Text>
                 <Text
                   style={{
