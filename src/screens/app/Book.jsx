@@ -38,6 +38,8 @@ const shop = require("../../../assets/coin/shop.png");
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const [loadingChapters, setLoadingChapters] = useState(false);
+  const [loadingCategory, setLoadingCategory] = useState(false);
   const [error, setError] = useState(false);
   const [favory, setFavory] = useState(false);
   const [refresh, setRefresh] = useState(0);
@@ -107,55 +109,65 @@ const Book = ({ navigation }) => {
     (async () => {
       try {
         setLoading(true);
-        const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, {
+        setLoadingChapters(true);
+        setLoadingCategory(true);
+        fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const category = await fetch(
-          `${API_LINK}${categoryOfTomeURl(currentBook?.id)}`,
-          { headers }
-        ).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const chapter = await fetch(
-          `${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`,
-          { headers }
-        ).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        if (tome.status == 200) {
-          appChange({ currentBook: tome.data });
-          const { id, ...attributes } = tome.data;
-          appChange({
-            tomes: tomes.map((item) => {
-              if (id == item.id) return { id, attributes };
-              return item;
-            }),
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then((tome) => {
+            if (tome.status == 200) {
+              appChange({ currentBook: tome.data });
+              const { id, ...attributes } = tome.data;
+              appChange({
+                tomes: tomes.map((item) => {
+                  if (id == item.id) return { id, attributes };
+                  return item;
+                }),
+              });
+              setFavory(attributes.favorite);
+              setLoading(false);
+            } else {
+              throw new Error(tome.status);
+            }
           });
-          setFavory(attributes.favorite);
-        } else {
-          throw new Error(tome.status);
-        }
-        if (category.status == 200) {
-          appChange({ currentCategories: category.data });
-        } else {
-          throw new Error(tome.status);
-        }
-        if (chapter.status == 200) {
-          appChange({ chapters: chapter.data });
-        } else {
-          throw new Error(chapter.status);
-        }
-        setLoading(false);
+        fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then((category) => {
+            if (category.status == 200) {
+              appChange({ currentCategories: category.data });
+            } else {
+              throw new Error(tome.status);
+            }
+            setLoadingCategory(false);
+          });
+        fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then((chapter) => {
+            if (chapter.status == 200) {
+              appChange({ chapters: chapter.data });
+            } else {
+              throw new Error(chapter.status);
+            }
+            setLoadingChapters(true);
+          });
       } catch (error) {
+        setError(true);
         setLoading(false);
+        setLoadingChapters(false);
+        setLoadingCategory(false);
       }
     })();
   }, [refresh]);
@@ -169,7 +181,7 @@ const Book = ({ navigation }) => {
     >
       {loading ? (
         <>
-          <Loader loading={loading} />
+          <Loader loading={loading || loadingCategory || loadingChapters} />
         </>
       ) : !error ? (
         <>

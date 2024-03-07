@@ -37,7 +37,7 @@ const MainNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        gestureEnabled: true,
+        gestureEnabled: false,
       }}
     >
       {!userIsAuth ? (

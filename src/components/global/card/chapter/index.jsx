@@ -1,35 +1,76 @@
-import { ImageBackground, StyleSheet, View, Text } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import appStore from "../../../../store/app";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native";
-import { TOUCHABLEOPACITY } from "../../../../constants";
+import { TOUCHABLEOPACITY, headers } from "../../../../constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import ModalContainer from "../../modal/notification";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageViewer from "../../imageViewer";
 import Loader from "../../Loader";
 import ButtonBuy from "../../button/buy";
 import userStore from "../../../../store/user";
+import { getUserChapterBuyed } from "../../../../constants/url";
 const shop = require("../../../../../assets/coin/shop.png");
 
-export default function CardChapter({ number, name, coinsPrice }) {
+export default function CardChapter({
+  id,
+  number,
+  name,
+  resume,
+  coinsPrice,
+  navigation,
+}) {
   const { currentBook } = appStore();
-  const { userCoins } = userStore();
+  const { userCoins, id: userId } = userStore();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
+  const [modalRead, setModalRead] = useState(false);
+  const [buyed, setBuyed] = useState(false);
   const openModal = () => {
-    setModal(true);
+    if (!loading)
+      if (buyed) {
+        setModalRead(true);
+      } else {
+        setModal(true);
+      }
   };
   const closeModal = () => {
     setModal(false);
   };
+  const closeModalRead = () => {
+    setModalRead(false);
+  };
   const buyCoin = () => {};
+  const readChapter = () => {};
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${getUserChapterBuyed({ userId, chapterId: id })}`, {
+      headers: headers,
+    })
+      .then(async (res) => {
+        const status = res.status;
+        const data = await res.json();
+        return { ...data, status };
+      })
+      .then(({ data }) => {
+        setLoading(false);
+        if (data) setBuyed(true);
+      });
+  }, [navigation]);
   return (
     <>
       <View
         style={{
           overflow: "hidden",
           borderRadius: 5,
+          position: "relative",
         }}
       >
         <TouchableOpacity
@@ -37,6 +78,20 @@ export default function CardChapter({ number, name, coinsPrice }) {
           onPress={openModal}
           activeOpacity={TOUCHABLEOPACITY}
         >
+          <View
+            style={{
+              position: "absolute",
+              top: 5,
+              right: 5,
+            }}
+          >
+            {loading && (
+              <ActivityIndicator
+                size="small"
+                color={theme.colors.brand.secondary}
+              />
+            )}
+          </View>
           <View style={{ overflow: "hidden" }}>
             <ImageBackground
               source={{ uri: currentBook?.picture }}
@@ -95,7 +150,7 @@ export default function CardChapter({ number, name, coinsPrice }) {
               style={{
                 fontSize: 48,
                 fontWeight: "700",
-                color: "white"
+                color: "white",
               }}
             >
               <FontAwesome5
@@ -193,6 +248,66 @@ export default function CardChapter({ number, name, coinsPrice }) {
           </View>
         </>
       </ModalContainer>
+      <ModalContainer closeModal={closeModalRead} modal={modalRead}>
+        <>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            <ImageBackground
+              source={{ uri: currentBook?.picture }}
+              style={{ width: "100%", height: 200, borderRadius: 20 }}
+            />
+          </View>
+          <Loader loading={loading}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "100%",
+                paddingTop: 10,
+              }}
+            >
+              <View style={styles.modal}>
+                <Text
+                  style={{
+                    textAlign: "left",
+                    fontWeight: "700",
+                    paddingBottom: 10,
+                    fontSize: 18,
+                  }}
+                >
+                  CHAPITRE ({number}) : " {name} "
+                </Text>
+
+                <View style={styles.content}>
+                  <Text
+                    style={{
+                      textAlign: "left",
+                      fontWeight: "400",
+                      paddingBottom: 10,
+                      fontSize: 18,
+                    }}
+                  >
+                    {resume}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </Loader>
+          <View style={{ flexDirection: "row" }}>
+            <ButtonBuy name={"Annuler"} color="red" onPress={closeModalRead} />
+            <ButtonBuy
+              name={"Lire"}
+              color={theme.colors.brand.secondary}
+              onPress={readChapter}
+            />
+          </View>
+        </>
+      </ModalContainer>
     </>
   );
 }
@@ -210,10 +325,9 @@ const styles = StyleSheet.create({
   },
   modal: {
     paddingBottom: 10,
+    width: "100%",
   },
   content: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    width: "100%",
   },
 });

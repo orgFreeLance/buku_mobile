@@ -121,7 +121,7 @@ const Books = ({ navigation }) => {
                     <CardBook
                       {...attributes}
                       id={id}
-                      key={`${id}${index}`}
+                      key={`${id + index}`}
                       horizontal={false}
                       navigation={navigation}
                     />
@@ -135,7 +135,7 @@ const Books = ({ navigation }) => {
                     <CardBook
                       {...attributes}
                       id={id}
-                      key={`${id}${index}`}
+                      key={`${id + index}`}
                       horizontal={false}
                       navigation={navigation}
                     />
@@ -149,7 +149,7 @@ const Books = ({ navigation }) => {
                     <CardBook
                       {...attributes}
                       id={id}
-                      key={`${id}${index}`}
+                      key={`${id + index}`}
                       horizontal={false}
                       navigation={navigation}
                     />

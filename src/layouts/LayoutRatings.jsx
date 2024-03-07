@@ -5,12 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import { TOUCHABLEOPACITY, routes } from "../constants";
-import appStore from "../store/app";
 const bg = require("../../assets/white.jpeg");
 
 const LayoutRatings = ({ image = bg, navigation, children }) => {
-  const [modal, setModal] = useState(false);
-  const { currentBook } = appStore();
   const goBack = () => {
     const routesNav = navigation.getState()?.routes;
     const prevRoute = routesNav[routesNav.length - 2];

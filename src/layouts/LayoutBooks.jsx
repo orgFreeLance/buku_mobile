@@ -46,7 +46,7 @@ const LayoutBooks = ({
         modal={modal}
         closeModal={() => setModal(false)}
       />
-      <StatusBar backgroundColor={"white"} />
+      <StatusBar hidden />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
           style={{
@@ -106,7 +106,7 @@ const LayoutBooks = ({
             >
               {bookChoices.map(({ attributes: { name, symbol }, id }) => (
                 <CardChoix
-                  key={name}
+                  key={`${name}${id}`}
                   width
                   reverse
                   name={symbol}
