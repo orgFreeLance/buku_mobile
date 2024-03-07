@@ -1,5 +1,6 @@
 import { Modal } from "native-base";
 import React from "react";
+
 export default function ModalContainer({
   children,
   footer = null,

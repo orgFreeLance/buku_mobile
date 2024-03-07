@@ -161,7 +161,7 @@ export default function CardChapter({ number, name, coinsPrice }) {
                     fontSize: 18,
                   }}
                 >
-                  Vous etes sur de vouloir achetez ?
+                  Etes vous sur de vouloir achetez le chapitre {number} ?
                 </Text>
                 <View style={styles.content}>
                   <FontAwesome5

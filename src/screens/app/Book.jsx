@@ -1,5 +1,4 @@
-import { Text, View } from "native-base";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import {
   AntDesign,
   Entypo,
@@ -45,7 +44,7 @@ const Book = ({ navigation }) => {
 
   const [active, setActive] = useState("Détails");
   const { currentBook, tomes, currentCategories, appChange } = appStore();
-  const { id } = userStore();
+  const { id, userCoins } = userStore();
 
   const openModal = () => {
     setModal(true);
@@ -69,13 +68,19 @@ const Book = ({ navigation }) => {
       .then(({ status }) => {
         if (status == 200) {
           setFavory(true);
+          appChange({
+            currentBook: {
+              ...currentBook,
+              likesNumber: +currentBook.likesNumber + 1,
+            },
+          });
         }
       });
   };
   const getComponent = () => {
     switch (active) {
       case "Chapitres":
-        return <BookChapters />;
+        return <BookChapters navigation={navigation} />;
       case "Détails":
         return <BookDetails navigation={navigation} />;
     }
@@ -136,8 +141,6 @@ const Book = ({ navigation }) => {
         }
         setLoading(false);
       } catch (error) {
-        console.log(error);
-        setError(true);
         setLoading(false);
       }
     })();
@@ -301,6 +304,61 @@ const Book = ({ navigation }) => {
           <View
             style={{
               flexDirection: "row",
+              alignItems: "center",
+              borderRadius: 10,
+              backgroundColor: theme.colors.brand.secondary,
+              paddingVertical: 15,
+              paddingHorizontal: 5,
+              width: "100%",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 24,
+                fontWeight: "700",
+                color: "white",
+                paddingRight: 5,
+              }}
+            >
+              Vos
+            </Text>
+            <Text
+              style={{
+                fontSize: 48,
+                fontWeight: "700",
+                color: "white",
+              }}
+            >
+              <FontAwesome5
+                name="coins"
+                style={{ paddingRight: 5 }}
+                size={30}
+                color={"white"}
+              />
+            </Text>
+            <Text
+              style={{
+                fontSize: 48,
+                fontWeight: "700",
+                paddingHorizontal: 5,
+                color: "white",
+              }}
+            >
+              {`${userCoins}`}
+            </Text>
+            <Text
+              style={{
+                fontSize: 24,
+                fontWeight: "700",
+                color: "white",
+              }}
+            >
+              Piece(s)
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
               justifyContent: "center",
               width: "100%",
             }}
@@ -319,11 +377,22 @@ const Book = ({ navigation }) => {
                 <Text
                   style={{
                     textAlign: "center",
-                    fontWeight: "200",
-                    fontSize: 14,
+                    fontWeight: "700",
+                    paddingBottom: 10,
+                    fontSize: 18,
                   }}
                 >
-                  Vous etes sur de vouloir achetez ?
+                  LIVRE : " {currentBook.name} "
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "400",
+                    paddingBottom: 10,
+                    fontSize: 18,
+                  }}
+                >
+                  Etes vous sur de vouloir achetez tous les chapitres ?
                 </Text>
                 <View style={styles.contentP}>
                   <FontAwesome5
@@ -379,6 +448,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+    paddingTop: 0,
   },
   card: {
     borderRightColor: "gray",
