@@ -1,32 +1,44 @@
-import {
-  Flex,
-  ScrollView,
-  StatusBar,
-} from "native-base";
+import { Flex, ScrollView, StatusBar } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, Foundation, AntDesign, Ionicons } from '@expo/vector-icons';
 import {
-  ImageBackground, StyleSheet,
-  Text,
-  View,
-} from "react-native";
+  FontAwesome5,
+  Foundation,
+  AntDesign,
+  Ionicons,
+} from "@expo/vector-icons";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
 import ModalMenu from "../components/global/modal/menu";
-import { OPACITY, TOUCHABLEOPACITY } from "../constants";
+import { OPACITY, TOUCHABLEOPACITY, routes } from "../constants";
 import CardLinkFooter from "../components/global/card/linkFooter";
 import goTo from "../utils/goTo";
 const bg = require("../../assets/white.jpeg");
 
-const LayoutSettings = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
-  const [account] = useState(accountScreen)
-  const [home] = useState(homeScreen)
-  const [discover] = useState(discoverScreen)
-  const [book] = useState(bookScreen)
-  const [coin] = useState(coinScreen)
-  const [modal, setModal] = useState(false)
-
+const LayoutSettings = ({
+  image = bg,
+  navigation,
+  children,
+  accountScreen = true,
+  homeScreen = true,
+  bookScreen = true,
+  coinScreen = true,
+  discoverScreen = true,
+  title = "",
+}) => {
+  const [account] = useState(accountScreen);
+  const [home] = useState(homeScreen);
+  const [discover] = useState(discoverScreen);
+  const [book] = useState(bookScreen);
+  const [coin] = useState(coinScreen);
+  const [modal, setModal] = useState(false);
+  const goBack = () => {
+    const routesNav = navigation.getState()?.routes;
+    const prevRoute = routesNav[routesNav.length - 2];
+    const prevRouteExis = routes.find(({ name }) => name == prevRoute.name);
+    if (prevRouteExis) navigation.goBack();
+  };
   return (
     <View
       flex={1}
@@ -35,7 +47,11 @@ const LayoutSettings = ({ image = bg, navigation, children, accountScreen = true
         flexDirection: "column",
       }}
     >
-      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+      <ModalMenu
+        navigation={navigation}
+        modal={modal}
+        closeModal={() => setModal(false)}
+      />
       <StatusBar backgroundColor={"white"} />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
@@ -46,31 +62,18 @@ const LayoutSettings = ({ image = bg, navigation, children, accountScreen = true
           source={image}
         >
           <View style={styles.header}>
-            <TouchableOpacity
-              activeOpacity={TOUCHABLEOPACITY}
-              onPress={() => {
-                navigation.goBack()
-              }}
-            >
+            <TouchableOpacity activeOpacity={TOUCHABLEOPACITY} onPress={goBack}>
               <Ionicons name="chevron-back-outline" size={26} color="black" />
             </TouchableOpacity>
-            <Text style={styles.title}>
-              {title}
-            </Text>
+            <Text style={styles.title}>{title}</Text>
             <TouchableOpacity
               activeOpacity={TOUCHABLEOPACITY}
               onPress={() => {
-                goTo(navigation, "Search")
+                goTo(navigation, "Search");
               }}
-            >
-            </TouchableOpacity>
+            ></TouchableOpacity>
           </View>
-          <ScrollView
-            flex={1}
-            w="100%"
-            mx="auto"
-            paddingHorizontal={width(5)}
-          >
+          <ScrollView flex={1} w="100%" mx="auto" paddingHorizontal={width(5)}>
             {children}
           </ScrollView>
         </ImageBackground>
@@ -80,7 +83,7 @@ const LayoutSettings = ({ image = bg, navigation, children, accountScreen = true
             width: "100%",
             flexDirection: "row",
             justifyContent: "center",
-            alignContent: "center"
+            alignContent: "center",
           }}
         >
           <View
@@ -94,23 +97,82 @@ const LayoutSettings = ({ image = bg, navigation, children, accountScreen = true
               justifyContent: "space-between",
               alignItems: "center",
               color: "white",
-              shadowRadius: 50
+              shadowRadius: 50,
             }}
           >
-            <CardLinkFooter condition={home} navigation={navigation} screen={"Home"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={discover} navigation={navigation} screen={"Discover"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={coin} navigation={navigation} screen={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={book} navigation={navigation} screen={"Books"} text={"Mes livres"} Icon={<Foundation name="book" size={20} color={book ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={account} navigation={navigation} screen={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter
+              condition={home}
+              navigation={navigation}
+              screen={"Home"}
+              text={"acceuil"}
+              Icon={
+                <Foundation
+                  name="home"
+                  size={20}
+                  color={home ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={discover}
+              navigation={navigation}
+              screen={"Discover"}
+              text={"Découvertes"}
+              Icon={
+                <FontAwesome5
+                  name="compass"
+                  size={20}
+                  color={discover ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={coin}
+              navigation={navigation}
+              screen={"Coins"}
+              text={"Pieces"}
+              Icon={
+                <FontAwesome5
+                  name="coins"
+                  size={20}
+                  color={coin ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={book}
+              navigation={navigation}
+              screen={"Books"}
+              text={"Mes livres"}
+              Icon={
+                <Foundation
+                  name="book"
+                  size={20}
+                  color={book ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={account}
+              navigation={navigation}
+              screen={"Account"}
+              text={"Compte"}
+              Icon={
+                <FontAwesome5
+                  name="user"
+                  size={20}
+                  color={account ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
           </View>
         </View>
-      </Flex >
-    </View >
+      </Flex>
+    </View>
   );
 };
 
 export default LayoutSettings;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -123,7 +185,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   avatar: {
     height: 50,
@@ -134,7 +196,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: "black"
+    color: "black",
   },
   link: {
     justifyContent: "center",
@@ -145,6 +207,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: width(1),
     alignItems: "center",
-    opacity: OPACITY
-  }
+    opacity: OPACITY,
+  },
 });

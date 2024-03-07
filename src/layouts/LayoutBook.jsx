@@ -1,22 +1,30 @@
-import {
-  Flex,
-  ScrollView,
-  StatusBar,
-  View,
-} from "native-base";
+import { Flex, ScrollView, StatusBar, View } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; 
-import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
 import ModalMenu from "../components/global/modal/menu";
-import { TOUCHABLEOPACITY } from "../constants";
+import { TOUCHABLEOPACITY, routes } from "../constants";
 const bg = require("../../assets/white.jpeg");
 
-const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favory = false }) => {
-  const [modal, setModal] = useState(false)
+const LayoutBook = ({
+  image = bg,
+  navigation,
+  children,
+  createTomeFavorite,
+  favory = false,
+}) => {
+  const [modal, setModal] = useState(false);
+  const goBack = () => {
+    const routesNav = navigation.getState()?.routes;
+    const prevRoute = routesNav[routesNav.length - 2];
+    console.log(prevRoute, routesNav);
+    const prevRouteExis = routes.find(({ name }) => name == prevRoute.name);
+    if (prevRouteExis) navigation.goBack();
+  };
   try {
     return (
       <View
@@ -26,7 +34,11 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favo
           flexDirection: "column",
         }}
       >
-        <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+        <ModalMenu
+          navigation={navigation}
+          modal={modal}
+          closeModal={() => setModal(false)}
+        />
         <StatusBar backgroundColor={"white"} hidden />
         <Flex flex={1} height={screenHeight}>
           <ImageBackground
@@ -37,21 +49,28 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favo
             source={image}
           >
             <View style={styles.header}>
-              <TouchableOpacity style={styles.icon}
+              <TouchableOpacity
+                style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
-                onPress={() => { navigation.goBack() }}>
+                onPress={goBack}
+              >
                 <Ionicons name="arrow-back-sharp" size={28} color="black" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.icon}
+              <TouchableOpacity
+                style={styles.icon}
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => {
-                  createTomeFavorite()
+                  createTomeFavorite();
                 }}
               >
-                <MaterialIcons name="favorite" size={24} color={!favory ? "black" : theme.colors.brand.secondary} />
+                <MaterialIcons
+                  name="favorite"
+                  size={24}
+                  color={!favory ? "black" : theme.colors.brand.secondary}
+                />
               </TouchableOpacity>
             </View>
-            
+
             <ScrollView
               flex={1}
               w="100%"
@@ -61,17 +80,15 @@ const LayoutBook = ({ image = bg, navigation, children, createTomeFavorite, favo
               {children}
             </ScrollView>
           </ImageBackground>
-
-        </Flex >
-      </View >
+        </Flex>
+      </View>
     );
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
 export default LayoutBook;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -85,22 +102,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   icon: {
     fontSize: 20,
     fontWeight: "700",
-    color: "black"
+    color: "black",
   },
   title: {
     fontSize: 20,
     fontWeight: "700",
     marginLeft: 10,
-    color: "black"
+    color: "black",
   },
   input: {
     borderRadius: 20,
     width: "85%",
     outLine: "none",
-  }
+  },
 });

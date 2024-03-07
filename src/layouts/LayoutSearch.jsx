@@ -1,23 +1,22 @@
-import {
-  Flex,
-  Input,
-  ScrollView,
-  StatusBar,
-  View,
-} from "native-base";
+import { Flex, Input, ScrollView, StatusBar, View } from "native-base";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons, AntDesign, Octicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Octicons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
-import { TOUCHABLEOPACITY } from "../constants";
+import { TOUCHABLEOPACITY, routes } from "../constants";
 import ModalFilter from "../components/global/modal/filter";
 const bg = require("../../assets/white.jpeg");
 
 const LayoutSearch = ({ image = bg, navigation, children }) => {
-  const [modal, setModal] = useState(false)
-
+  const [modal, setModal] = useState(false);
+  const goBack = () => {
+    const routesNav = navigation.getState()?.routes;
+    const prevRoute = routesNav[routesNav.length - 2];
+    const prevRouteExis = routes.find(({ name }) => name == prevRoute.name);
+    if (prevRouteExis) navigation.goBack();
+  };
   return (
     <View
       flex={1}
@@ -26,7 +25,11 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
         flexDirection: "column",
       }}
     >
-      <ModalFilter navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+      <ModalFilter
+        navigation={navigation}
+        modal={modal}
+        closeModal={() => setModal(false)}
+      />
       <StatusBar backgroundColor={"white"} />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
@@ -37,46 +40,55 @@ const LayoutSearch = ({ image = bg, navigation, children }) => {
           source={image}
         >
           <View style={styles.header}>
-            <TouchableOpacity style={styles.title}
+            <TouchableOpacity
+              style={styles.title}
               activeOpacity={TOUCHABLEOPACITY}
-              onPress={() => { navigation.goBack() }}>
+              onPress={goBack}
+            >
               <Ionicons name="arrow-back-sharp" size={24} color="black" />
             </TouchableOpacity>
             <View style={{ width: "90%" }}>
-              <Input type="text"
+              <Input
+                type="text"
                 style={styles.input}
                 borderColor={"gray.100"}
                 backgroundColor={"gray.100"}
                 outlineColor={theme.colors.brand.secondary}
                 borderRadius={15}
                 borderWidth={2}
-                leftElement={<>
-                  <AntDesign name="search1" size={20} style={{ marginLeft: 10 }} color="black" />
-                </>}
-                rightElement={<TouchableOpacity onPress={() => setModal(true)}>
-                  <Octicons name="filter" style={{ marginRight: 10 }} size={24} color={theme.colors.brand.secondary} />
-                </TouchableOpacity>}
+                leftElement={
+                  <>
+                    <AntDesign
+                      name="search1"
+                      size={20}
+                      style={{ marginLeft: 10 }}
+                      color="black"
+                    />
+                  </>
+                }
+                rightElement={
+                  <TouchableOpacity onPress={() => setModal(true)}>
+                    <Octicons
+                      name="filter"
+                      style={{ marginRight: 10 }}
+                      size={24}
+                      color={theme.colors.brand.secondary}
+                    />
+                  </TouchableOpacity>
+                }
               />
             </View>
           </View>
-          <ScrollView
-            flex={1}
-            w="100%"
-            mx="auto"
-            paddingHorizontal={width(3)}
-          
-          >
+          <ScrollView flex={1} w="100%" mx="auto" paddingHorizontal={width(3)}>
             {children}
           </ScrollView>
         </ImageBackground>
-
-      </Flex >
-    </View >
+      </Flex>
+    </View>
   );
 };
 
 export default LayoutSearch;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -90,16 +102,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   title: {
     fontSize: 20,
     fontWeight: "700",
-    color: "black"
+    color: "black",
   },
   input: {
     borderRadius: 20,
     width: "85%",
     outLine: "none",
-  }
+  },
 });

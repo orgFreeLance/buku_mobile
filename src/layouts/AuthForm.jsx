@@ -1,12 +1,15 @@
 import { Flex, Stack, Progress } from "native-base";
 import { TouchableOpacity, Text, StatusBar, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { height, screenHeight, width } from "../../constants/nativeSizes";
-import { TOUCHABLEOPACITY } from "../../constants";
+import { height, screenHeight, width } from "../constants/nativeSizes";
+import { TOUCHABLEOPACITY, routes } from "../constants";
 
 const AuthForm = ({ navigation, children, title, progress = 20 }) => {
   const goBack = () => {
-    navigation.goBack();
+    const routesNav = navigation.getState()?.routes;
+    const prevRoute = routesNav[routesNav.length - 2];
+    const prevRouteExis = routes.find(({ name }) => name == prevRoute.name);
+    if (prevRouteExis) navigation.goBack();
   };
   return (
     <View
