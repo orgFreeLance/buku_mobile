@@ -1,6 +1,6 @@
 import { Flex, ScrollView, StatusBar, View } from "native-base";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
@@ -14,6 +14,7 @@ const LayoutBook = ({
   image = bg,
   navigation,
   children,
+  loadingFavorite,
   createTomeFavorite,
   favory = false,
 }) => {
@@ -21,7 +22,6 @@ const LayoutBook = ({
   const goBack = () => {
     const routesNav = navigation.getState()?.routes;
     const prevRoute = routesNav[routesNav.length - 2];
-    console.log(prevRoute, routesNav);
     const prevRouteExis = routes.find(({ name }) => name == prevRoute.name);
     if (prevRouteExis) navigation.goBack();
   };
@@ -63,6 +63,12 @@ const LayoutBook = ({
                   createTomeFavorite();
                 }}
               >
+                {loadingFavorite && (
+                  <ActivityIndicator
+                    size="small"
+                    color={theme.colors.brand.secondary}
+                  />
+                )}
                 <MaterialIcons
                   name="favorite"
                   size={24}

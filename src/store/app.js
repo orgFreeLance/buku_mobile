@@ -26,7 +26,7 @@ const appStore = create((set) => ({
     bookChoices: [
         { id: "Achetés", attributes: { name: "Achetés", symbol: "Achetés" } },
         { id: "Favoris", attributes: { name: "Favoris", symbol: "Favoris" } },
-        { id: "Créés", attributes: { name: "Créés", symbol: "Créés" } },
+        { id: "Publiés", attributes: { name: "Publiés", symbol: "Publiés" } },
     ],
     tomesFavorites: [],
     tomesBuyed: [],

@@ -37,6 +37,7 @@ const shop = require("../../../assets/coin/shop.png");
 
 const Book = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
   const [error, setError] = useState(false);
   const [favory, setFavory] = useState(false);
   const [refresh, setRefresh] = useState(0);
@@ -55,6 +56,7 @@ const Book = ({ navigation }) => {
   };
 
   const createTomeFavorite = () => {
+    setLoadingFavorite(true);
     fetch(`${createTomeFavoriteURL()}`, {
       headers,
       method: "POST",
@@ -76,7 +78,17 @@ const Book = ({ navigation }) => {
           });
         } else {
           setFavory(false);
+          appChange({
+            currentBook: {
+              ...currentBook,
+              likesNumber: +currentBook.likesNumber - 1,
+            },
+          });
         }
+        setLoadingFavorite(false);
+      })
+      .then(() => {
+        setLoadingFavorite(false);
       });
   };
   const getComponent = () => {
@@ -152,6 +164,7 @@ const Book = ({ navigation }) => {
     <LayoutBook
       favory={favory}
       navigation={navigation}
+      loadingFavorite={loadingFavorite}
       createTomeFavorite={createTomeFavorite}
     >
       {loading ? (

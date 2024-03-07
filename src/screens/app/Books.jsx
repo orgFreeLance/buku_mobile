@@ -3,7 +3,11 @@ import CardBook from "../../components/global/card/book";
 import { useEffect, useState } from "react";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
-import { getTomesBuyedURL, getTomesCreatedURL, getTomesFavoritesURL } from "../../constants/url";
+import {
+  getTomesBuyedURL,
+  getTomesCreatedURL,
+  getTomesFavoritesURL,
+} from "../../constants/url";
 import LayoutBooks from "../../layouts/LayoutBooks";
 import PageLoading from "../../components/global/loading";
 import userStore from "../../store/user";
@@ -12,7 +16,8 @@ import NoData from "../../components/global/noData";
 
 const Books = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
-  const { tomesFavorites, tomesBuyed, bookOfChoice, appChange } = appStore();
+  const { tomesFavorites, tomesBuyed, tomesCreated, bookOfChoice, appChange } =
+    appStore();
   const [refresh, setRefresh] = useState(0);
   const [error, setError] = useState(false);
   const { id } = userStore();
@@ -30,19 +35,19 @@ const Books = ({ navigation }) => {
             return { ...data, status };
           })
           .then(({ data, status }) => {
-            setLoading(false);
             if (status == 200) {
               appChange({
                 tomesBuyed: data.map((item) => ({ ...item, select: false })),
               });
             }
+            setLoading(false);
           })
           .catch((error) => {
             setLoading(false);
             setError(true);
           });
         break;
-      case "Créés":
+      case "Publiés":
         fetch(`${getTomesCreatedURL(id)}`, { headers })
           .then(async (res) => {
             const status = res.status;
@@ -50,14 +55,15 @@ const Books = ({ navigation }) => {
             return { ...data, status };
           })
           .then(({ data, status }) => {
-            setLoading(false);
             if (status == 200) {
               appChange({
                 tomesCreated: data.map((item) => ({ ...item, select: false })),
               });
             }
+            setLoading(false);
           })
           .catch((error) => {
+            console.log(error);
             setLoading(false);
             setError(true);
           });
@@ -70,7 +76,6 @@ const Books = ({ navigation }) => {
             return { ...data, status };
           })
           .then(({ data, status }) => {
-            setLoading(false);
             if (status == 200) {
               appChange({
                 tomesFavorites: data.map((item) => ({
@@ -79,10 +84,11 @@ const Books = ({ navigation }) => {
                 })),
               });
             }
+            setLoading(false);
           })
           .catch((error) => {
-            setError(true);
             setLoading(false);
+            setError(true);
           });
         break;
     }
@@ -108,7 +114,7 @@ const Books = ({ navigation }) => {
                 justifyContent: "space-between",
               }}
             >
-              {bookOfChoice.id == "Achetés" ? (
+              {bookOfChoice.id == "Achetés" && (
                 <>
                   <NoData items={tomesBuyed} />
                   {tomesBuyed.map(({ id, ...attributes }, index) => (
@@ -121,10 +127,25 @@ const Books = ({ navigation }) => {
                     />
                   ))}
                 </>
-              ) : (
+              )}
+              {bookOfChoice.id == "Favoris" && (
                 <>
                   <NoData items={tomesFavorites} />
                   {tomesFavorites.map(({ id, attributes }, index) => (
+                    <CardBook
+                      {...attributes}
+                      id={id}
+                      key={`${id}${index}`}
+                      horizontal={false}
+                      navigation={navigation}
+                    />
+                  ))}
+                </>
+              )}
+              {bookOfChoice.id == "Publiés" && (
+                <>
+                  <NoData items={tomesCreated} />
+                  {tomesCreated.map(({ id, ...attributes }, index) => (
                     <CardBook
                       {...attributes}
                       id={id}
