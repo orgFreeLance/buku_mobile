@@ -15,5 +15,6 @@ export const buyCoinsURL = (coinId, userId) => `${API_LINK}/coin-infos/buy-coin/
 export const getCurrencies = () => `${API_LINK}/currencies`
 export const getTomesFavoritesURL = (userId) => `${API_LINK}/user-tome-favorites?populate=*&filters[user][id][$eq]=${userId}`
 export const getTomesBuyedURL = (userId) => `${API_LINK}/user-tome-buyed/${userId}`
+export const getTomesCreatedURL = (userId) => `${API_LINK}/tome-infos/tomes-created/${userId}`
 export const updateUser = (userId) => `${API_LINK}/user-infos-update/${userId}`
 export const updateUserPassword = (userId) => `${API_LINK}/user-infos-update-password/${userId}`

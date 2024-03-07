@@ -30,6 +30,7 @@ const appStore = create((set) => ({
     ],
     tomesFavorites: [],
     tomesBuyed: [],
+    tomesCreated: [],
     tomesByGenre: [],
     tomesPreferences: [],
     tomesPopulars: [],

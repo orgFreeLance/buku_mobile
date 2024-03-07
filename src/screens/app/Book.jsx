@@ -74,6 +74,8 @@ const Book = ({ navigation }) => {
               likesNumber: +currentBook.likesNumber + 1,
             },
           });
+        } else {
+          setFavory(false);
         }
       });
   };
