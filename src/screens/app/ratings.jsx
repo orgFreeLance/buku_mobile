@@ -18,7 +18,7 @@ import ImageViewer from "../../components/global/imageViewer";
 import RatingBookDetails from "../../components/global/RatingBookDetails";
 import CardStar from "../../components/global/card/star";
 import theme from "../../constants/theme";
-import LayoutRatings from "../../layouts/organisms/LayoutRatings";
+import LayoutRatings from "../../layouts/LayoutRatings";
 
 const shop = require("../../../assets/coin/shop.png");
 

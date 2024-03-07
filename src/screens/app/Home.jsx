@@ -8,7 +8,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import theme from "../../constants/theme";
-import Layout from "../../layouts/organisms/Layout";
+import Layout from "../../layouts/Layout";
 import CardBook from "../../components/global/card/book";
 import CardGender from "../../components/global/card/genre";
 import { API_LINK, TOUCHABLEOPACITY, headers } from "../../constants";

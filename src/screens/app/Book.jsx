@@ -6,7 +6,7 @@ import {
   FontAwesome5,
   Foundation,
 } from "@expo/vector-icons";
-import LayoutBook from "../../layouts/organisms/LayoutBook";
+import LayoutBook from "../../layouts/LayoutBook";
 import appStore from "../../store/app";
 import theme from "../../constants/theme";
 import CardCategoryBook from "../../components/global/card/categoryBook";

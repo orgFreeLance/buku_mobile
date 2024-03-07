@@ -3,55 +3,29 @@ import {
   ScrollView,
   StatusBar,
 } from "native-base";
-import { useEffect, useState } from "react";
-import { FontAwesome5, Foundation } from '@expo/vector-icons';
+import { useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { FontAwesome5, Foundation, AntDesign } from '@expo/vector-icons';
 import {
   ImageBackground, StyleSheet,
   Text,
   View,
 } from "react-native";
-import { screenHeight, width } from "../../constants/nativeSizes";
-import theme from "../../constants/theme";
-import ModalMenu from "../../components/global/modal/menu";
-import { OPACITY, headers } from "../../constants";
-import CardLinkFooter from "../../components/global/card/linkFooter";
-import userStore from "../../store/user";
-import CardChoix from "../../components/global/card/choix";
-import appStore from "../../store/app";
-import { getCurrencies } from "../../constants/url";
-const bg = require("../../../assets/white.jpeg");
+import { screenHeight, width } from "../constants/nativeSizes";
+import theme from "../constants/theme";
+import ModalMenu from "../components/global/modal/menu";
+import { OPACITY, TOUCHABLEOPACITY } from "../constants";
+import CardLinkFooter from "../components/global/card/linkFooter";
+import goTo from "../utils/goTo";
+const bg = require("../../assets/white.jpeg");
 
-const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
+const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
   const [account] = useState(accountScreen)
   const [home] = useState(homeScreen)
   const [discover] = useState(discoverScreen)
   const [book] = useState(bookScreen)
   const [coin] = useState(coinScreen)
   const [modal, setModal] = useState(false)
-  const [all] = useState({ id: "Tout", attributes: { name: "Tout", symbol: "Tout" } })
-  const [active, setActive] = useState("Tout")
-  const { userCoins } = userStore()
-  const { currencies, appChange } = appStore()
-  useEffect(() => {
-    (async () => {
-      setActive("Tout")
-      if (currencies.length === 0) {
-        appChange({ currencies: [all] })
-      }
-      try {
-        const currencies = await fetch(`${getCurrencies()}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        })
-        if (currencies.status == 200)
-          appChange({ currencies: [all, ...currencies.data] })
-      } catch (error) {
-        console.log(error)
-      }
-    })()
-  }, [])
-  useEffect(() => { }, [])
 
   return (
     <View
@@ -75,30 +49,14 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
             <Text style={styles.title}>
               {title}
             </Text>
-            <View style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: theme.colors.brand.secondary,
-              paddingVertical: 15,
-              paddingHorizontal: 5,
-              width: "100%",
-            }}>
-              <Text style={{ fontSize: 48, fontWeight: "700", color: "white", marginHorizontal: 10 }}>
-                <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={40} color={"white"} />
-              </Text>
-              <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
-                {`${userCoins}`}
-              </Text>
-              <Text style={{ fontSize: 48, marginLeft: 10, fontWeight: "700", color: "white" }}>
-                Piece(s)
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
-              {currencies.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} reverse name={symbol} active={active} onPress={() => {
-                setActive(symbol)
-                appChange({ currencyOfCoins: { attributes: { name, symbol }, id } })
-              }} />)}
-            </View>
+            <TouchableOpacity
+              activeOpacity={TOUCHABLEOPACITY}
+              onPress={() => {
+                goTo(navigation, "Search")
+              }}
+            >
+              <AntDesign name="search1" size={24} color="black" />
+            </TouchableOpacity>
           </View>
           <ScrollView
             flex={1}
@@ -144,7 +102,7 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
   );
 };
 
-export default LayoutCoins;
+export default Layout;
 
 
 const styles = StyleSheet.create({
@@ -152,13 +110,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    height: 60, 
     width: "100%",
     paddingHorizontal: width(5),
-    paddingTop: 5,
     flexDirection: "row",
-    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "space-between",
+    backgroundColor: "white"
   },
   avatar: {
     height: 50,
@@ -169,7 +127,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    paddingVertical: 5,
     color: "black"
   },
   link: {

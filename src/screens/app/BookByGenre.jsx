@@ -1,5 +1,5 @@
 import { View } from "native-base";
-import LayoutGenre from "../../layouts/organisms/LayoutGenre";
+import LayoutGenre from "../../layouts/LayoutGenre";
 import CardBook from "../../components/global/card/book";
 import appStore from "../../store/app";
 import { useState, useEffect } from "react";

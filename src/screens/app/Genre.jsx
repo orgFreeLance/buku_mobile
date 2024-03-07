@@ -1,5 +1,5 @@
 import { View } from "native-base";
-import LayoutGenre from "../../layouts/organisms/LayoutGenre";
+import LayoutGenre from "../../layouts/LayoutGenre";
 import CardGenre from "../../components/global/card/genre";
 import appStore from "../../store/app";
 

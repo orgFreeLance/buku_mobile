@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { activesCoinURL } from "../../constants/url";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
-import LayoutCoins from "../../layouts/organisms/LayoutCoins";
+import LayoutCoins from "../../layouts/LayoutCoins";
 import NoData from "../../components/global/noData";
 
 const Coins = ({ navigation }) => {

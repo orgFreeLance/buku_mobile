@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { headers } from "../../constants";
 import appStore from "../../store/app";
 import { getTomesBuyedURL, getTomesFavoritesURL } from "../../constants/url";
-import LayoutBooks from "../../layouts/organisms/LayoutBooks";
+import LayoutBooks from "../../layouts/LayoutBooks";
 import PageLoading from "../../components/global/loading";
 import userStore from "../../store/user";
 import Error from "../../components/global/error";

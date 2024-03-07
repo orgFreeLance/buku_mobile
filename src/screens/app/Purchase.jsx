@@ -1,7 +1,7 @@
 import { StatusBar, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import theme from "../../constants/theme";
-import Layout from "../../layouts/organisms/Layout";
+import Layout from "../../layouts/Layout";
 
 const Purchase = ({ navigation }) => {
   return (

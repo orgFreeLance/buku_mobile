@@ -10,6 +10,10 @@ import ProgressSmall from "../../components/global/progress/small";
 const bg = require("../../../assets/welcome/bg.png");
 
 const Welecome = ({ navigation }) => {
+  const routes = navigation.getState()?.routes;
+  console.log(routes);
+  const prevRoute = routes[routes.length - 2];
+  console.log(prevRoute);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={theme.colors.brand.secondary} />

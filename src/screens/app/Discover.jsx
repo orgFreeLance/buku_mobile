@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import Layout from "../../layouts/organisms/Layout";
+import Layout from "../../layouts/Layout";
 import CardBook from "../../components/global/card/book";
 import { useState, useEffect } from "react";
 import appStore from "../../store/app";

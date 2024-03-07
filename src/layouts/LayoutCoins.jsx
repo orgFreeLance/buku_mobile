@@ -10,16 +10,16 @@ import {
   Text,
   View,
 } from "react-native";
-import { screenHeight, width } from "../../constants/nativeSizes";
-import theme from "../../constants/theme";
-import ModalMenu from "../../components/global/modal/menu";
-import { OPACITY, headers } from "../../constants";
-import CardLinkFooter from "../../components/global/card/linkFooter";
-import userStore from "../../store/user";
-import CardChoix from "../../components/global/card/choix";
-import appStore from "../../store/app";
-import { getCurrencies } from "../../constants/url";
-const bg = require("../../../assets/white.jpeg");
+import { screenHeight, width } from "../constants/nativeSizes";
+import theme from "../constants/theme";
+import ModalMenu from "../components/global/modal/menu";
+import { OPACITY, headers } from "../constants";
+import CardLinkFooter from "../components/global/card/linkFooter";
+import userStore from "../store/user";
+import CardChoix from "../components/global/card/choix";
+import appStore from "../store/app";
+import { getCurrencies } from "../constants/url";
+const bg = require("../../assets/white.jpeg");
 
 const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
   const [account] = useState(accountScreen)
@@ -94,7 +94,7 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
               </Text>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
-              {currencies.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} reverse name={symbol} active={active} onPress={() => {
+              {currencies.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} width reverse name={symbol} active={active} onPress={() => {
                 setActive(symbol)
                 appChange({ currencyOfCoins: { attributes: { name, symbol }, id } })
               }} />)}

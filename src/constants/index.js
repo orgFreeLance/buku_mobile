@@ -13,4 +13,5 @@ export const getDate = (date) => {
     return `${MONTHS[month]} ${year}`
 }
 export const setToBase64 = (base64) => `data:image/png;base64,${base64}`
+export const routes = [{ name: "Home" }, { name: "Account" }, { name: "Search" }, { name: "Genre" }, { name: "BookByGenre" }, { name: "Book" }, { name: "Purchase" }, { name: "Books" }, { name: "Coins" }, { name: "Discover" }, { name: "Welcome" }, { name: "Ratings" }]
 export const MONTHS = ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"]

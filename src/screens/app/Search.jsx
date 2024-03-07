@@ -1,6 +1,6 @@
 
 import { StyleSheet } from "react-native";
-import LayoutSearch from "../../layouts/organisms/LayoutSearch";
+import LayoutSearch from "../../layouts/LayoutSearch";
 import PageLoading from "../../components/global/loading";
 
 const Search = ({ navigation }) => {
