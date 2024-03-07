@@ -20,7 +20,6 @@ export const submitForm = (
     case true:
       logUser(phone, password);
       break;
-
     case false:
       logUser(
         phone,
@@ -33,7 +32,6 @@ export const submitForm = (
       );
       goTo(navigation, "VerifyCode");
       break;
-
     default:
       break;
   }
