@@ -17,6 +17,7 @@ import Loader from "../../Loader";
 import ButtonBuy from "../../button/buy";
 import userStore from "../../../../store/user";
 import { getUserChapterBuyed } from "../../../../constants/url";
+import ModalContainerChapter from "../../modal/chapter";
 const shop = require("../../../../../assets/coin/shop.png");
 
 export default function CardChapter({
@@ -83,13 +84,24 @@ export default function CardChapter({
               position: "absolute",
               top: 5,
               right: 5,
+              padding: 5,
             }}
           >
-            {loading && (
+            {loading ? (
               <ActivityIndicator
                 size="small"
                 color={theme.colors.brand.secondary}
               />
+            ) : (
+              <>
+                {buyed && (
+                  <FontAwesome5
+                    name="book-reader"
+                    size={16}
+                    color={theme.colors.brand.secondary}
+                  />
+                )}
+              </>
             )}
           </View>
           <View style={{ overflow: "hidden" }}>
@@ -108,22 +120,38 @@ export default function CardChapter({
             >
               {name}
             </Text>
-            <Text style={{ fontWeight: "400", fontSize: 16, paddingTop: 5 }}>
+            <Text style={{ fontWeight: "500", fontSize: 16, paddingTop: 5 }}>
               #{number}
             </Text>
-            <Text style={{ fontWeight: "400", fontSize: 16, paddingTop: 5 }}>
-              <FontAwesome5
-                name="coins"
-                style={{ paddingRight: 5 }}
-                size={16}
-                color={theme.colors.brand.secondary}
-              />
-              {coinsPrice}
-            </Text>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "400",
+                  fontSize: 16,
+                  paddingTop: 5,
+                  paddingRight: 2,
+                }}
+              >
+                <FontAwesome5
+                  name="coins"
+                  size={16}
+                  color={theme.colors.brand.secondary}
+                />
+              </Text>
+              <Text style={{ fontWeight: "500", fontSize: 16, paddingTop: 5 }}>
+                {coinsPrice}
+              </Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
-      <ModalContainer closeModal={closeModal} modal={modal}>
+      <ModalContainerChapter closeModal={closeModal} modal={modal}>
         <>
           <View
             style={{
@@ -247,8 +275,8 @@ export default function CardChapter({
             />
           </View>
         </>
-      </ModalContainer>
-      <ModalContainer closeModal={closeModalRead} modal={modalRead}>
+      </ModalContainerChapter>
+      <ModalContainerChapter closeModal={closeModalRead} modal={modalRead}>
         <>
           <View
             style={{
@@ -307,7 +335,7 @@ export default function CardChapter({
             />
           </View>
         </>
-      </ModalContainer>
+      </ModalContainerChapter>
     </>
   );
 }
@@ -315,7 +343,7 @@ export default function CardChapter({
 const styles = StyleSheet.create({
   card: {
     width: "100%",
-    height: 80,
+    height: 90,
     marginBottom: 5,
     borderRadius: 5,
     overflow: "hidden",
