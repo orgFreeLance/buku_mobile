@@ -157,6 +157,7 @@ export default function CardChapter({
             style={{
               flexDirection: "row",
               alignItems: "center",
+              justifyContent: "center",
               borderRadius: 10,
               backgroundColor: theme.colors.brand.secondary,
               paddingVertical: 15,
@@ -208,16 +209,16 @@ export default function CardChapter({
               Piece(s)
             </Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <ImageViewer selectedImage={shop} />
-          </View>
           <Loader loading={loading}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <ImageViewer selectedImage={shop} />
+            </View>
             <View
               style={{
                 flexDirection: "row",
@@ -246,7 +247,13 @@ export default function CardChapter({
                 >
                   Etes vous sur de vouloir achetez le chapitre {number} ?
                 </Text>
-                <View style={styles.content}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "auto",
+                  }}
+                >
                   <FontAwesome5
                     name="coins"
                     style={{ paddingRight: 5 }}
