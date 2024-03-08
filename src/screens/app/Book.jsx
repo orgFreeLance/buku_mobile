@@ -33,6 +33,7 @@ import Error from "../../components/global/error";
 import ModalContainer from "../../components/global/modal/notification";
 import ButtonBuy from "../../components/global/button/buy";
 import ImageViewer from "../../components/global/imageViewer";
+import ModalContainerChapter from "../../components/global/modal/chapter";
 const shop = require("../../../assets/coin/shop.png");
 
 const Book = ({ navigation }) => {
@@ -326,12 +327,13 @@ const Book = ({ navigation }) => {
       ) : (
         <Error refresh={onRefresh} />
       )}
-      <ModalContainer closeModal={closeModal} modal={modal}>
+      <ModalContainerChapter closeModal={closeModal} modal={modal}>
         <>
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
+              justifyContent: "center",
               borderRadius: 10,
               backgroundColor: theme.colors.brand.secondary,
               paddingVertical: 15,
@@ -383,16 +385,16 @@ const Book = ({ navigation }) => {
               Piece(s)
             </Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <ImageViewer selectedImage={shop} />
-          </View>
           <Loader loading={loading}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <ImageViewer selectedImage={shop} />
+            </View>
             <View
               style={{
                 flexDirection: "row",
@@ -450,7 +452,7 @@ const Book = ({ navigation }) => {
             />
           </View>
         </>
-      </ModalContainer>
+      </ModalContainerChapter>
     </LayoutBook>
   );
 };
