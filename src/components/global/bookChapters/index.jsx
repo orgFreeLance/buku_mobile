@@ -13,7 +13,7 @@ export default function BookChapters({ navigation }) {
   return (
     <>
       {chapters?.map((item, index) => (
-        <CardChapter {...item} key={`${index + item.id}`} />
+        <CardChapter {...item} key={`${index + item.id}`} navigation={navigation} />
       ))}
     </>
   );

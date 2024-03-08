@@ -8,8 +8,8 @@ import {
   Image,
 } from "native-base";
 import React, { useState } from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
-import AuthForm from "../../layouts/organisms/AuthForm";
+import { StyleSheet } from "react-native";
+import AuthForm from "../../layouts/AuthForm";
 import { shallow } from "zustand/shallow";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";

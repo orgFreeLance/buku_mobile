@@ -7,7 +7,7 @@ import {
 } from "native-base";
 import React from "react";
 import { StyleSheet } from "react-native";
-import AuthForm from "../../layouts/organisms/AuthForm";
+import AuthForm from "../../layouts/AuthForm";
 import userStore from "../../store/user";
 import ButtonMain from "../../components/global/button/main";
 import { useForm, Controller } from "react-hook-form";

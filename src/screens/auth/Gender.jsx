@@ -1,7 +1,7 @@
 import { Radio, View, Text } from "native-base";
 import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
-import AuthForm from "../../layouts/organisms/AuthForm";
+import AuthForm from "../../layouts/AuthForm";
 import ButtonMain from "../../components/global/button/main";
 import goTo from "../../utils/goTo";
 import userStore from "../../store/user";
