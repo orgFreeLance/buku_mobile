@@ -10,13 +10,12 @@ import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native";
 import { TOUCHABLEOPACITY, headers } from "../../../../constants";
 import { FontAwesome5 } from "@expo/vector-icons";
-import ModalContainer from "../../modal/notification";
 import { useEffect, useState } from "react";
 import ImageViewer from "../../imageViewer";
 import Loader from "../../Loader";
 import ButtonBuy from "../../button/buy";
 import userStore from "../../../../store/user";
-import { getUserChapterBuyed } from "../../../../constants/url";
+import { buyUserChapter, getUserChapterBuyed } from "../../../../constants/url";
 import ModalContainerChapter from "../../modal/chapter";
 const shop = require("../../../../../assets/coin/shop.png");
 
@@ -31,16 +30,18 @@ export default function CardChapter({
   const { currentBook } = appStore();
   const { userCoins, id: userId } = userStore();
   const [loading, setLoading] = useState(false);
+  const [loadingBuyChapter, setLoadingBuyChapter] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalRead, setModalRead] = useState(false);
   const [buyed, setBuyed] = useState(false);
   const openModal = () => {
-    if (!loading)
+    if (!loading) {
       if (buyed) {
         setModalRead(true);
       } else {
         setModal(true);
       }
+    }
   };
   const closeModal = () => {
     setModal(false);
@@ -48,8 +49,28 @@ export default function CardChapter({
   const closeModalRead = () => {
     setModalRead(false);
   };
-  const buyCoin = () => {};
+  const buyChapter = () => {
+    setLoadingBuyChapter(true);
+    fetch(`${buyUserChapter()}`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ data: { userId: userId, chapterId: +id } }),
+    })
+      .then(async (res) => {
+        const status = res.status;
+        const data = await res.json();
+        return { ...data, status };
+      })
+      .then(({ data }) => {
+        if (data) {
+          setBuyed(true);
+        }
+        setLoadingBuyChapter(false);
+      });
+  };
+  
   const readChapter = () => {};
+
   useEffect(() => {
     setLoading(true);
     fetch(`${getUserChapterBuyed({ userId, chapterId: id })}`, {
@@ -65,6 +86,7 @@ export default function CardChapter({
         if (data) setBuyed(true);
       });
   }, [navigation]);
+
   return (
     <>
       <View
@@ -209,7 +231,7 @@ export default function CardChapter({
               Piece(s)
             </Text>
           </View>
-          <Loader loading={loading}>
+          <Loader loading={loading || loadingBuyChapter}>
             <View
               style={{
                 flexDirection: "row",
@@ -278,7 +300,7 @@ export default function CardChapter({
             <ButtonBuy
               name={"Acheter"}
               color={theme.colors.brand.secondary}
-              onPress={buyCoin}
+              onPress={buyChapter}
             />
           </View>
         </>

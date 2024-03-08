@@ -10,6 +10,7 @@ export const bookByUserPreferences = (id) => `${API_LINK}/tome-infos/tomes-prefe
 export const bookByTomePopulars = () => `${API_LINK}/tome-infos/tomes-most-populars`
 export const bookByTomeBuyed = () => `${API_LINK}/tome-infos/tomes-most-buyed`
 export const createTomeFavoriteURL = () => `${API_LINK}/tome-infos/create-favorite`
+export const buyUserChapter = () => `${API_LINK}/user-chapter-buy/create`
 export const activesCoinURL = () => `${API_LINK}/coin-infos/actives-coin?populate=currency&limit=100`
 export const buyCoinsURL = (coinId, userId) => `${API_LINK}/coin-infos/buy-coin/${coinId}/${userId}`
 export const getCurrencies = () => `${API_LINK}/currencies`
