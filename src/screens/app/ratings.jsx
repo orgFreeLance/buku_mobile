@@ -20,6 +20,7 @@ import CardStar from "../../components/global/card/star";
 import theme from "../../constants/theme";
 import LayoutRatings from "../../layouts/LayoutRatings";
 import ProgressBarBook from "../../components/global/progressBar";
+import CardNote from "../../components/global/card/note";
 
 const shop = require("../../../assets/coin/shop.png");
 
@@ -158,6 +159,10 @@ const Ratings = ({ navigation }) => {
         ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
+      <CardNote />
+      <CardNote />
+      <CardNote />
+      <CardNote />
     </LayoutRatings>
   );
 };
