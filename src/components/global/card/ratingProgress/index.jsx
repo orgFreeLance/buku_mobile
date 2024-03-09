@@ -8,7 +8,7 @@ export default function CardRatingProgress({ pourcentage = 80, number = 5 }) {
             <View style={{
                 position: "relative",
                 borderRadius: 5,
-                height: 7.5,
+                height: 7,
                 width: `${pourcentage * 2}%`,
                 backgroundColor: theme.colors.brand.secondary
             }}>

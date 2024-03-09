@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import theme from "../../../../constants/theme";
-import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function CardStar({ number = 1, active, selectStar }) {
   if (active)
@@ -20,7 +20,7 @@ export default function CardStar({ number = 1, active, selectStar }) {
             }}
           >
             <Text style={{ fontWeight: "800", color: "white" }}>{number}</Text>
-            <AntDesign
+            <FontAwesome
               name="star"
               style={{ marginLeft: 5 }}
               size={16}
@@ -51,7 +51,7 @@ export default function CardStar({ number = 1, active, selectStar }) {
           >
             {number}
           </Text>
-          <AntDesign
+          <FontAwesome
             name="star"
             style={{ marginLeft: 5 }}
             size={16}

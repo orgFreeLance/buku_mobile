@@ -4,6 +4,8 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Platform,
+  PermissionsAndroid,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import appStore from "../../../../store/app";
@@ -25,6 +27,7 @@ export default function CardChapter({
   id,
   number,
   name,
+  fileLink,
   resume,
   coinsPrice,
   navigation,
@@ -51,6 +54,80 @@ export default function CardChapter({
   const closeModalRead = () => {
     setModalRead(false);
   };
+
+  const checkPermission = async () => {
+    // Function to check the platform
+    // If Platform is Android then check for permissions.
+    console.log(PermissionsAndroid);
+
+    if (Platform.OS === "ios") {
+      downloadFile();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: "Storage Permission Required",
+            message:
+              "Application needs access to your storage to download File",
+          }
+        );
+        console.log(granted)
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Start downloading
+          downloadFile();
+          console.log("Storage Permission Granted.");
+        } else {
+          // If permission denied then show alert
+          Alert.alert("Erreur", "Permission d'accés au stockage !");
+        }
+      } catch (err) {
+        // To handle permission related exception
+        console.log("++++" + err);
+      }
+    }
+  };
+  const downloadFile = () => {
+    // Get today's date to add the time suffix in filename
+    let date = new Date();
+    // File URL which we want to download
+    let FILE_URL = fileLink;
+    // Function to get extention of the file url
+    let file_ext = getFileExtention(FILE_URL);
+
+    file_ext = "." + file_ext[0];
+
+    // config: To get response by passing the downloading related options
+    // fs: Root directory path to download
+    const { config, fs } = RNFetchBlob;
+    let RootDir = fs.dirs.PictureDir;
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        path:
+          RootDir +
+          "/file_" +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          file_ext,
+        description: "downloading file...",
+        notification: true,
+        // useDownloadManager works with Android only
+        useDownloadManager: true,
+      },
+    };
+    config(options)
+      .fetch("GET", FILE_URL)
+      .then((res) => {
+        // Alert after successful downloading
+        console.log("res -> ", JSON.stringify(res));
+        alert("File Downloaded Successfully.");
+      });
+  };
+  const getFileExtention = (fileUrl) => {
+    // To get the file extension
+    return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+  };
+
   const buyChapter = () => {
     setLoadingBuyChapter(true);
     fetch(`${buyUserChapter()}`, {
@@ -352,6 +429,7 @@ export default function CardChapter({
 
                 <View style={styles.content}>
                   <Text
+                    numberOfLines={15}
                     style={{
                       textAlign: "left",
                       fontWeight: "400",
@@ -376,7 +454,7 @@ export default function CardChapter({
               width="33%"
               name={"Telecharger"}
               color={"green"}
-              onPress={readChapter}
+              onPress={checkPermission}
             />
             <ButtonBuy
               width="33%"

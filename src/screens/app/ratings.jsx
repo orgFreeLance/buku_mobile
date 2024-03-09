@@ -1,4 +1,5 @@
 import { StyleSheet, ScrollView, Text, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import appStore from "../../store/app";
 import { API_LINK, BORDERRADIUS, headers } from "../../constants";
@@ -7,6 +8,7 @@ import {
   categoryOfTomeURl,
   chaptersOfTomeURl,
   createTomeFavoriteURL,
+  getTomeCommentaires,
   tomeURl,
 } from "../../constants/url";
 import userStore from "../../store/user";
@@ -39,7 +41,7 @@ const Ratings = ({ navigation }) => {
     { number: 5, active: false },
   ]);
   const [active, setActive] = useState("Tout");
-  const { currentBook, tomes, appChange } = appStore();
+  const { currentBook, tomes, commentaires, appChange } = appStore();
   const { id } = userStore();
   const selectStar = (number) => {
     setActive(number);
@@ -79,55 +81,19 @@ const Ratings = ({ navigation }) => {
     (async () => {
       try {
         setLoading(true);
-        const tome = await fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, {
+        fetch(`${getTomeCommentaires(currentBook?.id)}`, {
           headers,
-        }).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const category = await fetch(
-          `${API_LINK}${categoryOfTomeURl(currentBook?.id)}`,
-          { headers }
-        ).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        const chapter = await fetch(
-          `${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`,
-          { headers }
-        ).then(async (res) => {
-          const status = res.status;
-          const data = await res.json();
-          return { ...data, status };
-        });
-        if (tome.status == 200) {
-          appChange({ currentBook: tome.data });
-          const { id, ...attributes } = tome.data;
-          appChange({
-            tomes: tomes.map((item) => {
-              if (id == item.id) return { id, attributes };
-              return item;
-            }),
+        })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then(({ data }) => {
+            if (data) appChange({ commentaires: data });
+            setLoading(false);
           });
-          setFavory(attributes.favorite);
-        } else {
-          throw new Error(tome.status);
-        }
-        if (category.status == 200) {
-          appChange({ currentCategories: category.data });
-        } else {
-          throw new Error(tome.status);
-        }
-        if (chapter.status == 200) {
-          appChange({ chapters: chapter.data });
-        } else {
-          throw new Error(chapter.status);
-        }
-        setLoading(false);
       } catch (error) {
-        console.log(error);
         setError(true);
         setLoading(false);
       }
@@ -138,6 +104,7 @@ const Ratings = ({ navigation }) => {
     <LayoutRatings
       favory={favory}
       navigation={navigation}
+      loading={loading}
       createTomeFavorite={createTomeFavorite}
     >
       <RatingBookDetails navigation={navigation} />
@@ -159,10 +126,22 @@ const Ratings = ({ navigation }) => {
         ))}
       </ScrollView>
       <ProgressBarBook items={tomes} />
-      <CardNote />
-      <CardNote />
-      <CardNote />
-      <CardNote />
+      {loading ? (
+        <>
+          <Loader loading={loading} />
+        </>
+      ) : (
+        <>
+          {commentaires
+            .filter((item) => {
+              if (active == "Tout") return item;
+              else if (item.note == active) return item;
+            })
+            .map((item, index) => (
+              <CardNote {...item} key={index} />
+            ))}
+        </>
+      )}
     </LayoutRatings>
   );
 };

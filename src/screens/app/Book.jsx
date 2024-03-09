@@ -4,6 +4,7 @@ import {
   Entypo,
   FontAwesome5,
   Foundation,
+  FontAwesome
 } from "@expo/vector-icons";
 import LayoutBook from "../../layouts/LayoutBook";
 import appStore from "../../store/app";
@@ -22,6 +23,7 @@ import {
   categoryOfTomeURl,
   chaptersOfTomeURl,
   createTomeFavoriteURL,
+  getTomeCommentairesStat,
   tomeURl,
 } from "../../constants/url";
 import userStore from "../../store/user";
@@ -41,6 +43,7 @@ const Book = ({ navigation }) => {
   const [loadingFavorite, setLoadingFavorite] = useState(false);
   const [loadingChapters, setLoadingChapters] = useState(false);
   const [loadingCategory, setLoadingCategory] = useState(false);
+  const [loadingStat, setLoadingStat] = useState(false);
   const [error, setError] = useState(false);
   const [favory, setFavory] = useState(false);
   const [refresh, setRefresh] = useState(0);
@@ -112,6 +115,7 @@ const Book = ({ navigation }) => {
         setLoading(true);
         setLoadingChapters(true);
         setLoadingCategory(true);
+        setLoadingStat(true);
         fetch(`${API_LINK}${tomeURl(currentBook?.id, id)}`, {
           headers,
         })
@@ -150,6 +154,21 @@ const Book = ({ navigation }) => {
             }
             setLoadingCategory(false);
           });
+        fetch(`${getTomeCommentairesStat(currentBook?.id)}`, { headers })
+          .then(async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          })
+          .then((data) => {
+            console.log(data);
+            if (data.status == 200) {
+              appChange({ currentBookStat: data.data });
+            } else {
+              throw new Error(data.status);
+            }
+            setLoadingStat(false);
+          });
         fetch(`${chaptersOfTomeURl(currentBook?.id)}`, { headers })
           .then(async (res) => {
             const status = res.status;
@@ -169,6 +188,7 @@ const Book = ({ navigation }) => {
         setLoading(false);
         setLoadingChapters(false);
         setLoadingCategory(false);
+        setLoadingStat(false);
       }
     })();
   }, [refresh]);
@@ -182,7 +202,11 @@ const Book = ({ navigation }) => {
     >
       {loading ? (
         <>
-          <Loader loading={loading || loadingCategory || loadingChapters} />
+          <Loader
+            loading={
+              loading || loadingCategory || loadingChapters || loadingStat
+            }
+          />
         </>
       ) : !error ? (
         <>
@@ -224,7 +248,7 @@ const Book = ({ navigation }) => {
           >
             <View style={styles.card}>
               <Text style={{ fontWeight: "700" }}>
-                <AntDesign
+                <FontAwesome
                   name="star"
                   style={{ marginRight: 10 }}
                   size={16}

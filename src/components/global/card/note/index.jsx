@@ -1,15 +1,19 @@
-import { Text, View } from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 import CardStar from "../star";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import theme from "../../../../constants/theme";
 
-export default function CardNote({ active }) {
+export default function CardNote({ createdAt, comment, note, user }) {
+  const getDate = () => {
+    const date = new Date(createdAt);
+    return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+  };
   return (
     <>
       <TouchableOpacity>
         <View
           style={{
             width: "100%",
-            height: 150,
             borderRadius: 10,
             marginBottom: 5,
             padding: 5,
@@ -33,27 +37,30 @@ export default function CardNote({ active }) {
                 style={{
                   height: 50,
                   width: 50,
-                  backgroundColor: "red",
+                  backgroundColor: theme.colors.brand.secondary,
                   borderRadius: 50,
+                  overflow: "hidden",
                 }}
-              ></View>
+              >
+                <ImageBackground
+                  source={{ uri: user?.picture }}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </View>
               <Text style={{ fontWeight: "500", marginLeft: 5, fontSize: 18 }}>
-                Jone Doe
+                {user?.username}
               </Text>
             </View>
-            <CardStar number={1} active={false} />
+            <CardStar number={note} active={false} />
           </View>
           <Text numberOfLines={3} style={{ paddingTop: 5 }}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa ea
-            quaerat consectetur? Omnis blanditiis sapiente architecto maiores
-            accusamus non quaerat quod ipsum distinctio, nihil deserunt modi
-            quasi nam vero esse.
+            {comment}
           </Text>
           <Text
             numberOfLines={3}
-            style={{ paddingTop: 5, fontWeight: 700, fontSize: 12 }}
+            style={{ paddingTop: 5, fontWeight: 300, fontSize: 12 }}
           >
-            6 moi passé
+            {getDate()}
           </Text>
         </View>
       </TouchableOpacity>
