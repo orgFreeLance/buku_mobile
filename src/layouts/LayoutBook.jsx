@@ -1,6 +1,6 @@
-import { Flex, ScrollView, StatusBar, View } from "native-base";
+import { Flex, ScrollView, View } from "native-base";
 import { useState } from "react";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StatusBar, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
@@ -39,7 +39,7 @@ const LayoutBook = ({
           modal={modal}
           closeModal={() => setModal(false)}
         />
-        <StatusBar backgroundColor={"white"} hidden />
+        <StatusBar backgroundColor={"white"} StatusBarStyle={"none"} hidden />
         <Flex flex={1} height={screenHeight}>
           <ImageBackground
             style={{

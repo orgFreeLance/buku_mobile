@@ -1,15 +1,7 @@
-import {
-  Flex,
-  ScrollView,
-  StatusBar,
-} from "native-base";
+import { Flex, ScrollView, StatusBar } from "native-base";
 import { useState } from "react";
-import {
-  TouchableOpacity,
-  Text,
-  View,
-} from "react-native";
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity, Text, View } from "react-native";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
@@ -19,7 +11,7 @@ import goTo from "../utils/goTo";
 const bg = require("../../assets/white.jpeg");
 
 const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(false);
   try {
     return (
       <View
@@ -29,7 +21,11 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
           flexDirection: "column",
         }}
       >
-        <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+        <ModalMenu
+          navigation={navigation}
+          modal={modal}
+          closeModal={() => setModal(false)}
+        />
         <StatusBar backgroundColor={"white"} />
         <Flex flex={1} height={screenHeight}>
           <ImageBackground
@@ -44,19 +40,22 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
                 <TouchableOpacity
                   activeOpacity={TOUCHABLEOPACITY}
                   onPress={() => {
-                    navigation.goBack()
+                    navigation.goBack();
                   }}
                 >
-                  <Ionicons name="arrow-back-sharp" size={24} color="black" style={{ marginRight: 5 }} />
+                  <Ionicons
+                    name="arrow-back-sharp"
+                    size={24}
+                    color="black"
+                    style={{ marginRight: 5 }}
+                  />
                 </TouchableOpacity>
-                <Text style={styles.title}>
-                  {title}
-                </Text>
+                <Text style={styles.title}>{title}</Text>
               </View>
               <TouchableOpacity
                 activeOpacity={TOUCHABLEOPACITY}
                 onPress={() => {
-                  goTo(navigation, "Search")
+                  goTo(navigation, "Search");
                 }}
               >
                 <AntDesign name="search1" size={24} color="black" />
@@ -71,28 +70,28 @@ const LayoutGenre = ({ image = bg, navigation, children, title = "" }) => {
               {children}
             </ScrollView>
           </ImageBackground>
-        </Flex >
-      </View >
+        </Flex>
+      </View>
     );
   } catch (error) {
-    return <></>
+    return <></>;
   }
 };
 
 export default LayoutGenre;
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   header: {
-    height: 60, width: "100%",
+    height: 60,
+    width: "100%",
     paddingHorizontal: width(3),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   avatar: {
     height: 50,
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: "black"
+    color: "black",
   },
   link: {
     justifyContent: "center",
@@ -114,6 +113,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: width(1),
     alignItems: "center",
-    opacity: OPACITY
-  }
+    opacity: OPACITY,
+  },
 });

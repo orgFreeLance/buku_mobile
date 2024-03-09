@@ -17,6 +17,7 @@ import ModalMenu from "../components/global/modal/menu";
 import { OPACITY, TOUCHABLEOPACITY } from "../constants";
 import CardLinkFooter from "../components/global/card/linkFooter";
 import goTo from "../utils/goTo";
+
 const bg = require("../../assets/white.jpeg");
 
 const Layout = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {

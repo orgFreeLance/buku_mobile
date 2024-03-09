@@ -17,6 +17,7 @@ import ButtonBuy from "../../button/buy";
 import userStore from "../../../../store/user";
 import { buyUserChapter, getUserChapterBuyed } from "../../../../constants/url";
 import ModalContainerChapter from "../../modal/chapter";
+
 const shop = require("../../../../../assets/coin/shop.png");
 
 export default function CardChapter({
@@ -68,7 +69,7 @@ export default function CardChapter({
         setLoadingBuyChapter(false);
       });
   };
-  
+
   const readChapter = () => {};
 
   useEffect(() => {

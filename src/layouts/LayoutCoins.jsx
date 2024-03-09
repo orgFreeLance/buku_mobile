@@ -1,15 +1,7 @@
-import {
-  Flex,
-  ScrollView,
-  StatusBar,
-} from "native-base";
+import { Flex, ScrollView, StatusBar } from "native-base";
 import { useEffect, useState } from "react";
-import { FontAwesome5, Foundation } from '@expo/vector-icons';
-import {
-  ImageBackground, StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FontAwesome5, Foundation } from "@expo/vector-icons";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
 import ModalMenu from "../components/global/modal/menu";
@@ -21,37 +13,52 @@ import appStore from "../store/app";
 import { getCurrencies } from "../constants/url";
 const bg = require("../../assets/white.jpeg");
 
-const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, homeScreen = true, bookScreen = true, coinScreen = true, discoverScreen = true, title = "" }) => {
-  const [account] = useState(accountScreen)
-  const [home] = useState(homeScreen)
-  const [discover] = useState(discoverScreen)
-  const [book] = useState(bookScreen)
-  const [coin] = useState(coinScreen)
-  const [modal, setModal] = useState(false)
-  const [all] = useState({ id: "Tout", attributes: { name: "Tout", symbol: "Tout" } })
-  const [active, setActive] = useState("Tout")
-  const { userCoins } = userStore()
-  const { currencies, appChange } = appStore()
+const LayoutCoins = ({
+  image = bg,
+  navigation,
+  children,
+  accountScreen = true,
+  homeScreen = true,
+  bookScreen = true,
+  coinScreen = true,
+  discoverScreen = true,
+  title = "",
+}) => {
+  const [account] = useState(accountScreen);
+  const [home] = useState(homeScreen);
+  const [discover] = useState(discoverScreen);
+  const [book] = useState(bookScreen);
+  const [coin] = useState(coinScreen);
+  const [modal, setModal] = useState(false);
+  const [all] = useState({
+    id: "Tout",
+    attributes: { name: "Tout", symbol: "Tout" },
+  });
+  const [active, setActive] = useState("Tout");
+  const { userCoins } = userStore();
+  const { currencies, appChange } = appStore();
   useEffect(() => {
     (async () => {
-      setActive("Tout")
+      setActive("Tout");
       if (currencies.length === 0) {
-        appChange({ currencies: [all] })
+        appChange({ currencies: [all] });
       }
       try {
-        const currencies = await fetch(`${getCurrencies()}`, { headers }).then(async res => {
-          const status = res.status
-          const data = await res.json()
-          return ({ ...data, status })
-        })
+        const currencies = await fetch(`${getCurrencies()}`, { headers }).then(
+          async (res) => {
+            const status = res.status;
+            const data = await res.json();
+            return { ...data, status };
+          }
+        );
         if (currencies.status == 200)
-          appChange({ currencies: [all, ...currencies.data] })
+          appChange({ currencies: [all, ...currencies.data] });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    })()
-  }, [])
-  useEffect(() => { }, [])
+    })();
+  }, []);
+  useEffect(() => {}, []);
 
   return (
     <View
@@ -61,7 +68,11 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
         flexDirection: "column",
       }}
     >
-      <ModalMenu navigation={navigation} modal={modal} closeModal={() => setModal(false)} />
+      <ModalMenu
+        navigation={navigation}
+        modal={modal}
+        closeModal={() => setModal(false)}
+      />
       <StatusBar backgroundColor={"white"} />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
@@ -72,40 +83,72 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
           source={image}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>
-              {title}
-            </Text>
-            <View style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: theme.colors.brand.secondary,
-              paddingVertical: 15,
-              paddingHorizontal: 5,
-              width: "100%",
-            }}>
-              <Text style={{ fontSize: 48, fontWeight: "700", color: "white", marginHorizontal: 10 }}>
-                <FontAwesome5 name="coins" style={{ paddingRight: 5 }} size={40} color={"white"} />
+            <Text style={styles.title}>{title}</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: theme.colors.brand.secondary,
+                paddingVertical: 15,
+                paddingHorizontal: 5,
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 48,
+                  fontWeight: "700",
+                  color: "white",
+                  marginHorizontal: 10,
+                }}
+              >
+                <FontAwesome5
+                  name="coins"
+                  style={{ paddingRight: 5 }}
+                  size={40}
+                  color={"white"}
+                />
               </Text>
               <Text style={{ fontSize: 48, fontWeight: "700", color: "white" }}>
                 {`${userCoins}`}
               </Text>
-              <Text style={{ fontSize: 48, marginLeft: 10, fontWeight: "700", color: "white" }}>
+              <Text
+                style={{
+                  fontSize: 48,
+                  marginLeft: 10,
+                  fontWeight: "700",
+                  color: "white",
+                }}
+              >
                 Piece(s)
               </Text>
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingBottom: 5 }}>
-              {currencies.map(({ attributes: { name, symbol }, id }) => <CardChoix key={name} width reverse name={symbol} active={active} onPress={() => {
-                setActive(symbol)
-                appChange({ currencyOfCoins: { attributes: { name, symbol }, id } })
-              }} />)}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+                paddingBottom: 5,
+              }}
+            >
+              {currencies.map(({ attributes: { name, symbol }, id }) => (
+                <CardChoix
+                  key={name}
+                  width
+                  reverse
+                  name={symbol}
+                  active={active}
+                  onPress={() => {
+                    setActive(symbol);
+                    appChange({
+                      currencyOfCoins: { attributes: { name, symbol }, id },
+                    });
+                  }}
+                />
+              ))}
             </View>
           </View>
-          <ScrollView
-            flex={1}
-            w="100%"
-            mx="auto"
-            paddingHorizontal={width(5)}
-          >
+          <ScrollView flex={1} w="100%" mx="auto" paddingHorizontal={width(5)}>
             {children}
           </ScrollView>
         </ImageBackground>
@@ -115,7 +158,7 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
             width: "100%",
             flexDirection: "row",
             justifyContent: "center",
-            alignContent: "center"
+            alignContent: "center",
           }}
         >
           <View
@@ -129,23 +172,82 @@ const LayoutCoins = ({ image = bg, navigation, children, accountScreen = true, h
               justifyContent: "space-between",
               alignItems: "center",
               color: "white",
-              shadowRadius: 50
+              shadowRadius: 50,
             }}
           >
-            <CardLinkFooter condition={home} navigation={navigation} screen={"Home"} text={"acceuil"} Icon={<Foundation name="home" size={20} color={home ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={discover} navigation={navigation} screen={"Discover"} text={"Découvertes"} Icon={<FontAwesome5 name="compass" size={20} color={discover ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={coin} navigation={navigation} screen={"Coins"} text={"Pieces"} Icon={<FontAwesome5 name="coins" size={20} color={coin ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={book} navigation={navigation} screen={"Books"} text={"Mes livres"} Icon={<Foundation name="book" size={20} color={book ? "grey" : theme.colors.brand.secondary} />} />
-            <CardLinkFooter condition={account} navigation={navigation} screen={"Account"} text={"Compte"} Icon={<FontAwesome5 name="user" size={20} color={account ? "grey" : theme.colors.brand.secondary} />} />
+            <CardLinkFooter
+              condition={home}
+              navigation={navigation}
+              screen={"Home"}
+              text={"acceuil"}
+              Icon={
+                <Foundation
+                  name="home"
+                  size={20}
+                  color={home ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={discover}
+              navigation={navigation}
+              screen={"Discover"}
+              text={"Découvertes"}
+              Icon={
+                <FontAwesome5
+                  name="compass"
+                  size={20}
+                  color={discover ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={coin}
+              navigation={navigation}
+              screen={"Coins"}
+              text={"Pieces"}
+              Icon={
+                <FontAwesome5
+                  name="coins"
+                  size={20}
+                  color={coin ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={book}
+              navigation={navigation}
+              screen={"Books"}
+              text={"Mes livres"}
+              Icon={
+                <Foundation
+                  name="book"
+                  size={20}
+                  color={book ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
+            <CardLinkFooter
+              condition={account}
+              navigation={navigation}
+              screen={"Account"}
+              text={"Compte"}
+              Icon={
+                <FontAwesome5
+                  name="user"
+                  size={20}
+                  color={account ? "grey" : theme.colors.brand.secondary}
+                />
+              }
+            />
           </View>
         </View>
-      </Flex >
-    </View >
+      </Flex>
+    </View>
   );
 };
 
 export default LayoutCoins;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -170,7 +272,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     paddingVertical: 5,
-    color: "black"
+    color: "black",
   },
   link: {
     justifyContent: "center",
@@ -181,6 +283,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: width(1),
     alignItems: "center",
-    opacity: OPACITY
-  }
+    opacity: OPACITY,
+  },
 });

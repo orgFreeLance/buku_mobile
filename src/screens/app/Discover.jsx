@@ -7,11 +7,18 @@ import { API_LINK, headers } from "../../constants";
 import { tomesURl } from "../../constants/url";
 import PageLoading from "../../components/global/loading";
 import NoData from "../../components/global/noData";
+import Error from "../../components/global/error";
 
 const Discover = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(true);
+  const [refresh, setRefresh] = useState(0);
   const { tomes, appChange } = appStore();
+  const onRefresh = () => {
+    setRefresh((state) => state + 1);
+  };
   useEffect(() => {
+    setError(false);
     fetch(`${API_LINK}${tomesURl}`, { headers })
       .then(async (res) => {
         const status = res.status;
@@ -27,9 +34,10 @@ const Discover = ({ navigation }) => {
         }
       })
       .catch((error) => {
+        setError(true);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
   return (
     <Layout
       title={"Découvertes"}
@@ -38,28 +46,34 @@ const Discover = ({ navigation }) => {
       progress={100}
       discoverScreen={false}
     >
-      <PageLoading loading={loading} horizontal={false}>
-        <NoData items={tomes} />
-        <View
-          style={{
-            width: "100%",
-            flex: 1,
-            flexWrap: "wrap",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          {tomes.map(({ attributes, id }) => (
-            <CardBook
-              {...attributes}
-              id={id}
-              key={id}
-              horizontal={false}
-              navigation={navigation}
-            />
-          ))}
-        </View>
-      </PageLoading>
+      {error ? (
+        <>
+          <Error refresh={onRefresh} />
+        </>
+      ) : (
+        <PageLoading loading={loading} horizontal={false}>
+          <NoData items={tomes} />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              flexWrap: "wrap",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            {tomes.map(({ attributes, id }) => (
+              <CardBook
+                {...attributes}
+                id={id}
+                key={id}
+                horizontal={false}
+                navigation={navigation}
+              />
+            ))}
+          </View>
+        </PageLoading>
+      )}
     </Layout>
   );
 };

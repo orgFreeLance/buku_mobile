@@ -1,7 +1,13 @@
-import { Flex, ScrollView, StatusBar } from "native-base";
+import { Flex } from "native-base";
 import { useState } from "react";
 import { FontAwesome5, Foundation } from "@expo/vector-icons";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import theme from "../constants/theme";
 import ModalMenu from "../components/global/modal/menu";
@@ -46,7 +52,6 @@ const LayoutBooks = ({
         modal={modal}
         closeModal={() => setModal(false)}
       />
-      <StatusBar hidden />
       <Flex flex={1} height={screenHeight}>
         <ImageBackground
           style={{
