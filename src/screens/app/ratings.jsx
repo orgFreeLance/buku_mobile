@@ -37,7 +37,7 @@ const Ratings = ({ navigation }) => {
     { number: 4, active: false },
     { number: 5, active: false },
   ]);
-  const [active, setActive] = useState("Détails");
+  const [active, setActive] = useState("Tout");
   const { currentBook, tomes, appChange } = appStore();
   const { id } = userStore();
   const selectStar = (number) => {
