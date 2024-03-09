@@ -20,7 +20,7 @@ export default function BookDetails({ navigation }) {
                     Notes et commentaires
                 </Text>
                 <TouchableOpacity onPress={() => { goTo(navigation, "Ratings") }} style={{ color: "black", fontSize: 20, fontWeight: "700", paddingVertical: 5 }}>
-                    <AntDesign name="arrowright" size={20} color={theme.colors.brand.secondary} />
+                    <AntDesign name="arrowright" size={24} color={theme.colors.brand.secondary} />
                 </TouchableOpacity>
             </View>
             <View style={{ width: "100%", height: 150, flexDirection: "row" }}>

@@ -1,10 +1,16 @@
-import { Flex, ScrollView, StatusBar, View } from "native-base";
-import { useState } from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { Flex } from "native-base";
+import {
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  StatusBar,
+  View,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ImageBackground, StyleSheet } from "react-native";
 import { screenHeight, width } from "../constants/nativeSizes";
 import { TOUCHABLEOPACITY, routes } from "../constants";
+
 const bg = require("../../assets/white.jpeg");
 
 const LayoutRatings = ({ image = bg, navigation, children }) => {
@@ -57,7 +63,6 @@ const LayoutRatings = ({ image = bg, navigation, children }) => {
               w="100%"
               mx="auto"
               paddingHorizontal={width(5)}
-              backgroundColor="green"
             >
               {children}
             </ScrollView>

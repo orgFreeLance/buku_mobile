@@ -5,6 +5,7 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import appStore from "../../../../store/app";
 import theme from "../../../../constants/theme";
 import { TouchableOpacity } from "react-native";
@@ -118,11 +119,19 @@ export default function CardChapter({
             ) : (
               <>
                 {buyed && (
-                  <FontAwesome5
-                    name="book-reader"
-                    size={16}
-                    color={theme.colors.brand.secondary}
-                  />
+                  <View style={{ flexDirection: "row" }}>
+                    <Ionicons
+                      name="download"
+                      size={16}
+                      style={{ marginRight: 5 }}
+                      color={"green"}
+                    />
+                    <FontAwesome5
+                      name="book-reader"
+                      size={16}
+                      color={theme.colors.brand.secondary}
+                    />
+                  </View>
                 )}
               </>
             )}
@@ -357,8 +366,20 @@ export default function CardChapter({
             </View>
           </Loader>
           <View style={{ flexDirection: "row" }}>
-            <ButtonBuy name={"Annuler"} color="red" onPress={closeModalRead} />
             <ButtonBuy
+              width="33%"
+              name={"Annuler"}
+              color="red"
+              onPress={closeModalRead}
+            />
+            <ButtonBuy
+              width="33%"
+              name={"Telecharger"}
+              color={"green"}
+              onPress={readChapter}
+            />
+            <ButtonBuy
+              width="33%"
               name={"Lire"}
               color={theme.colors.brand.secondary}
               onPress={readChapter}

@@ -136,7 +136,7 @@ const Book = ({ navigation }) => {
               throw new Error(tome.status);
             }
           });
-        fetch(`${API_LINK}${categoryOfTomeURl(currentBook?.id)}`, { headers })
+        fetch(`${categoryOfTomeURl(currentBook?.id)}`, { headers })
           .then(async (res) => {
             const status = res.status;
             const data = await res.json();
@@ -150,7 +150,7 @@ const Book = ({ navigation }) => {
             }
             setLoadingCategory(false);
           });
-        fetch(`${API_LINK}${chaptersOfTomeURl(currentBook?.id)}`, { headers })
+        fetch(`${chaptersOfTomeURl(currentBook?.id)}`, { headers })
           .then(async (res) => {
             const status = res.status;
             const data = await res.json();

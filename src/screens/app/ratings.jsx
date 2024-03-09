@@ -19,6 +19,7 @@ import RatingBookDetails from "../../components/global/RatingBookDetails";
 import CardStar from "../../components/global/card/star";
 import theme from "../../constants/theme";
 import LayoutRatings from "../../layouts/LayoutRatings";
+import ProgressBarBook from "../../components/global/progressBar";
 
 const shop = require("../../../assets/coin/shop.png");
 
@@ -28,15 +29,26 @@ const Ratings = ({ navigation }) => {
   const [favory, setFavory] = useState(false);
   const [refresh, setRefresh] = useState(0);
   const [modal, setModal] = useState(false);
-  const openModal = () => {
-    setModal(true);
-  };
-  const closeModal = () => {
-    setModal(false);
-  };
+  const [stars, setStars] = useState([
+    { number: "Tout", active: true },
+    { number: 1, active: false },
+    { number: 2, active: false },
+    { number: 3, active: false },
+    { number: 4, active: false },
+    { number: 5, active: false },
+  ]);
   const [active, setActive] = useState("Détails");
   const { currentBook, tomes, appChange } = appStore();
   const { id } = userStore();
+  const selectStar = (number) => {
+    setActive(number);
+    setStars((state) =>
+      state.map((item) => ({
+        ...item,
+        active: item.number == number ? true : false,
+      }))
+    );
+  };
 
   const createTomeFavorite = () => {
     fetch(`${createTomeFavoriteURL()}`, {
@@ -128,14 +140,24 @@ const Ratings = ({ navigation }) => {
       createTomeFavorite={createTomeFavorite}
     >
       <RatingBookDetails navigation={navigation} />
-      <ScrollView style={{ flex: 1, width: "100%" }}>
-        <ScrollView
-          horizontal={true}
-          style={{ backgroundColor: "black", padding: 10, width: "100%" }}
-        >
-          <CardStar />
-        </ScrollView>
+      <ProgressBarBook items={tomes} />
+      <ScrollView
+        horizontal={true}
+        style={{
+          paddingTop: 10,
+          width: "100%",
+        }}
+      >
+        {stars.map(({ number, active }) => (
+          <CardStar
+            number={number}
+            selectStar={selectStar}
+            active={active}
+            key={number}
+          />
+        ))}
       </ScrollView>
+      <ProgressBarBook items={tomes} />
     </LayoutRatings>
   );
 };
